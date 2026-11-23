@@ -341,6 +341,11 @@ img {
     scrollbar-width: none;
 }
 
+/* 信息区内部滚动时不允许压缩任何版块（否则矮窗口里颜色行会被挤成 0 高） */
+.body > * {
+    flex-shrink: 0;
+}
+
 .body::-webkit-scrollbar {
     display: none;
 }
