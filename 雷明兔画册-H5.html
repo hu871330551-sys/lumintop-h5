@@ -607,11 +607,33 @@ img {
 
 @media (max-height: 700px) {
     .stage {
-        height: 3.6rem;
+        height: min(3.2rem, 30vh);
     }
 
     .hint {
         display: none;
+    }
+
+    /* 矮窗口：画册卡片收纳次要版块，价格 + 颜色选项保证首屏可见（技术参数在详情页查看） */
+    .deck-slide .grid,
+    .deck-slide .entry,
+    .deck-slide .spec-head,
+    .deck-slide .spec-row {
+        display: none;
+    }
+}
+
+@media (max-height: 480px) {
+    .deck-slide .stage {
+        height: min(2.6rem, 24vh);
+    }
+
+    .deck-slide .sub {
+        display: none;
+    }
+
+    .opts {
+        margin-top: 0.1rem;
     }
 }
 
