@@ -115,9 +115,10 @@
             };
         }
         var gg = OVERRIDES[product.id] || pickGroup(product.model);
-        // 预设色兜底：后台没配置配色时按型号组显示预设色；后台一旦配置即自动覆盖
+        // 以后台为准：后台没配置配色的产品，前台不显示颜色选项（不再按型号猜预设色）
+        // 材质仍按型号默认组兜底，保持既有展示
         return {
-            colors: COLORS[gg.colors] || [],
+            colors: [],
             materials: gg.mat.map(function (i) { return MATERIALS[i]; }),
         };
     }
