@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#08090B">
+<title>雷明兔 · 产品画册</title>
+<style>
+/* 雷明兔产品画册 H5 —— 与小程序同源样式
+   尺寸换算：小程序 750rpx = 屏宽，这里 html font-size = 100vw/7.5，
+   即 1rem = 100rpx，所有 rpx 值 ÷ 100 写成 rem，两端视觉 1:1 */
+html {
+    font-size: calc(100vw / 7.5);
+}
+
+body {
+    margin: 0;
+    background: #08090b;
+    -webkit-tap-highlight-color: transparent;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
+}
+
+:root {
+    --bg: #08090b;
+    --bg-deep: #050610;
+    --panel: #0e1116;
+    --panel-2: #0c0f13;
+    --card: #12151b;
+    --line: rgba(255, 255, 255, 0.07);
+    --line-strong: rgba(255, 255, 255, 0.12);
+    --txt: #f5f7fa;
+    --txt-2: #a7afbc;
+    --txt-3: #7d8694;
+    --txt-4: #5c6472;
+    --accent: #ff7a1a;
+    --accent-soft: #ff9a4d;
+    --accent-dim: rgba(255, 122, 26, 0.1);
+}
+
+.page {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--txt);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* ---------- 自定义导航 ---------- */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    padding-top: env(safe-area-inset-top);
+    background: rgba(8, 9, 11, 0.92);
+    backdrop-filter: blur(10px);
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    padding: 0 0.32rem;
+    height: 0.88rem;
+}
+
+.nav-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.56rem;
+    height: 0.56rem;
+    margin-left: -0.12rem;
+    cursor: pointer;
+}
+
+.nav-back-icon {
+    width: 0.2rem;
+    height: 0.2rem;
+    border-left: 0.03rem solid var(--txt);
+    border-bottom: 0.03rem solid var(--txt);
+    transform: rotate(45deg);
+}
+
+.nav-title {
+    flex: 1;
+    font-size: 0.3rem;
+    font-weight: 600;
+    letter-spacing: 0.005rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-sub {
+    margin-left: 0.12rem;
+    color: var(--txt-3);
+    font-size: 0.22rem;
+    font-weight: 400;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* ---------- 底部 TabBar ---------- */
+.tabbar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 95;
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0a0c11;
+}
+
+.tabbar-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 1rem;
+    color: #7d8694;
+    font-size: 0.2rem;
+    cursor: pointer;
+}
+
+.tabbar-item img {
+    width: 0.44rem;
+    height: 0.44rem;
+    margin-bottom: 0.02rem;
+}
+
+.tabbar-item.on {
+    color: #ff7a1a;
+}
+
+.tab-page-body {
+    padding-bottom: 1rem;
+}
+
+/* ---------- 通用元件 ---------- */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    height: 0.52rem;
+    padding: 0 0.2rem;
+    border-radius: 0.12rem;
+    background: var(--card);
+    color: var(--txt-2);
+    font-size: 0.22rem;
+    cursor: pointer;
+}
+
+.dot {
+    width: 0.18rem;
+    height: 0.18rem;
+    margin-right: 0.1rem;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+.arrow {
+    width: 0.14rem;
+    height: 0.14rem;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(45deg);
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 0.48rem;
+    text-align: center;
+}
+
+.empty-title {
+    color: var(--txt-2);
+    font-size: 0.26rem;
+}
+
+.empty-text {
+    margin-top: 0.12rem;
+    color: var(--txt-4);
+    font-size: 0.22rem;
+    line-height: 1.7;
+}
+
+/* ---------- 画册首页（deck） ---------- */
+.deck {
+    position: relative;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.deck-nav {
+    position: relative;
+    flex: none;
+    z-index: 10;
+    padding-top: env(safe-area-inset-top);
+    background: rgba(8, 9, 11, 0.92);
+    backdrop-filter: blur(10px);
+}
+
+.brand {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-en {
+    color: var(--accent);
+    font-size: 0.18rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+}
+
+.brand-cn {
+    margin-top: 0.04rem;
+    color: var(--txt-2);
+    font-size: 0.26rem;
+    font-weight: 600;
+}
+
+.nav-count {
+    display: flex;
+    align-items: center;
+    color: var(--txt-3);
+    font-size: 0.2rem;
+    cursor: pointer;
+}
+
+.ico-search {
+    position: relative;
+    width: 0.24rem;
+    height: 0.24rem;
+    margin-left: 0.16rem;
+    border: 1px solid var(--txt-3);
+    border-radius: 50%;
+}
+
+.ico-search-line {
+    position: absolute;
+    right: -0.08rem;
+    bottom: -0.06rem;
+    width: 0.12rem;
+    height: 1px;
+    background: var(--txt-3);
+    transform: rotate(45deg);
+}
+
+.deck-swiper {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+}
+
+.deck-swiper::-webkit-scrollbar {
+    display: none;
+}
+
+.deck-slide {
+    height: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overscroll-behavior: contain;
+}
+
+.card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    background: var(--bg);
+}
+
+.stage {
+    position: relative;
+    flex: none;
+    height: 6rem;
+    background: #ffffff;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.stage-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stage-tag {
+    position: absolute;
+    bottom: 0.22rem;
+    left: 0.32rem;
+    padding: 0.06rem 0.14rem;
+    border-radius: 999px;
+    background: rgba(14, 20, 30, 0.06);
+    color: #4b5563;
+    font-size: 0.18rem;
+}
+
+.stage-cta {
+    position: absolute;
+    right: 0.32rem;
+    bottom: 0.22rem;
+    color: #8b93a0;
+    font-size: 0.18rem;
+    cursor: pointer;
+}
+
+.stage-cta-shop {
+    padding: 0.08rem 0.2rem;
+    border-radius: 999px;
+    background: rgba(255, 122, 26, 0.12);
+    border: 1px solid rgba(255, 122, 26, 0.38);
+    color: #c2521a;
+    font-size: 0.19rem;
+    font-weight: 600;
+}
+
+.body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 0 0.32rem 0.14rem;
+    scrollbar-width: none;
+}
+
+.body::-webkit-scrollbar {
+    display: none;
+}
+
+.head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 0.16rem;
+}
+
+.head-l {
+    flex: 1;
+    min-width: 0;
+}
+
+.head-row {
+    display: flex;
+    align-items: center;
+}
+
+.model {
+    font-size: 0.4rem;
+    font-weight: 700;
+    letter-spacing: 0.005rem;
+}
+
+.badge-new {
+    margin-left: 0.14rem;
+    padding: 0.03rem 0.1rem;
+    border-radius: 0.06rem;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    font-size: 0.17rem;
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+}
+
+.sub {
+    display: block;
+    margin-top: 0.08rem;
+    overflow: hidden;
+    color: var(--txt-3);
+    font-size: 0.2rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.head-r {
+    flex: none;
+    padding-left: 0.2rem;
+    text-align: right;
+}
+
+.price {
+    color: var(--accent-soft);
+    font-size: 0.32rem;
+    font-weight: 600;
+}
+
+.price-note {
+    display: block;
+    margin-top: 0.02rem;
+    color: var(--txt-4);
+    font-size: 0.16rem;
+}
+
+.opts {
+    margin-top: 0.18rem;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.opts::-webkit-scrollbar {
+    display: none;
+}
+
+.opts-inner {
+    display: inline-flex;
+    align-items: center;
+}
+
+.opt {
+    display: inline-flex;
+    align-items: center;
+    height: 0.54rem;
+    margin-right: 0.12rem;
+    padding: 0 0.18rem;
+    border: 1px solid transparent;
+    border-radius: 0.12rem;
+    background: var(--card);
+    color: var(--txt-2);
+    font-size: 0.2rem;
+    cursor: pointer;
+    flex: none;
+}
+
+.opt-on {
+    border-color: rgba(255, 122, 26, 0.55);
+    background: rgba(255, 122, 26, 0.1);
+    color: #ffffff;
+}
+
+.grid {
+    display: flex;
+    margin-top: 0.18rem;
+}
+
+.cell {
+    flex: 1;
+    margin-right: 0.1rem;
+    padding: 0.16rem 0.04rem 0.14rem;
+    border-radius: 0.16rem;
+    background: var(--panel-2);
+    text-align: center;
+}
+
+.cell:last-child {
+    margin-right: 0;
+}
+
+.cell-v {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.cell-num {
+    font-size: 0.3rem;
+    font-weight: 600;
+    letter-spacing: 0.005rem;
+}
+
+.cell-unit {
+    margin-left: 0.04rem;
+    color: var(--txt-3);
+    font-size: 0.16rem;
+}
+
+.cell-label {
+    display: block;
+    margin-top: 0.06rem;
+    color: var(--txt-4);
+    font-size: 0.16rem;
+}
+
+.entry {
+    display: flex;
+    align-items: center;
+    height: 0.82rem;
+    margin-top: 0.16rem;
+    padding: 0 0.22rem;
+    border: 1px solid rgba(255, 122, 26, 0.18);
+    border-radius: 0.18rem;
+    background: var(--accent-dim);
+    cursor: pointer;
+    flex: none;
+}
+
+.entry-ico {
+    flex: none;
+    width: 0.24rem;
+    height: 0.24rem;
+    margin-right: 0.14rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd9b0 0%, #ff7a1a 52%, rgba(255, 122, 26, 0) 74%);
+}
+
+.entry-t {
+    flex: 1;
+    color: #ffffff;
+    font-size: 0.23rem;
+}
+
+.entry .arrow {
+    color: var(--accent-soft);
+}
+
+.spec-head {
+    display: flex;
+    align-items: baseline;
+    margin-top: 0.18rem;
+}
+
+.spec-title {
+    font-size: 0.22rem;
+    font-weight: 600;
+}
+
+.spec-note {
+    margin-left: 0.1rem;
+    color: var(--txt-4);
+    font-size: 0.15rem;
+    letter-spacing: 0.006rem;
+}
+
+.spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 0.44rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.spec-k {
+    flex: none;
+    color: var(--txt-3);
+    font-size: 0.2rem;
+}
+
+.spec-v {
+    max-width: 64%;
+    overflow: hidden;
+    color: #e8ebf0;
+    font-size: 0.2rem;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 0.54rem;
+    margin-top: 0.04rem;
+    color: var(--accent-soft);
+    cursor: pointer;
+}
+
+.more-t {
+    margin-right: 0.08rem;
+    font-size: 0.19rem;
+}
+
+.hint {
+    margin-top: auto;
+    padding-top: 0.06rem;
+    color: #565e6b;
+    font-size: 0.18rem;
+    text-align: center;
+}
+
+.hint::after {
+    content: '';
+    display: block;
+    width: 0.09rem;
+    height: 0.09rem;
+    margin: 0.07rem auto 0;
+    border-top: 1px solid currentColor;
+    border-left: 1px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.9;
+}
+
+@media (max-height: 700px) {
+    .stage {
+        height: 3.6rem;
+    }
+
+    .hint {
+        display: none;
+    }
+}
+
+/* ---------- 产品库 ---------- */
+.lib-body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    padding-top: 0.08rem;
+}
+
+.search {
+    display: flex;
+    flex: none;
+    align-items: center;
+    height: 0.8rem;
+    padding: 0 0.24rem;
+    border-radius: 0.4rem;
+    background: #12151b;
+}
+
+.search .ico-search {
+    margin-left: 0;
+    margin-right: 0.16rem;
+}
+
+.search-input {
+    flex: 1;
+    height: 0.8rem;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--txt);
+    font-size: 0.24rem;
+}
+
+.search-input::placeholder {
+    color: #6c7481;
+}
+
+.search-clear {
+    padding: 0 0.06rem;
+    color: var(--txt-3);
+    font-size: 0.24rem;
+    cursor: pointer;
+}
+
+.cats {
+    flex: none;
+    margin-top: 0.22rem;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+}
+
+.cats::-webkit-scrollbar {
+    display: none;
+}
+
+.cat {
+    flex: none;
+    height: 0.52rem;
+    margin-right: 0.14rem;
+    padding: 0 0.22rem;
+    border-radius: 0.1rem;
+    background: var(--card);
+    color: var(--txt-2);
+    font-size: 0.21rem;
+    line-height: 0.52rem;
+    cursor: pointer;
+}
+
+.cat-on {
+    background: var(--accent);
+    color: #180a02;
+    font-weight: 600;
+}
+
+.meta-row {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.22rem 0 0.16rem;
+}
+
+.meta-count {
+    color: var(--txt-3);
+    font-size: 0.2rem;
+}
+
+.meta-sort {
+    color: var(--accent-soft);
+    font-size: 0.2rem;
+}
+
+.lib-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 1.3rem;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.pcard {
+    width: 3.31rem;
+    margin-bottom: 0.18rem;
+    overflow: hidden;
+    border-radius: 0.2rem;
+    background: #0e1116;
+    cursor: pointer;
+}
+
+.pimg-wrap {
+    position: relative;
+    height: 2.5rem;
+    background: #ffffff;
+}
+
+.pimg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ptag {
+    position: absolute;
+    top: 0.14rem;
+    left: 0.14rem;
+    padding: 0.03rem 0.1rem;
+    border-radius: 0.06rem;
+    background: #ff7a1a;
+    color: #ffffff;
+    font-size: 0.16rem;
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+}
+
+.pinfo {
+    display: flex;
+    flex-direction: column;
+    padding: 0.14rem 0.18rem 0.18rem;
+}
+
+.pmodel {
+    overflow: hidden;
+    font-size: 0.25rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pmeta {
+    margin-top: 0.06rem;
+    overflow: hidden;
+    color: var(--txt-3);
+    font-size: 0.18rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pprice {
+    margin-top: 0.1rem;
+    color: var(--accent-soft);
+    font-size: 0.24rem;
+    font-weight: 600;
+}
+
+.list-foot {
+    padding: 0.2rem 0 0.6rem;
+    color: #333941;
+    font-size: 0.18rem;
+    text-align: center;
+}
+
+/* ---------- 产品详情（viewer） ---------- */
+.vpage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--bg);
+    padding-top: 0.88rem;
+}
+
+.fav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.56rem;
+    height: 0.56rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.fav-star {
+    color: var(--txt-3);
+    font-size: 0.26rem;
+}
+
+.fav-on .fav-star {
+    color: var(--accent);
+}
+
+.vtabs {
+    display: flex;
+    flex: none;
+    margin: 0.08rem 0.32rem 0;
+    padding: 0.06rem;
+    border-radius: 0.14rem;
+    background: #10131a;
+}
+
+.vtab {
+    flex: 1;
+    height: 0.62rem;
+    border-radius: 0.1rem;
+    color: var(--txt-3);
+    font-size: 0.23rem;
+    line-height: 0.62rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.vtab-on {
+    background: #1b1f27;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.vscroll {
+    flex: 1;
+}
+
+.vstage {
+    position: relative;
+    height: 7rem;
+    margin-top: 0.2rem;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.vstage-swiper {
+    height: 100%;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.vstage-swiper::-webkit-scrollbar {
+    display: none;
+}
+
+.vstage-slide {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    cursor: zoom-in;
+}
+
+.vstage-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.frame-badge {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.32rem;
+    padding: 0.06rem 0.14rem;
+    border-radius: 999px;
+    background: rgba(14, 20, 30, 0.06);
+    color: #4b5563;
+    font-size: 0.18rem;
+}
+
+.gal-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gal-dot {
+    width: 0.1rem;
+    height: 0.1rem;
+    margin: 0 0.05rem;
+    border-radius: 50%;
+    background: rgba(14, 20, 30, 0.16);
+    transition: width 0.2s, background 0.2s;
+}
+
+.gal-dot-on {
+    width: 0.26rem;
+    border-radius: 999px;
+    background: #ff7a1a;
+}
+
+.stage-shop {
+    position: absolute;
+    right: 0.28rem;
+    bottom: 0.24rem;
+    display: flex;
+    align-items: center;
+    padding: 0.12rem 0.24rem;
+    border-radius: 999px;
+    background: rgba(255, 122, 26, 0.94);
+    color: #1a0d02;
+    font-size: 0.21rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.notice {
+    margin: 0.04rem 0.32rem 0;
+    padding: 0.22rem 0.24rem;
+    border: 1px solid var(--line);
+    border-radius: 0.16rem;
+    background: #0c0f14;
+}
+
+.notice-t {
+    color: var(--txt-2);
+    font-size: 0.22rem;
+    font-weight: 600;
+}
+
+.notice-d {
+    display: block;
+    margin-top: 0.08rem;
+    color: var(--txt-4);
+    font-size: 0.19rem;
+    line-height: 1.6;
+}
+
+.light-box {
+    margin-top: 0.2rem;
+    background: #05060a;
+}
+
+.bulb {
+    width: 0.56rem;
+    height: 0.56rem;
+    margin: 0 auto 0.18rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd9b0 0%, #ff7a1a 48%, rgba(255, 122, 26, 0) 72%);
+    opacity: 0.5;
+}
+
+.light-swiper {
+    height: 6.2rem;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.light-swiper::-webkit-scrollbar {
+    display: none;
+}
+
+.light-slide {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+}
+
+.light-media {
+    width: 100%;
+    height: 6.2rem;
+    object-fit: cover;
+}
+
+.light-bar {
+    display: flex;
+    align-items: center;
+    padding: 0.12rem 0.32rem 0.16rem;
+    background: #0a0c11;
+}
+
+.light-idx {
+    color: #f5f7fa;
+    font-size: 0.22rem;
+    font-weight: 600;
+}
+
+.light-kind {
+    margin-left: 0.1rem;
+    padding: 0.02rem 0.12rem;
+    border-radius: 999px;
+    background: rgba(255, 122, 26, 0.16);
+    color: #ffb27a;
+    font-size: 0.18rem;
+}
+
+.light-hint {
+    margin-left: auto;
+    color: #6f7783;
+    font-size: 0.19rem;
+}
+
+.block {
+    padding: 0.28rem 0.32rem 0;
+}
+
+.block-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.16rem;
+}
+
+.block-title {
+    font-size: 0.24rem;
+    font-weight: 600;
+}
+
+.block-note {
+    color: var(--txt-3);
+    font-size: 0.19rem;
+}
+
+.vprice {
+    display: flex;
+    align-items: baseline;
+    margin-top: 0.16rem;
+}
+
+.vprice-n {
+    color: var(--accent-soft);
+    font-size: 0.36rem;
+    font-weight: 700;
+}
+
+.vprice-note {
+    margin-left: 0.12rem;
+    color: var(--txt-4);
+    font-size: 0.18rem;
+}
+
+.vgrid {
+    display: flex;
+    margin: 0.26rem 0.32rem 0;
+}
+
+.gear-head,
+.gear-row {
+    display: flex;
+    align-items: center;
+    height: 0.48rem;
+}
+
+.gear-head {
+    border-bottom: 1px solid var(--line-strong);
+    color: var(--txt-4);
+    font-size: 0.19rem;
+}
+
+.gear-row {
+    border-bottom: 1px solid var(--line);
+    font-size: 0.21rem;
+}
+
+.g-name {
+    flex: 1.3;
+    overflow: hidden;
+    color: var(--txt-2);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gear-head .g-name {
+    color: var(--txt-4);
+}
+
+.g-cell {
+    flex: 1;
+    text-align: right;
+}
+
+.gear-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block-tip {
+    margin-top: 0.16rem;
+    color: var(--txt-4);
+    font-size: 0.18rem;
+    line-height: 1.6;
+}
+
+.gear-chip {
+    margin: 0 0.1rem 0.1rem 0;
+    padding: 0.08rem 0.16rem;
+    border-radius: 0.08rem;
+    background: #12151b;
+    color: var(--txt-2);
+    font-size: 0.19rem;
+}
+
+.tail {
+    padding: 0.4rem 0.32rem 2rem;
+    color: #333941;
+    font-size: 0.18rem;
+    text-align: center;
+}
+
+.bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 92;
+    display: flex;
+    align-items: center;
+    padding: 0.16rem 0.32rem calc(0.16rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: rgba(10, 12, 17, 0.96);
+}
+
+.bar-btn {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    height: 0.84rem;
+    margin-left: 0.14rem;
+    border-radius: 0.16rem;
+    background: #171b22;
+    color: var(--txt);
+    font-size: 0.24rem;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.bar-btn:first-child {
+    margin-left: 0;
+    flex: none;
+    width: 1.32rem;
+    flex-direction: column;
+    background: transparent;
+    color: var(--txt-3);
+    font-size: 0.18rem;
+}
+
+.bar-ico {
+    margin-bottom: 0.02rem;
+    font-size: 0.26rem;
+}
+
+.bar-btn.primary {
+    background: var(--accent);
+    color: #180a02;
+    font-weight: 600;
+}
+
+.mask {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.sheet {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    display: flex;
+    max-height: 84vh;
+    flex-direction: column;
+    border-radius: 0.28rem 0.28rem 0 0;
+    background: #0d0f16;
+    box-shadow: 0 -0.2rem 0.6rem rgba(0, 0, 0, 0.5);
+    animation: sheet-up 0.26s ease-out;
+}
+
+@keyframes sheet-up {
+    from {
+        transform: translateY(60%);
+        opacity: 0.4;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.sheet-top {
+    flex: none;
+    padding: 0.14rem 0.32rem 0;
+}
+
+.sheet-handle {
+    width: 0.68rem;
+    height: 0.06rem;
+    margin: 0 auto 0.18rem;
+    border-radius: 0.03rem;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.sheet-head {
+    display: flex;
+    align-items: baseline;
+}
+
+.sheet-title {
+    font-size: 0.3rem;
+    font-weight: 600;
+}
+
+.sheet-sub {
+    flex: 1;
+    margin-left: 0.12rem;
+    color: var(--txt-3);
+    font-size: 0.2rem;
+}
+
+.sheet-close {
+    padding: 0.06rem 0.1rem;
+    color: var(--txt-3);
+    font-size: 0.26rem;
+    cursor: pointer;
+}
+
+.sheet-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0.24rem 0.32rem;
+}
+
+.spec-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.spec-item {
+    display: flex;
+    width: 3.2rem;
+    flex-direction: column;
+    margin-bottom: 0.16rem;
+    padding: 0.14rem 0.16rem;
+    border-radius: 0.14rem;
+    background: #12151b;
+}
+
+.spec-item .spec-k {
+    color: var(--txt-4);
+    font-size: 0.18rem;
+}
+
+.spec-item .spec-v {
+    max-width: none;
+    margin-top: 0.06rem;
+    color: #e8ebf0;
+    font-size: 0.21rem;
+    line-height: 1.4;
+    white-space: normal;
+}
+
+.sheet-label {
+    margin: 0.12rem 0 0.1rem;
+    color: var(--txt-2);
+    font-size: 0.22rem;
+    font-weight: 600;
+}
+
+.sheet-note {
+    margin-top: 0.2rem;
+    color: var(--txt-4);
+    font-size: 0.18rem;
+    line-height: 1.6;
+}
+
+.sheet-actions {
+    display: flex;
+    flex: none;
+    padding: 0.18rem 0.32rem calc(0.18rem + env(safe-area-inset-bottom));
+    background: #0d0f16;
+    box-shadow: 0 -1px 0 var(--line);
+}
+
+.sheet-btn {
+    flex: 1;
+    height: 0.84rem;
+    border-radius: 0.16rem;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    font-size: 0.24rem;
+    line-height: 0.84rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* ---------- 海报页 ---------- */
+.poster-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 0.4rem calc(0.4rem + env(safe-area-inset-bottom));
+}
+
+.poster-canvas-wrap {
+    width: 6.4rem;
+    border-radius: 0.16rem;
+    overflow: hidden;
+    box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.5);
+}
+
+.poster-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+}
+
+.poster-actions {
+    display: flex;
+    gap: 0.2rem;
+    width: 6.4rem;
+    margin-top: 0.4rem;
+}
+
+.poster-btn {
+    flex: 1;
+    height: 0.84rem;
+    border: none;
+    border-radius: 0.16rem;
+    background: var(--accent);
+    color: #180a02;
+    font-size: 0.26rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.poster-btn.ghost {
+    background: #171b22;
+    color: var(--txt);
+    font-weight: 400;
+}
+
+/* ---------- 我的 ---------- */
+.mpage {
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    margin: 0.24rem 0.32rem;
+    padding: 0.32rem;
+    border-radius: 0.2rem;
+    background: var(--panel);
+}
+
+.hero-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.88rem;
+    height: 0.88rem;
+    border-radius: 0.2rem;
+    background: var(--accent);
+    color: #180a02;
+    font-size: 0.44rem;
+    font-weight: 700;
+}
+
+.hero-txt {
+    margin-left: 0.24rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-name {
+    font-size: 0.3rem;
+    font-weight: 600;
+}
+
+.hero-sub {
+    margin-top: 0.06rem;
+    color: var(--txt-3);
+    font-size: 0.2rem;
+}
+
+.stats {
+    display: flex;
+    margin: 0 0.32rem;
+    border-radius: 0.16rem;
+    background: var(--panel-2);
+    overflow: hidden;
+}
+
+.stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.24rem 0;
+    cursor: pointer;
+}
+
+.stat-n {
+    font-size: 0.36rem;
+    font-weight: 700;
+}
+
+.stat-l {
+    margin-top: 0.04rem;
+    color: var(--txt-3);
+    font-size: 0.2rem;
+}
+
+.stat-on {
+    background: rgba(255, 122, 26, 0.08);
+}
+
+.stat-on .stat-l {
+    color: var(--accent-soft);
+}
+
+.pblock {
+    padding: 0.28rem 0.32rem 0;
+}
+
+.pblock-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.16rem;
+}
+
+.pblock-title {
+    font-size: 0.24rem;
+    font-weight: 600;
+}
+
+.pblock-note {
+    color: var(--txt-3);
+    font-size: 0.19rem;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    padding: 0.14rem 0;
+    cursor: pointer;
+}
+
+.row-img {
+    flex: none;
+    width: 1.04rem;
+    height: 0.78rem;
+    border-radius: 0.12rem;
+    background: #ffffff;
+    object-fit: cover;
+}
+
+.row-main {
+    flex: 1;
+    min-width: 0;
+    margin-left: 0.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-model {
+    font-size: 0.25rem;
+    font-weight: 600;
+}
+
+.row-meta {
+    margin-top: 0.04rem;
+    color: var(--txt-3);
+    font-size: 0.18rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.row-price {
+    color: var(--accent-soft);
+    font-size: 0.22rem;
+    font-weight: 600;
+}
+
+.menu {
+    margin: 0.32rem 0.32rem 0;
+    border-radius: 0.16rem;
+    background: var(--panel);
+    overflow: hidden;
+}
+
+.menu-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 0.88rem;
+    padding: 0 0.28rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.24rem;
+}
+
+.menu-row:last-child {
+    border-bottom: none;
+}
+
+.menu-v {
+    color: var(--txt-3);
+    font-size: 0.22rem;
+}
+
+.foot {
+    padding: 0.36rem 0.48rem 1.6rem;
+    color: #3a4149;
+    font-size: 0.18rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* ---------- 图片灯箱 ---------- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.92);
+    cursor: zoom-out;
+}
+
+.lightbox.show {
+    display: flex;
+}
+
+.lb-close {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.32rem;
+    padding: 0.1rem 0.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    color: #e8ebf0;
+    font-size: 0.2rem;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 2rem;
+    z-index: 300;
+    transform: translateX(-50%);
+    padding: 0.14rem 0.3rem;
+    border-radius: 0.12rem;
+    background: rgba(20, 24, 32, 0.96);
+    border: 1px solid var(--line-strong);
+    color: var(--txt);
+    font-size: 0.22rem;
+    animation: toast-in 0.2s ease-out;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 0.1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* ---------- 宽屏预览（桌面 / 内置预览面板）：按 375px 手机宽度居中渲染 ----------
+   H5 用 rem 复刻小程序 rpx，屏宽越大会整体等比放大；桌面预览时锁定手机基准，
+   否则版式会撑爆、看起来「没法预览」。手机上不触发此段，保持原生全屏体验。 */
+@media (min-width: 600px) {
+    html {
+        font-size: 50px;
+    }
+
+    body {
+        max-width: 375px;
+        margin: 0 auto;
+        box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.6);
+    }
+
+    .nav,
+    .tabbar,
+    .bar,
+    .mask,
+    .sheet,
+    .toast {
+        left: 50%;
+        right: auto;
+        width: 100%;
+        max-width: 375px;
+        transform: translateX(-50%);
+    }
+
+    .mask,
+    .sheet {
+        top: 0;
+        bottom: 0;
+    }
+
+    .lightbox {
+        left: 50%;
+        right: auto;
+        width: 100%;
+        max-width: 375px;
+        transform: translateX(-50%);
+    }
+
+    .sheet {
+        animation-name: sheet-up-wide;
+    }
+}
+
+@keyframes sheet-up-wide {
+    from {
+        transform: translate(-50%, 60%);
+        opacity: 0.4;
+    }
+
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="lightbox" class="lightbox" hidden><span class="lb-close">✕ 关闭</span><img id="lightbox-img" alt=""></div>
+<script>
+// 云端配置：云服务开通后把 activate 返回的 publicConfig 填到这里即可切换在线数据
+// 未开通 / 字段为空时，画册自动使用本地打包数据（js/products.json + media/ 高清图库）
+window.LUMINTOP_CLOUD = {
+    enabled: false,
+    endpoint: '',           // 例：https://xxx.workbuddy.link
+    publishableKey: '',     // publicConfig.publishableKey
+    mediaBase: '',          // 云存储公开桶地址（为空时用本地 media/ 目录）
+};
+
+</script>
+<script>
+// 由小程序 data/products.js 生成（66 款），云端数据到达后自动覆盖
+window.LUMINTOP_PRODUCTS = [{"id":"p102-tiger-2-0","model":"TIGER 2.0","subtitle":"高性能复古可充电手电","price":999,"category":"通用","gears":[{"name":"月光档","lum":3,"runtime":"45Day","throw":null},{"name":"低亮档","lum":200,"runtime":"36H","throw":null},{"name":"中亮档","lum":650,"runtime":"11H","throw":null},{"name":"高亮档","lum":2000,"runtime":"3H 35M","throw":null},{"name":"极亮档","lum":10000,"runtime":"60S+3H 25M","throw":632},{"name":"爆闪/SOS/信标","lum":2000,"runtime":null,"throw":null}],"specs":{"光源":"高性能LED","光强":"100000坎德拉 (最大)","电池":"1*33140锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"68*41*230毫米","净重":"约685克（含电池）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p102-tiger-2-0-g2.jpg","colors":[{"name":"银","hex":"#C3C3C3","img":"/assets/products/p102-tiger-2-0-silver.jpg"}],"lightScenes":["/assets/products/p102-tiger-2-0-light.jpg"],"lightScene":"/assets/products/p102-tiger-2-0-light.jpg","lumMax":10000,"throwMax":632,"runMax":1080,"gallery":["/assets/products/p102-tiger-2-0-g2.jpg","/assets/products/p102-tiger-2-0-g3.jpg","/assets/products/p102-tiger-2-0-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/products/p102-tiger-2-0-light.jpg"}],"shops":[],"sortIndex":0},{"id":"p94-rainbow-4-0","model":"RAINBOW 4.0","subtitle":"多功能RGB露营灯","price":599,"category":"多功能","gears":[{"name":"节能","lum":8,"runtime":"7Day","throw":null},{"name":"高亮","lum":600,"runtime":"5M+3H 35M","throw":36},{"name":"爆闪/SOS/信标","lum":400,"runtime":"6H","throw":null},{"name":"彩灯","lum":null,"runtime":"8H","throw":null}],"specs":{"光源":"高性能白光LED+RGB彩灯","功率":"9W（最大）","光强":"80坎德拉(最大)","电池":"1*26800锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"50*103毫米","净重":"约328克（含电池）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p94-rainbow-4-0.jpg","colors":[],"lightScenes":["/assets/products/p94-rainbow-4-0-light.jpg","/assets/products/p94-rainbow-4-0-light-2.jpg"],"lightScene":"/assets/products/p94-rainbow-4-0-light.png","lumMax":600,"throwMax":36,"runMax":168,"gallery":["/assets/products/p94-rainbow-4-0-g97413.jpg","/assets/products/p94-rainbow-4-0-g11806.jpg","/assets/products/p94-rainbow-4-0-g14901.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p94-rainbow-4-0-light-1794530947280.jpg"},{"type":"image","src":"/assets/lights/p94-rainbow-4-0-light-1794530953171.jpg"}],"shops":[],"sortIndex":1},{"id":"p93-pixil-light","model":"PIXIL LIGHT","subtitle":"","price":1380,"category":"多功能","gears":[{"name":"低亮","lum":10,"runtime":40,"throw":null},{"name":"高亮","lum":360,"runtime":"3H 20M","throw":null},{"name":"极亮","lum":1300,"runtime":"1M+3H 15M","throw":265},{"name":"爆闪/SOS/信标","lum":400,"runtime":null,"throw":null}],"specs":{"光源":"Luminus SFT25R LED(聚光), 高性能LED(泛光), UV, 绿激光, RGB彩灯","功率":"12W(最大)","光强":"17500cd(最大)","电池":"锂聚合物电池","防水":"IPX6","防跌落":"1米","尺寸":"20*50*112毫米","净重":"约158克"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p93-pixil-light-g2.jpg","colors":[{"name":"橙","hex":"#D09575","img":"/assets/products/p93-pixil-light-orange.jpg"},{"name":"沙色","hex":"#988A83","img":"/assets/products/p93-pixil-light-sand.jpg"},{"name":"灰","hex":"#A1A3AA","img":"/assets/products/p93-pixil-light-grey.jpg"},{"name":"绿","hex":"#A2AD9D","img":"/assets/products/p93-pixil-light-green.jpg"}],"lightScenes":["/assets/products/p93-pixil-light-light.jpg"],"lightScene":"/assets/products/p93-pixil-light-light.jpg","lumMax":1300,"throwMax":265,"runMax":40,"gallery":["/assets/products/p93-pixil-light-g2.jpg","/assets/products/p93-pixil-light-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/products/p93-pixil-light-light.jpg"},{"type":"image","src":"/assets/lights/p93-pixil-light-light-1794531299418.jpg"},{"type":"image","src":"/assets/lights/p93-pixil-light-light-1794531303063.jpg"}],"shops":[],"sortIndex":2},{"id":"p95-rainbow-voice","model":"RAINBOW 声控版","subtitle":"可语音控制多功能手电","price":1199,"category":"多功能","gears":[{"name":"节能","lum":15,"runtime":"15Day","throw":null},{"name":"高亮","lum":1000,"runtime":"9.5H","throw":null},{"name":"极亮","lum":3000,"runtime":"2M+9H","throw":1000},{"name":"爆闪/SOS/信标","lum":1000,"runtime":null,"throw":null},{"name":"彩灯","lum":null,"runtime":"90H","throw":null}],"specs":{"光源":"白光 + 中白光 + RGB彩灯","功率":"40W(最大)","光强":"250000坎德拉(最大)","电池":"1*46800/46950锂离子电池","防水":"IPX4","防跌落":"1米","尺寸":"53.5*143毫米/53.5*158毫米","净重":"约850克(46950电池)"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p95-rainbow-voice.jpg","colors":[],"lightScenes":["/assets/products/p95-rainbow-voice-light.jpg","/assets/products/p95-rainbow-voice-light-2.jpg","/assets/products/p95-rainbow-voice-light-3.jpg"],"lightScene":"/assets/products/p95-rainbow-voice-light.jpg","lumMax":3000,"throwMax":1000,"runMax":360,"gallery":["/assets/products/p95-rainbow-voice-g3.jpg","/assets/products/p95-rainbow-voice-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p95-rainbow-voice-light-1794531971910.jpg"},{"type":"image","src":"/assets/lights/p95-rainbow-voice-light-1794531975760.jpg"},{"type":"image","src":"/assets/lights/p95-rainbow-voice-light-1794531978911.jpg"}],"shops":[],"sortIndex":3},{"id":"p83-hl16","model":"HL16","subtitle":"多光源迷你L型手电筒","price":699,"category":"EDC","gears":[{"name":"节能档（泛光）","lum":5,"runtime":"20H","throw":null},{"name":"低亮档（泛光）","lum":36,"runtime":"3H","throw":null},{"name":"高亮档（泛光）","lum":180,"runtime":"1M+1H 40M","throw":null},{"name":"聚光","lum":1100,"runtime":"40S+1H 20M","throw":null},{"name":"组合光","lum":1200,"runtime":"40+1H 20M","throw":260},{"name":"红光/SOS","lum":13,"runtime":"3.5H/7H","throw":null},{"name":"爆闪","lum":700,"runtime":"2H","throw":null}],"specs":{"光源":"Luminus SFT25R LED+红白光","功率":"12W(最大)","光强":"16950坎德拉(最大)","电池":"1*16340锂电池/CR123锂电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"23*20.5*65毫米","净重":"约51克（含电池）"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p83-hl16-g15130.jpg","colors":[{"name":"橙","hex":"#D16C35","img":"/assets/products/p83-hl16-orange.jpg"},{"name":"黑","hex":"#52524C","img":"/assets/products/p83-hl16-black.jpg"}],"lightScenes":["/assets/products/p83-hl16-light.jpg","/assets/products/p83-hl16-light-2.jpg"],"lightScene":"/assets/products/p83-hl16-light.jpg","gallery":["/assets/products/p83-hl16-g15130.jpg","/assets/products/p83-hl16-g15185.jpg","/assets/products/p83-hl16-g15229.jpg","/assets/products/p83-hl16-g15271.jpg","/assets/products/p83-hl16-g15301.jpg"],"lumMax":1200,"throwMax":260,"runMax":20,"lightMedia":[{"type":"image","src":"/assets/lights/p83-hl16-light-1794556784917.jpg"},{"type":"image","src":"/assets/lights/p83-hl16-light-1794556788475.jpg"}],"shops":[],"sortIndex":4},{"id":"p96-ring-king","model":"RING KING","subtitle":"小型高亮便携小直筒","price":518,"category":"EDC","gears":[{"name":"低亮","lum":20,"runtime":"20H","throw":null},{"name":"中亮","lum":350,"runtime":"1H45M","throw":null},{"name":"高亮","lum":1000,"runtime":"1M+55M","throw":180},{"name":"爆闪/警闪","lum":350,"runtime":null,"throw":null}],"specs":{"光源":"OSRAM LED","功率":"10W(最大)","光强":"8000坎德拉(最大)","电池":"1*14500锂离子电池/AA","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"24.5*21.5*102毫米"},"quality":"pending","releaseAt":"2026-11-09","cover":"/assets/products/p96-ring-king.jpg","colors":[{"name":"铝本色","hex":"#B4B4B2","img":"/assets/products/p96-ring-king-alu.jpg"},{"name":"钛本色","hex":"#888783","img":"/assets/products/p96-ring-king-alu-ti.jpg"}],"lightScenes":["/assets/products/p96-ring-king-light.jpg"],"lightScene":"/assets/products/p96-ring-king-light.jpg","lumMax":1000,"throwMax":180,"runMax":20,"gallery":["/assets/products/p96-ring-king-g1.jpg","/assets/products/p96-ring-king-g3.jpg","/assets/products/p96-ring-king-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p96-ring-king-light-1794533608434.jpg"}],"shops":[],"sortIndex":5},{"id":"p97-silver-fox","model":"SILVER FOX","subtitle":"EDC磁吸小手电","price":219,"category":"EDC","gears":[],"specs":{"光源":"OSRAM LED","功率":"8W","光强":"1235坎德拉(最大)","电池":"1*14500锂离子电池/AA电池","防水":"IP68, 水下2米","防跌落":"1.5米","尺寸":"83*18.5毫米","净重":"约28克（铝合金不含电池）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p97-silver-fox-g3293.jpg","colors":[{"name":"红","hex":"#BD9696","img":"/assets/products/p97-silver-fox-red.jpg"},{"name":"绿","hex":"#858D78","img":"/assets/products/p97-silver-fox-green.jpg"},{"name":"钛喷砂","hex":"#9A9A9B","img":"/assets/products/p97-silver-fox-ti-blasted.jpg"},{"name":"钛本色","hex":"#9D9D9D","img":"/assets/products/p97-silver-fox-ti-natural.jpg"},{"name":"银","hex":"#B3B3B3","img":"/assets/products/p97-silver-fox-silver.jpg"}],"lightScenes":["/assets/products/p97-silver-fox-light.jpg"],"lightScene":"/assets/products/p97-silver-fox-light.jpg","gallery":["/assets/products/p97-silver-fox-g3293.jpg","/assets/products/p97-silver-fox-g3366.jpg","/assets/products/p97-silver-fox-g3419.jpg","/assets/products/p97-silver-fox-g3458.jpg"],"lumMax":760,"throwMax":70,"runMax":50,"lightMedia":[{"type":"image","src":"/assets/lights/p97-silver-fox-light-1794534175018.jpg"}],"shops":[],"sortIndex":6},{"id":"p98-thor-2","model":"THOR 2","subtitle":"","price":1799,"category":"远射","gears":[{"name":"低亮","lum":40,"runtime":"5H","throw":null},{"name":"高亮","lum":350,"runtime":"5M+2H 55M","throw":1700},{"name":"爆闪/SOS","lum":200,"runtime":null,"throw":null}],"specs":{"光源":"白色激光发射器","功率":"9W(最大)","光强":"738000坎德拉(最大)","电池":"1*18650锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"41.6*28*136毫米","净重":"约123克（不含电池）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p98-thor-2.jpg","colors":[{"name":"黑","hex":"#878D97","img":"/assets/products/p98-thor-2-black.jpg"}],"lightScenes":["/assets/products/p98-thor-2-light.jpg"],"lightScene":"/assets/products/p98-thor-2-light.jpg","lumMax":350,"throwMax":1700,"runMax":5,"gallery":["/assets/products/p98-thor-2-g89671.jpg","/assets/products/p98-thor-2-g94303.jpg","/assets/products/p98-thor-2-g94340.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p98-thor-2-light-1794537216479.jpg"}],"shops":[],"sortIndex":7},{"id":"p99-thor-mini","model":"THOR MINI","subtitle":"超小型白激光手电筒","price":799,"category":"远射","gears":[{"name":"低亮","lum":50,"runtime":"1.5H","throw":null},{"name":"高亮","lum":250,"runtime":"90S+1H 20M","throw":700},{"name":"爆闪/SOS","lum":120,"runtime":null,"throw":null}],"specs":{"光源":"白色激光发射器","功率":"8.4W(最大)","光强":"122500坎德拉(最大)","电池":"1*18350锂离子电池(需另购)","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"25*78毫米","净重":"约60克（铝合金）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p99-thor-mini.jpg","colors":[{"name":"绿","hex":"#546240","img":"/assets/products/p99-thor-mini-green.jpg"},{"name":"钛本色","hex":"#8C8D8D","img":"/assets/products/p99-thor-mini-ti-natural.jpg"},{"name":"铝本色","hex":"#9B9C9D","img":"/assets/products/p99-thor-mini-alu.jpg"},{"name":"黑","hex":"#494A49","img":"/assets/products/p99-thor-mini-black.jpg"}],"lightScenes":["/assets/products/p99-thor-mini-light.jpg"],"lightScene":"/assets/products/p99-thor-mini-light.jpg","lumMax":250,"throwMax":700,"runMax":1.5,"gallery":["/assets/products/p99-thor-mini-g2.jpg","/assets/products/p99-thor-mini-g3.jpg","/assets/products/p99-thor-mini-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p99-thor-mini-light-1794540948855.jpg"}],"shops":[],"sortIndex":8},{"id":"p100-tight","model":"TIGHT","subtitle":"复古设计可充电手电筒","price":598,"category":"通用","gears":[],"specs":{"光源":"高性能LED","光强":"52500坎德拉(最大)","电池":"1*26800锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"45*31*141毫米","净重":"约248克（含电池）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p100-tight.jpg","colors":[{"name":"亮银","hex":"#B8BAB9","img":"/assets/products/p100-tight-bright-silver.jpg"},{"name":"银","hex":"#C8C8C8","img":"/assets/products/p100-tight-silver.jpg"}],"lightScenes":["/assets/products/p100-tight-light.jpg"],"lightScene":"/assets/products/p100-tight-light.jpg","gallery":["/assets/products/p100-tight-g10805.jpg","/assets/products/p100-tight-g10871.jpg","/assets/products/p100-tight-g10911.jpg"],"lumMax":4000,"throwMax":458,"runMax":720,"lightMedia":[{"type":"image","src":"/assets/lights/p100-tight-light-1794541352177.jpg"}],"shops":[],"sortIndex":9},{"id":"p101-tool-aaa","model":"Tool AAA","subtitle":"EDC小型便携钥匙灯","price":79,"category":"EDC","gears":[{"name":"低亮","lum":5,"runtime":"36H","throw":null},{"name":"中亮","lum":32,"runtime":"4H","throw":null},{"name":"高亮","lum":110,"runtime":"30M","throw":null}],"specs":{"光源":"OSRAM LED","光强":"553坎德拉","电池":"1*AAA","防水":"IP68, 水下2米","防跌落":"1.5米","尺寸":"78*15.2毫米","净重":"约16.7克（不含电池）"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p101-tool-aaa.jpg","colors":[{"name":"黑","hex":"#676767","img":"/assets/products/p101-tool-aaa-black.jpg"}],"lightScenes":["/assets/products/p101-tool-aaa-light.jpg"],"lightScene":"/assets/products/p101-tool-aaa-light.jpg","lumMax":110,"throwMax":37,"runMax":36,"gallery":["/assets/products/p101-tool-aaa-g84221.jpg","/assets/products/p101-tool-aaa-g84306.jpg","/assets/products/p101-tool-aaa-g84334.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p101-tool-aaa-light-1794542210069.jpg"}],"shops":[],"sortIndex":10},{"id":"p74-f01","model":"F01","subtitle":"三光源多功能手电筒","price":398,"category":"多功能","gears":[{"name":"泛光节能","lum":8,"runtime":"20H","throw":null},{"name":"泛光低亮","lum":55,"runtime":"4H","throw":null},{"name":"泛光高亮","lum":350,"runtime":"1M+2H","throw":null},{"name":"聚光","lum":1000,"runtime":"1M+2H","throw":null},{"name":"组合光","lum":1200,"runtime":"1M+1H 45M","throw":182},{"name":"红光","lum":20,"runtime":"3H","throw":null},{"name":"SOS","lum":20,"runtime":"6H","throw":null},{"name":"爆闪","lum":380,"runtime":"2H","throw":null}],"specs":{"光源":"SFT25R LED, 红白光COB LED","功率":"8W(最大)","光强":"8250坎德拉(最大)","电池":"2*10300锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"62*29*24毫米","净重":"约71克"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p74-f01.jpg","colors":[{"name":"橙","hex":"#C78440","img":"/assets/products/p74-f01-orange.jpg"},{"name":"红","hex":"#C06A65","img":"/assets/products/p74-f01-red.jpg"},{"name":"绿","hex":"#808D6C","img":"/assets/products/p74-f01-green.jpg"},{"name":"黑","hex":"#6E6D67","img":"/assets/products/p74-f01-black.jpg"}],"lightScenes":["/assets/products/p74-f01-light.jpg","/assets/products/p74-f01-light-2.jpg"],"lightScene":"/assets/products/p74-f01-light.jpg","lumMax":1200,"throwMax":182,"runMax":20,"gallery":["/assets/products/p74-f01-g1.jpg","/assets/products/p74-f01-g2.jpg","/assets/products/p74-f01-g3.jpg","/assets/products/p74-f01-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p74-f01-light-1794553929665.jpg"},{"type":"image","src":"/assets/lights/p74-f01-light-1794553933321.jpg"}],"shops":[],"sortIndex":11},{"id":"p71-d2","model":"D2","subtitle":"户外应急照明磁吸检修灯","price":498,"category":"通用","gears":[{"name":"节能","lum":15,"runtime":"6Day","throw":null},{"name":"低亮","lum":130,"runtime":"20H","throw":null},{"name":"中亮","lum":350,"runtime":"6H 30M","throw":null},{"name":"高亮","lum":550,"runtime":"5H","throw":null},{"name":"极亮","lum":1000,"runtime":"5M+2H 40M","throw":475},{"name":"爆闪/SOS","lum":550,"runtime":null,"throw":null}],"specs":{"光源":"Osram 或 Nichia LED","光强":"Osram 56500坎德拉 / Nichia 28400坎德拉(最大)","电池":"1*21700锂离子电池","防水":"IPX8, 水下2米","防跌落":"1.5米","尺寸":"37*25.4*115毫米","净重":"约85克(不含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p71-d2.jpg","colors":[{"name":"绿","hex":"#697855","img":"/assets/products/p71-d2-green.jpg"},{"name":"黑","hex":"#5A5A5A","img":"/assets/products/p71-d2-black.jpg"}],"lightScenes":["/assets/products/p71-d2-light.jpg","/assets/products/p71-d2-light-2.jpg"],"lightScene":"/assets/products/p71-d2-light.jpg","lumMax":1000,"throwMax":475,"runMax":144,"gallery":["/assets/products/p71-d2-g3.jpg","/assets/products/p71-d2-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p71-d2-light-1794552102183.jpg"}],"shops":[],"sortIndex":12},{"id":"p59-edc20","model":"EDC20","subtitle":"掌心远射手电筒","price":458,"category":"远射","cover":"/assets/products/p59-edc20.jpg","gears":[{"name":"月光档","lum":3,"runtime":"120H","throw":null},{"name":"低亮","lum":65,"runtime":"9H","throw":null},{"name":"中亮","lum":400,"runtime":"1H 50M","throw":null},{"name":"高亮","lum":1000,"runtime":"2M+1H 40M","throw":null},{"name":"极亮","lum":2000,"runtime":"1M+1H 40M","throw":600},{"name":"爆闪/SOS","lum":1000,"runtime":null,"throw":null}],"lumMax":1999,"throwMax":600,"runMax":120,"specs":{"光源":"高性能 LED","光强":"90000坎德拉 (最大)","电池":"1*18350锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"40.5*26*81毫米","净重":"约108克（含电池）"},"quality":"ok","releaseAt":"2026-09-26","colors":[{"name":"橙","hex":"#CD6D3F","img":"/assets/products/p59-edc20-orange.jpg"},{"name":"绿","hex":"#5C6754","img":"/assets/products/p59-edc20-green.jpg"},{"name":"黑","hex":"#515151","img":"/assets/products/p59-edc20-black.jpg"}],"lightScene":"/assets/products/p59-edc20-light.jpg","lightScenes":["/assets/products/p59-edc20-light.jpg"],"gallery":["/assets/products/p59-edc20-g2.jpg","/assets/products/p59-edc20-g3.jpg","/assets/products/p59-edc20-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p59-edc20-light-1794565224296.jpg"}],"shops":[],"sortIndex":13},{"id":"p92-p2a","model":"P2A","subtitle":"双模式便携战术手电","price":399,"category":"EDC","gears":[{"name":"月光","lum":2,"runtime":"180H","throw":null},{"name":"低亮","lum":30,"runtime":"30H","throw":null},{"name":"中亮","lum":100,"runtime":"10H","throw":null},{"name":"高亮","lum":350,"runtime":"3.5H","throw":null},{"name":"极亮","lum":1200,"runtime":"1M+3H","throw":330},{"name":"爆闪/SOS/信标","lum":800,"runtime":"1M+1H 20M","throw":null}],"specs":{"光源":"1*Luminus SFT-25R LED","功率":"12W(最大)","光强":"27250坎德拉(最大)","电池":"1*14100锂离子电池/2*AA电池(碱性/镍氢)","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"152*22毫米","净重":"约102克(含电池)"},"quality":"pending","releaseAt":"2026-11-11","cover":"/assets/products/p92-p2a-g3.jpg","colors":[{"name":"蓝","hex":"#ADB6C0","img":"/assets/products/p92-p2a-blue.jpg"},{"name":"黑","hex":"#757575","img":"/assets/products/p92-p2a-black.jpg"}],"lightScenes":["/assets/products/p92-p2a-light.jpg"],"lightScene":"/assets/products/p92-p2a-light.jpg","lumMax":1200,"throwMax":330,"runMax":180,"gallery":["/assets/products/p92-p2a-g3.jpg","/assets/products/p92-p2a-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/products/p92-p2a-light.jpg"}],"shops":[],"sortIndex":14},{"id":"p72-edc01","model":"EDC01","subtitle":"便携家用迷你小手电","price":69,"category":"EDC","gears":[{"name":"低亮","lum":5,"runtime":"25H","throw":null},{"name":"中亮","lum":32,"runtime":"3.5H","throw":null},{"name":"高亮","lum":120,"runtime":"18M","throw":37}],"specs":{"光源":"OSRAM LED","光强":"553坎德拉(最大)","电池":"1*AAA碱性或镍氢电池","防水":"IPX-8, 水下2米","防跌落":"1.5米","尺寸":"66*15.2毫米","净重":"约15克(不含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p72-edc01.jpg","colors":[{"name":"粉","hex":"#A8838C","img":"/assets/products/p72-edc01-pink.jpg"},{"name":"蓝","hex":"#3E98AE","img":"/assets/products/p72-edc01-blue.jpg"},{"name":"黑","hex":"#555555","img":"/assets/products/p72-edc01-black.jpg"}],"lightScenes":["/assets/products/p72-edc01-light.jpg"],"lightScene":"/assets/products/p72-edc01-light.jpg","lumMax":120,"throwMax":37,"runMax":35,"gallery":["/assets/products/p72-edc01-g1.jpg","/assets/products/p72-edc01-g2.jpg","/assets/products/p72-edc01-g3.jpg","/assets/products/p72-edc01-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p72-edc01-light-1794553082767.jpg"}],"shops":[],"sortIndex":15},{"id":"p73-edc15","model":"EDC15","subtitle":"便携钥匙扣手电筒","price":99,"category":"EDC","gears":[{"name":"低亮","lum":8,"runtime":"50H","throw":null},{"name":"中亮","lum":130,"runtime":"4H 10M","throw":null},{"name":"高亮","lum":450,"runtime":"58M","throw":null},{"name":"极亮","lum":760,"runtime":"5M+1H5M","throw":70},{"name":"爆闪","lum":450,"runtime":null,"throw":null}],"specs":{"光源":"GW PUSRA1.PM LED","光强":"1235坎德拉(最大)","电池":"1*14500锂离子电池/AA碱性或镍氢电池","防水":"IP68, 水下2米","防跌落":"1.5米","尺寸":"73.5*18.5毫米","净重":"约20.5克(不含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p73-edc15.jpg","colors":[],"lightScenes":["/assets/products/p73-edc15-light.jpg"],"lightScene":"/assets/products/p73-edc15-light.jpg","lumMax":760,"throwMax":70,"runMax":50,"gallery":["/assets/products/p73-edc15-g1.jpg","/assets/products/p73-edc15-g2.jpg","/assets/products/p73-edc15-g3.jpg","/assets/products/p73-edc15-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p73-edc15-light-1794553242743.jpg"}],"shops":[],"sortIndex":16},{"id":"p75-frog-3-0","model":"FROG 3.0","subtitle":"可充电迷你手电筒","price":398,"category":"EDC","gears":[{"name":"月光","lum":1.5,"runtime":"45H","throw":null},{"name":"低亮","lum":35,"runtime":"4H 20M","throw":null},{"name":"中亮","lum":180,"runtime":"55M","throw":null},{"name":"高亮","lum":400,"runtime":"1M+53M","throw":null},{"name":"极亮","lum":720,"runtime":"20S+50M","throw":115}],"specs":{"光源":"高性能LED","功率":"9W(最大)","光强":"3285cd(最大)","电池":"1*10300锂离子电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"58*17*14毫米","净重":"约21.5克(含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p75-frog-3-0.jpg","colors":[{"name":"绿","hex":"#A8B19D","img":"/assets/products/p75-frog-3-0-green.jpg"},{"name":"黑","hex":"#848484","img":"/assets/products/p75-frog-3-0-black.jpg"}],"lightScenes":["/assets/products/p75-frog-3-0-light.jpg"],"lightScene":"/assets/products/p75-frog-3-0-light.jpg","lumMax":720,"throwMax":115,"runMax":45,"gallery":["/assets/products/p75-frog-3-0-g66250.jpg","/assets/products/p75-frog-3-0-g66301.jpg","/assets/products/p75-frog-3-0-g66344.jpg","/assets/products/p75-frog-3-0-g66386.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p75-frog-3-0-light-1794554295171.jpg"}],"shops":[],"sortIndex":17},{"id":"p76-fw1a-pro","model":"FW1A PRO","subtitle":"简约EDC手电筒","price":598,"category":"EDC","gears":[],"specs":{"光源":"Cree XHP50.2 LED","光强":"11360坎德拉(最大)","电池":"1*18650锂电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"25.5*101.1毫米","净重":"约57.2克(不含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p76-fw1a-pro.jpg","colors":[{"name":"枪灰","hex":"#878F97","img":"/assets/products/p76-fw1a-pro-gun-grey.jpg"},{"name":"绿","hex":"#687459","img":"/assets/products/p76-fw1a-pro-green.jpg"},{"name":"蓝","hex":"#4980AE","img":"/assets/products/p76-fw1a-pro-blue.jpg"},{"name":"黑","hex":"#5E5E5E","img":"/assets/products/p76-fw1a-pro-black.jpg"}],"lightScenes":["/assets/products/p76-fw1a-pro-light.jpg"],"lightScene":"/assets/products/p76-fw1a-pro-light.jpg","lumMax":3500,"throwMax":220,"runMax":null,"gallery":["/assets/products/p76-fw1a-pro-g1.jpg","/assets/products/p76-fw1a-pro-g2.jpg","/assets/products/p76-fw1a-pro-g3.jpg","/assets/products/p76-fw1a-pro-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p76-fw1a-pro-light-1794554526711.jpg"}],"shops":[],"sortIndex":18},{"id":"p77-fwaa","model":"FWAA","subtitle":"紧凑型14500手电筒","price":599,"category":"EDC","gears":[],"specs":{"光源":"3*Nichia 519AT LED","功率":"18W(最大)","光强":"2500cd(最大)","电池":"1*14500锂离子电池","防水":"IPX-8, 水下2米","防跌落":"1米","尺寸":"75*20.5*18毫米","净重":"约33克(铝合金，不含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p77-fwaa.jpg","colors":[{"name":"亮银","hex":"#B8B9B9","img":"/assets/products/p77-fwaa-bright-silver.jpg"},{"name":"枪灰","hex":"#8A9BA3","img":"/assets/products/p77-fwaa-gun-grey.jpg"},{"name":"红铜","hex":"#CB9E8B","img":"/assets/products/p77-fwaa-copper.jpg"},{"name":"绿","hex":"#7A8E6A","img":"/assets/products/p77-fwaa-green.jpg"},{"name":"钛本色","hex":"#ABA9A3","img":"/assets/products/p77-fwaa-ti-natural.jpg"},{"name":"钛石洗","hex":"#908B86","img":"/assets/products/p77-fwaa-ti-stonewash.jpg"},{"name":"黑","hex":"#575757","img":"/assets/products/p77-fwaa-black.jpg"}],"lightScenes":["/assets/products/p77-fwaa-light.jpg"],"lightScene":"/assets/products/p77-fwaa-light.jpg","lumMax":1600,"throwMax":100,"runMax":null,"gallery":["/assets/products/p77-fwaa-g17150.jpg","/assets/products/p77-fwaa-g17216.jpg","/assets/products/p77-fwaa-g17249.jpg","/assets/products/p77-fwaa-g17279.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p77-fwaa-light-1794554864127.jpg"}],"shops":[],"sortIndex":19},{"id":"p78-gt-nano-3-0","model":"GT NANO 3.1","subtitle":"迷你可充电远射手电筒","price":299,"category":"EDC","gears":[{"name":"月光","lum":1,"runtime":"50H","throw":null},{"name":"低亮","lum":31,"runtime":"4H 20M","throw":null},{"name":"中亮","lum":180,"runtime":"55M","throw":null},{"name":"高亮","lum":400,"runtime":"1M+53M","throw":null},{"name":"极亮","lum":720,"runtime":"1M+50M","throw":405}],"specs":{"光源":"OSRAM NM1 LED","功率":"9W(最大)","光强":"41000坎德拉(最大)","电池":"1*10300锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"69*24*14毫米","净重":"约30克(铝合金，含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p78-gt-nano-3-0.jpg","colors":[{"name":"橙","hex":"#BF7B5B","img":"/assets/products/p78-gt-nano-3-0-orange.jpg"},{"name":"粉","hex":"#BB5E96","img":"/assets/products/p78-gt-nano-3-0-pink.jpg"},{"name":"红","hex":"#C05C5B","img":"/assets/products/p78-gt-nano-3-0-red.jpg"},{"name":"绿","hex":"#7D866D","img":"/assets/products/p78-gt-nano-3-0-green.jpg"},{"name":"钛喷砂","hex":"#979797","img":"/assets/products/p78-gt-nano-3-0-ti-blasted.jpg"},{"name":"钛本色","hex":"#A1A1A1","img":"/assets/products/p78-gt-nano-3-0-ti-natural.jpg"},{"name":"黑","hex":"#5A5A5B","img":"/assets/products/p78-gt-nano-3-0-black.jpg"}],"lightScenes":["/assets/products/p78-gt-nano-3-0-light.jpg"],"lightScene":"/assets/products/p78-gt-nano-3-0-light.jpg","lumMax":720,"throwMax":405,"runMax":50,"gallery":["/assets/products/p78-gt-nano-3-0-g12559.jpg","/assets/products/p78-gt-nano-3-0-g12613.jpg","/assets/products/p78-gt-nano-3-0-g12655.jpg","/assets/products/p78-gt-nano-3-0-g12687.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p78-gt-nano-3-0-light-1794555256014.jpg"}],"shops":[],"sortIndex":20},{"id":"p79-gt-nano-6-0","model":"GT NANO 6.0","subtitle":"多光源迷你远射手电筒","price":428,"category":"EDC","gears":[{"name":"低亮","lum":35,"runtime":"4H","throw":null},{"name":"中亮","lum":240,"runtime":"50M","throw":null},{"name":"高亮","lum":450,"runtime":"75S+45M","throw":null},{"name":"极亮","lum":720,"runtime":"50S+42M","throw":410},{"name":"白光低亮","lum":8,"runtime":"18H","throw":null},{"name":"白光高亮","lum":22,"runtime":"7H","throw":null},{"name":"RGB常亮","lum":null,"runtime":"6H","throw":null},{"name":"RGB闪烁","lum":null,"runtime":"12H","throw":null},{"name":"UV","lum":null,"runtime":"4H","throw":null}],"specs":{"光源":"主灯 NM1 LED, 侧灯 RGBW LED/UV","功率":"10.5W(最大)","光强":"42000坎德拉(最大)","电池":"2*10280锂离子电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"67*25.6毫米","净重":"约54克(含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p79-gt-nano-6-0.jpg","colors":[{"name":"绿","hex":"#748263","img":"/assets/products/p79-gt-nano-6-0-green.jpg"},{"name":"黑","hex":"#5F5F5F","img":"/assets/products/p79-gt-nano-6-0-black.jpg"}],"lightScenes":["/assets/products/p79-gt-nano-6-0-light.jpg","/assets/products/p79-gt-nano-6-0-light-2.jpg","/assets/products/p79-gt-nano-6-0-light-3.jpg"],"lightScene":"/assets/products/p79-gt-nano-6-0-light.jpg","lumMax":720,"throwMax":410,"runMax":18,"gallery":["/assets/products/p79-gt-nano-6-0-g4836.jpg","/assets/products/p79-gt-nano-6-0-g4891.jpg","/assets/products/p79-gt-nano-6-0-g4935.jpg","/assets/products/p79-gt-nano-6-0-g4966.jpg","/assets/products/p79-gt-nano-6-0-g5006.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p79-gt-nano-6-0-light-1794555501559.jpg"},{"type":"image","src":"/assets/lights/p79-gt-nano-6-0-light-1794555506276.jpg"},{"type":"image","src":"/assets/lights/p79-gt-nano-6-0-light-1794555509855.jpg"}],"shops":[],"sortIndex":21},{"id":"p80-gt-nano-pro","model":"GT NANO PRO","subtitle":"迷你可充电手电筒","price":329,"category":"EDC","gears":[{"name":"月光","lum":1,"runtime":"42H","throw":null},{"name":"低亮","lum":100,"runtime":"1H 35M","throw":null},{"name":"中亮","lum":500,"runtime":"27M","throw":null},{"name":"高亮","lum":1050,"runtime":"1M+25M","throw":null},{"name":"极亮","lum":1700,"runtime":"45S+24M","throw":160}],"specs":{"光源":"3*高性能LED","功率":"13W(最大)","光强":"6375坎德拉(最大)","电池":"1*10300锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"69*24*14毫米","净重":"约35克(铝合金，含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p80-gt-nano-pro.jpg","colors":[{"name":"绿","hex":"#596A3F","img":"/assets/products/p80-gt-nano-pro-green.jpg"},{"name":"钛喷砂","hex":"#989999","img":"/assets/products/p80-gt-nano-pro-ti-blasted.jpg"},{"name":"钛本色","hex":"#A0A0A0","img":"/assets/products/p80-gt-nano-pro-ti-natural.jpg"},{"name":"黑","hex":"#545454","img":"/assets/products/p80-gt-nano-pro-black.jpg"}],"lightScenes":["/assets/products/p80-gt-nano-pro-light.jpg"],"lightScene":"/assets/products/p80-gt-nano-pro-light.jpg","lumMax":1700,"throwMax":160,"runMax":42,"gallery":["/assets/products/p80-gt-nano-pro-g29053.jpg","/assets/products/p80-gt-nano-pro-g29110.jpg","/assets/products/p80-gt-nano-pro-g29149.jpg","/assets/products/p80-gt-nano-pro-g29196.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p80-gt-nano-pro-light-1794555745762.jpg"}],"shops":[],"sortIndex":22},{"id":"p81-gt4659","model":"GT4695","subtitle":"高性能可充电户外手电筒","price":1189,"category":"搜救","gears":[{"name":"月光","lum":1,"runtime":"120Day","throw":null},{"name":"高亮1","lum":2000,"runtime":"9H","throw":null},{"name":"高亮2","lum":6000,"runtime":"50S+8H 50M","throw":null},{"name":"极亮","lum":15000,"runtime":"30S+8H 50M","throw":800},{"name":"爆闪/SOS/信标","lum":6000,"runtime":null,"throw":null}],"specs":{"光源":"SFP55 LED","功率":"160W(最大)","光强":"160000坎德拉(最大)","电池":"1*46950锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"68*50*160毫米","净重":"约778克(含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p81-gt4659.jpg","colors":[{"name":"灰","hex":"#797979","img":"/assets/products/p81-gt4659-grey.jpg"},{"name":"绿","hex":"#6B7B5E","img":"/assets/products/p81-gt4659-green.jpg"},{"name":"黑","hex":"#5A5A5A","img":"/assets/products/p81-gt4659-black.jpg"}],"lightScenes":["/assets/products/p81-gt4659-light.jpg"],"lightScene":"/assets/products/p81-gt4659-light.jpg","lumMax":15000,"throwMax":800,"runMax":2880,"gallery":["/assets/products/p81-gt4659-g1.jpg","/assets/products/p81-gt4659-g3.jpg","/assets/products/p81-gt4659-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p81-gt4659-light-1794556158697.jpg"}],"shops":[],"sortIndex":23},{"id":"p82-gta","model":"GTA","subtitle":"户外小型远射手电筒","price":219,"category":"远射","gears":[{"name":"低亮","lum":10,"runtime":"48H","throw":null},{"name":"中亮","lum":55,"runtime":"6H","throw":null},{"name":"高亮","lum":230,"runtime":"1H 40M","throw":null},{"name":"极亮","lum":550,"runtime":"45M","throw":585},{"name":"爆闪","lum":230,"runtime":null,"throw":null}],"specs":{"光源":"OSRAM KW.CSLNM1.TG LED","功率":"6.2W","光强":"85000坎德拉(最大)","电池":"1*14500锂离子/AA电池","防水":"IPX-8, 水下2米","防跌落":"1米","尺寸":"36*19*113毫米","净重":"60克(铝合金)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p82-gta.jpg","colors":[{"name":"红","hex":"#C86057","img":"/assets/products/p82-gta-red.jpg"},{"name":"黑","hex":"#5F5F5F","img":"/assets/products/p82-gta-black.jpg"}],"lightScenes":["/assets/products/p82-gta-light.jpg"],"lightScene":"/assets/products/p82-gta-light.jpg","lumMax":550,"throwMax":585,"runMax":48,"gallery":["/assets/products/p82-gta-g2.jpg","/assets/products/p82-gta-g3.jpg","/assets/products/p82-gta-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p82-gta-light-1794556407338.jpg"}],"shops":[],"sortIndex":24},{"id":"p84-iyp365","model":"IYP365","subtitle":"便携防水笔形手电筒","price":199,"category":"EDC","gears":[{"name":"低亮（XP-G3 LED）","lum":3,"runtime":"50H","throw":null},{"name":"中亮（XP-G3 LED）","lum":40,"runtime":"25H","throw":null},{"name":"高亮（XP-G3 LED）","lum":200,"runtime":"35M","throw":60},{"name":"低亮（Nichia LED）","lum":1.5,"runtime":"50H","throw":null},{"name":"中亮（Nichia LED）","lum":25,"runtime":"25H","throw":null},{"name":"高亮（Nichia LED）","lum":145,"runtime":"35M","throw":45}],"specs":{"光源":"Cree XP-G3 / Nichia 219C","功率":"2.1W","光强":"900坎德拉(最大)","电池":"2*AAA(碱性/镍氢)或1*10880锂电池(3.0V), 电池另售","防水":"IP68, 水下2米","防跌落":"1.5米","尺寸":"128*14.5*12.5毫米","净重":"约23克( 不含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p84-iyp365.jpg","colors":[{"name":"粉","hex":"#BC9CA4","img":"/assets/products/p84-iyp365-pink.jpg"},{"name":"黑","hex":"#595958","img":"/assets/products/p84-iyp365-black.jpg"}],"lightScenes":["/assets/products/p84-iyp365-light.jpg"],"lightScene":"/assets/products/p84-iyp365-light.jpg","lumMax":200,"throwMax":60,"runMax":50,"gallery":["/assets/products/p84-iyp365-g1.jpg","/assets/products/p84-iyp365-g2.jpg","/assets/products/p84-iyp365-g3.jpg","/assets/products/p84-iyp365-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p84-iyp365-light-1794557282787.jpg"}],"shops":[],"sortIndex":25},{"id":"p85-l1","model":"L1","subtitle":"L型拐角灯/头灯","price":299,"category":"多功能","gears":[{"name":"低亮","lum":100,"runtime":"5.5H","throw":null},{"name":"中亮","lum":400,"runtime":"1H 20M","throw":null},{"name":"高亮","lum":900,"runtime":"2M+1H 15M","throw":126},{"name":"爆闪/SOS/信标","lum":900,"runtime":null,"throw":null}],"specs":{"光源":"高性能LED灯珠","功率":"8W(最大)","光强":"4000坎德拉(最大)","电池":"1*14500锂离子电池/1*AA电池","防水":"IPX6","防跌落":"1米","尺寸":"21.5*19*95毫米","净重":"约41克(不含头灯带和电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p85-l1.jpg","colors":[{"name":"绿","hex":"#7E8466","img":"/assets/products/p85-l1-green.jpg"},{"name":"黑","hex":"#615C58","img":"/assets/products/p85-l1-black.jpg"}],"lightScenes":["/assets/products/p85-l1-light.jpg"],"lightScene":"/assets/products/p85-l1-light.jpg","lumMax":900,"throwMax":126,"runMax":5.5,"gallery":["/assets/products/p85-l1-g6435.jpg","/assets/products/p85-l1-g6491.jpg","/assets/products/p85-l1-g6525.jpg","/assets/products/p85-l1-g6568.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p85-l1-light-1794557695372.jpg"}],"shops":[],"sortIndex":26},{"id":"p86-l3","model":"L3","subtitle":"迷你轻便拐角灯/头灯","price":149,"category":"多功能","gears":[{"name":"月光","lum":3,"runtime":"36H","throw":null},{"name":"低亮","lum":50,"runtime":"2H 35M","throw":null},{"name":"中亮","lum":100,"runtime":"1H 15M","throw":null},{"name":"高亮","lum":400,"runtime":"60S+1H 10M","throw":45}],"specs":{"光源":"高性能暖白LED","功率":"3.2W(最大)","光强":"500坎德拉(最大)","电池":"10440锂电池/AAA电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"15.5*13.0*64.5毫米","净重":"约11.7克(不含灯带和电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p86-l3.jpg","colors":[{"name":"枪灰","hex":"#807670","img":"/assets/products/p86-l3-gun-grey.jpg"},{"name":"橙","hex":"#CC8154","img":"/assets/products/p86-l3-orange.jpg"}],"lightScenes":["/assets/products/p86-l3-light.jpg"],"lightScene":"/assets/products/p86-l3-light.jpg","lumMax":400,"throwMax":45,"runMax":36,"gallery":["/assets/products/p86-l3-g2.jpg","/assets/products/p86-l3-g3.jpg","/assets/products/p86-l3-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p86-l3-light-1794557883749.jpg"}],"shops":[],"sortIndex":27},{"id":"p87-l5","model":"L5","subtitle":"多功能AA拐角灯","price":899,"category":"多功能","gears":[{"name":"节能","lum":8,"runtime":"32H","throw":null},{"name":"低亮","lum":75,"runtime":"4H 35M","throw":null},{"name":"中亮","lum":200,"runtime":"2H 10M","throw":null},{"name":"高亮","lum":500,"runtime":"2M+2H","throw":52}],"specs":{"光源":"高性能LED","功率":"6W（最大）","光强":"672坎德拉(最大)","电池":"1*14500锂离子电池/AA电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"20.5*17*77.5毫米","净重":"约25.6克（不含灯带和电池）"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p87-l5.jpg","colors":[{"name":"绿","hex":"#676D4F","img":"/assets/products/p87-l5-green.jpg"},{"name":"蓝","hex":"#3776AF","img":"/assets/products/p87-l5-blue.jpg"},{"name":"银","hex":"#B1ADAB","img":"/assets/products/p87-l5-silver.jpg"}],"lightScenes":["/assets/products/p87-l5-light.jpg"],"lightScene":"/assets/products/p87-l5-light.jpg","gallery":["/assets/products/p87-l5-g38139.jpg","/assets/products/p87-l5-g38178.jpg","/assets/products/p87-l5-g38213.jpg","/assets/products/p87-l5-g38258.jpg"],"lumMax":500,"throwMax":52,"runMax":32,"lightMedia":[{"type":"image","src":"/assets/lights/p87-l5-light-1794558092372.jpg"}],"shops":[],"sortIndex":28},{"id":"p88-mach-5-0","model":"MACH 5.0","subtitle":"高性能可充电户外手电筒","price":2299,"category":"搜救","gears":[{"name":"月光档","lum":3,"runtime":"66Day","throw":null},{"name":"高亮1","lum":2000,"runtime":"9H","throw":null},{"name":"高亮2","lum":4000,"runtime":"3H 30M","throw":null},{"name":"极亮","lum":15000,"runtime":"45S+3H 20M","throw":1200},{"name":"爆闪/SOS/信标","lum":4000,"runtime":null,"throw":null}],"specs":{"光源":"6*高性能LED","功率":"180W(最大)","光强":"360000坎德拉(最大)","电池":"1*46950锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"68*53*177毫米","净重":"约900克(含电池, 不含提手)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p88-mach-5-0.jpg","colors":[{"name":"亮银","hex":"#B5B5B5","img":"/assets/products/p88-mach-5-0-bright-silver.jpg"},{"name":"绿","hex":"#818D6C","img":"/assets/products/p88-mach-5-0-green.jpg"},{"name":"黑","hex":"#616161","img":"/assets/products/p88-mach-5-0-black.jpg"}],"lightScenes":["/assets/products/p88-mach-5-0-light.jpg"],"lightScene":"/assets/products/p88-mach-5-0-light.jpg","lumMax":15000,"throwMax":1200,"runMax":1584,"gallery":["/assets/products/p88-mach-5-0-g2221.jpg","/assets/products/p88-mach-5-0-g2277.jpg","/assets/products/p88-mach-5-0-g2313.jpg","/assets/products/p88-mach-5-0-g2355.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p88-mach-5-0-light-1794558513277.jpg"}],"shops":[],"sortIndex":29},{"id":"p89-mach-cool","model":"MACH 水冷版","subtitle":"30000流明爆亮搜救手电","price":2399,"category":"搜救","gears":[{"name":"月光","lum":5,"runtime":"40Day","throw":null},{"name":"低亮","lum":100,"runtime":"160H","throw":null},{"name":"中亮1","lum":300,"runtime":"45H","throw":null},{"name":"中亮2","lum":1300,"runtime":"16H","throw":null},{"name":"高亮1","lum":2500,"runtime":"8H","throw":null},{"name":"高亮2","lum":10000,"runtime":"2H 20M","throw":null},{"name":"极亮","lum":30000,"runtime":"20M","throw":652},{"name":"爆闪/SOS/信标","lum":6000,"runtime":null,"throw":null}],"specs":{"光源":"XHP50 LED + 高性能LED","功率":"265W(最大)","光强":"106250坎德拉(最大)","电池":"1*46950锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"68*53*191毫米","净重":"约1010克(含电池)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p89-mach-cool.jpg","colors":[{"name":"亮银","hex":"#A4A5A5","img":"/assets/products/p89-mach-cool-bright-silver.jpg"},{"name":"军绿","hex":"#6D785F","img":"/assets/products/p89-mach-cool-army-green.jpg"}],"lightScenes":["/assets/products/p89-mach-cool-light.jpg","/assets/products/p89-mach-cool-light-2.jpg"],"lightScene":"/assets/products/p89-mach-cool-light.jpg","lumMax":30000,"throwMax":651,"runMax":960,"gallery":["/assets/products/p89-mach-cool-g90428.jpg","/assets/products/p89-mach-cool-g90491.jpg","/assets/products/p89-mach-cool-g90521.jpg","/assets/products/p89-mach-cool-g90556.jpg","/assets/products/p89-mach-cool-g90597.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p89-mach-cool-light-1794558817285.jpg"},{"type":"image","src":"/assets/lights/p89-mach-cool-light-1794558821369.jpg"}],"shops":[],"sortIndex":30},{"id":"p90-moonbox-3-0","model":"MOONBOX 3.0","subtitle":"多功能智能扁平手电","price":553,"category":"多功能","gears":[{"name":"节能","lum":5,"runtime":"36H","throw":null},{"name":"低亮","lum":28,"runtime":"18H","throw":null},{"name":"中亮","lum":130,"runtime":"4.5H","throw":null},{"name":"高亮","lum":500,"runtime":"2M+2H","throw":null},{"name":"极亮","lum":1200,"runtime":"1M+2H","throw":112}],"specs":{"光源":"高性能LED主灯 + UV灯 + 红激光 + 绿激光 + RGB彩灯","功率":"12W(最大)","光强":"3125坎德拉(最大)","电池":"内置3.7V/1500mAh锂聚合物电池","防水":"IPX-6","防跌落":"1米","尺寸":"16*31*110毫米","净重":"约106克(铝合金)/约144.4克(钛合金)"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p90-moonbox-3-0.jpg","colors":[{"name":"橙","hex":"#B56B34","img":"/assets/products/p90-moonbox-3-0-orange.jpg"},{"name":"粉","hex":"#975679","img":"/assets/products/p90-moonbox-3-0-pink.jpg"},{"name":"紫","hex":"#977AAB","img":"/assets/products/p90-moonbox-3-0-purple.jpg"},{"name":"红铜","hex":"#D29E89","img":"/assets/products/p90-moonbox-3-0-copper.jpg"},{"name":"绿","hex":"#68745D","img":"/assets/products/p90-moonbox-3-0-green.jpg"},{"name":"蓝","hex":"#62A0A0","img":"/assets/products/p90-moonbox-3-0-blue.jpg"},{"name":"钛","hex":"#A09C9B","img":"/assets/products/p90-moonbox-3-0-ti.jpg"},{"name":"黑","hex":"#4D4D4D","img":"/assets/products/p90-moonbox-3-0-black.jpg"}],"lightScenes":["/assets/products/p90-moonbox-3-0-light.jpg","/assets/products/p90-moonbox-3-0-light-2.jpg"],"lightScene":"/assets/products/p90-moonbox-3-0-light.jpg","lumMax":1200,"throwMax":112,"runMax":36,"gallery":["/assets/products/p90-moonbox-3-0-g65846.jpg","/assets/products/p90-moonbox-3-0-g65893.jpg","/assets/products/p90-moonbox-3-0-g65961.jpg","/assets/products/p90-moonbox-3-0-g66005.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p90-moonbox-3-0-light-1794559100327.jpg"},{"type":"image","src":"/assets/lights/p90-moonbox-3-0-light-1794559104129.jpg"}],"shops":[],"sortIndex":31},{"id":"p91-moonbox-4-0","model":"MOONBOX 4.0","subtitle":"多光源多功能呢LED手电筒","price":1188,"category":"多功能","gears":[{"name":"节能","lum":2,"runtime":"90H","throw":null},{"name":"低亮","lum":30,"runtime":"32H","throw":null},{"name":"中亮","lum":140,"runtime":"8H","throw":null},{"name":"高亮","lum":500,"runtime":"2M+4H","throw":null},{"name":"极亮","lum":1600,"runtime":"1M+4H","throw":300}],"specs":{"光源":"SFT25 LED + UV灯 + 绿激光 + RGB彩灯","功率":"20W(最大)","光强":"22500cd/7075cd(14100/AA)","电池":"2*14100锂电池或4*AA电池","防水":"IPX-6","防跌落":"1米","尺寸":"22.8*44*139毫米","净重":"约298克"},"quality":"pending","releaseAt":"2026-11-06","cover":"/assets/products/p91-moonbox-4-0.jpg","colors":[{"name":"枪灰","hex":"#7E7E7E","img":"/assets/products/p91-moonbox-4-0-gun-grey.jpg"},{"name":"橙","hex":"#D08566","img":"/assets/products/p91-moonbox-4-0-orange.jpg"},{"name":"绿","hex":"#7E8875","img":"/assets/products/p91-moonbox-4-0-green.jpg"}],"lightScenes":["/assets/products/p91-moonbox-4-0-light.jpg","/assets/products/p91-moonbox-4-0-light-2.jpg"],"lightScene":"/assets/products/p91-moonbox-4-0-light.jpg","lumMax":1600,"throwMax":300,"runMax":90,"gallery":["/assets/products/p91-moonbox-4-0-g89137.jpg","/assets/products/p91-moonbox-4-0-g89182.jpg","/assets/products/p91-moonbox-4-0-g89232.jpg","/assets/products/p91-moonbox-4-0-g89270.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p91-moonbox-4-0-light-1794559320847.jpg"},{"type":"image","src":"/assets/lights/p91-moonbox-4-0-light-1794559324551.jpg"}],"shops":[],"sortIndex":32},{"id":"p23-thanos-2-0","model":"THANOS 2.0","subtitle":"远泛一体长续航强光手电筒","price":1299,"category":"搜救","cover":"/assets/products/p23-thanos-2-0.jpg","gears":[],"lumMax":12600,"throwMax":1300,"runMax":1438,"specs":{"光源":"高性能LED + 白激光发射器","功率":"86.4W (最大)","光强":"426200坎德拉(LEP)","电池":"1*46950锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"72*52*163毫米","净重":"约938克（不含电池）"},"quality":"partial","releaseAt":"2026-10-07","colors":[{"name":"绿","hex":"#7F8F5F","img":"/assets/products/p23-thanos-2-0-green.jpg"},{"name":"黑","hex":"#676767","img":"/assets/products/p23-thanos-2-0-black.jpg"}],"lightScenes":["/assets/products/p23-thanos-2-0-light.jpg"],"lightScene":"/assets/products/p23-thanos-2-0-light.jpg","gallery":["/assets/products/p23-thanos-2-0-g39977.jpg","/assets/products/p23-thanos-2-0-g40043.jpg","/assets/products/p23-thanos-2-0-g40077.jpg","/assets/products/p23-thanos-2-0-g40131.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p23-thanos-2-0-light-1794559686417.jpg"}],"shops":[],"sortIndex":33},{"id":"p22-w2","model":"W2","subtitle":"TYPE-C 充电多光源磁吸手电筒","price":488,"category":"通用","cover":"/assets/products/p22-w2.jpg","gears":[{"name":"节能档（泛光）","lum":15,"runtime":"120H","throw":null},{"name":"低亮档（泛光）","lum":160,"runtime":"16H","throw":null},{"name":"高亮档（泛光）","lum":1000,"runtime":"5M+3H 30M","throw":null},{"name":"聚光","lum":600,"runtime":"3M+2H 20M","throw":null},{"name":"组合光","lum":1500,"runtime":"3M+1H 40M","throw":700},{"name":"红光/SOS","lum":130,"runtime":"5H/10H","throw":null},{"name":"爆闪","lum":600,"runtime":"2H 30M","throw":null}],"lumMax":1500,"throwMax":700,"runMax":120,"specs":{"光源":"Luminus SFT25 LED + COB红白光","功率":"27W (最大)","光强":"122500坎德拉 (最大)","电池":"1*26800锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"45*31.5*148毫米","净重":"约338克（含电池）"},"quality":"partial","releaseAt":"2026-10-06","colors":[{"name":"绿","hex":"#8B9386","img":"/assets/products/p22-w2-green.jpg"},{"name":"银","hex":"#AEAEAB","img":"/assets/products/p22-w2-silver.jpg"},{"name":"黑","hex":"#888886","img":"/assets/products/p22-w2-black.jpg"}],"lightScenes":["/assets/products/p22-w2-light.jpg","/assets/products/p22-w2-light-2.jpg"],"lightScene":"/assets/products/p22-w2-light.jpg","gallery":["/assets/products/p22-w2-g39651.jpg","/assets/products/p22-w2-g39688.jpg","/assets/products/p22-w2-g39732.jpg","/assets/products/p22-w2-g39765.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p22-w2-light-1794559858044.jpg"},{"type":"image","src":"/assets/lights/p22-w2-light-1794559862154.jpg"}],"shops":[],"sortIndex":34},{"id":"p21-mach-3-0","model":"MACH 3.0","subtitle":"物理散热可充电大容量手电筒","price":2999,"category":"多功能","cover":"/assets/products/p21-mach-3-0.jpg","gears":[{"name":"节能","lum":30,"runtime":"576H","throw":null},{"name":"低亮","lum":200,"runtime":"160H","throw":null},{"name":"高亮","lum":10000,"runtime":"2H 30M","throw":null},{"name":"极亮","lum":50000,"runtime":"40S+2H 25M","throw":612},{"name":"爆闪/SOS/信标","lum":10000,"runtime":null,"throw":null}],"lumMax":50000,"throwMax":612,"runMax":576,"specs":{"光源":"8 * 高性能LED","功率":"360W (最大)","光强":"95750坎德拉 (最大)","电池":"2*46950锂离子电池","防水":"IPX8,  水下2米","防跌落":"1米","尺寸":"78*51*282毫米","净重":"约1540克（含电池）"},"quality":"partial","releaseAt":"2026-10-05","colors":[{"name":"绿","hex":"#758060","img":"/assets/products/p21-mach-3-0-green.jpg"},{"name":"铝本色","hex":"#B0B1B1","img":"/assets/products/p21-mach-3-0-alu.jpg"},{"name":"黑","hex":"#525252","img":"/assets/products/p21-mach-3-0-black.jpg"}],"lightScenes":["/assets/products/p21-mach-3-0-light.jpg"],"lightScene":"/assets/products/p21-mach-3-0-light.jpg","gallery":["/assets/products/p21-mach-3-0-g52854.jpg","/assets/products/p21-mach-3-0-g52905.jpg","/assets/products/p21-mach-3-0-g52946.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p21-mach-3-0-light-1794560262617.jpg"}],"shops":[],"sortIndex":35},{"id":"p20-df1-pro","model":"DF1 PRO","subtitle":"33140 三元锂手电筒","price":659,"category":"战术户外","cover":"/assets/products/p20-df1-pro.jpg","gears":[{"name":"月光","lum":3,"runtime":"720H","throw":null},{"name":"低亮","lum":300,"runtime":"24H","throw":null},{"name":"中亮","lum":1500,"runtime":"5H 30M","throw":null},{"name":"高亮","lum":4500,"runtime":"50S+5H 20M","throw":null},{"name":"极亮","lum":10000,"runtime":"30S+5H 20M","throw":378},{"name":"爆闪/SOS/信标","lum":4500,"runtime":null,"throw":null}],"lumMax":10000,"throwMax":380,"runMax":720,"specs":{"光源":"高性能LED灯珠","功率":"88W (最大)","光强":"36250坎德拉 (最大)","电池":"1*33140锂电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"49.5*40*206毫米","净重":"约620克（含电池）"},"quality":"partial","releaseAt":"2026-10-04","colors":[{"name":"橙","hex":"#CF5D2A","img":"/assets/products/p20-df1-pro-orange.jpg"},{"name":"绿","hex":"#4E5F3A","img":"/assets/products/p20-df1-pro-green.jpg"},{"name":"黑","hex":"#727272","img":"/assets/products/p20-df1-pro-black.jpg"}],"lightScenes":["/assets/products/p20-df1-pro-light.jpg"],"lightScene":"/assets/products/p20-df1-pro-light.jpg","gallery":["/assets/products/p20-df1-pro-g60304.jpg","/assets/products/p20-df1-pro-g60352.jpg","/assets/products/p20-df1-pro-g60415.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p20-df1-pro-light-1794560629863.jpg"}],"shops":[],"sortIndex":36},{"id":"p19-mach","model":"MACH 探索版","subtitle":"超长续航移动照明灯","price":1189,"category":"战术户外","cover":"/assets/products/p19-mach-g45998.jpg","gears":[{"name":"月光","lum":5,"runtime":"960H","throw":null},{"name":"低亮","lum":100,"runtime":"180H","throw":null},{"name":"中亮 1","lum":300,"runtime":"60H","throw":null},{"name":"中亮 2","lum":1300,"runtime":"15H","throw":null},{"name":"高亮 1","lum":2500,"runtime":"8H","throw":null},{"name":"高亮 2","lum":8000,"runtime":"2H 20M","throw":null},{"name":"极亮","lum":26000,"runtime":"45S+2H 18M","throw":520},{"name":"爆闪/SOS/信标","lum":6000,"runtime":null,"throw":null}],"lumMax":26000,"throwMax":520,"runMax":960,"specs":{"光源":"8 * HP50 LED","功率":"234W (最大)","光强":"67500坎德拉 (最大)","电池":"1*46950锂离子电池","防水":"IPX4","防跌落":"1米","尺寸":"68*53*163毫米","净重":"约760克（含电池）"},"quality":"partial","releaseAt":"2026-10-03","gallery":["/assets/products/p19-mach-g45998.jpg","/assets/products/p19-mach-g46060.jpg","/assets/products/p19-mach-g46094.jpg","/assets/products/p19-mach-g46144.jpg"],"lightMedia":[],"shops":[],"sortIndex":37},{"id":"p18-edc-pico","model":"EDC PICO 3.0","subtitle":"小巧精悍可充电钥匙灯","price":110,"category":"EDC","cover":"/assets/products/p18-edc-pico.jpg","gears":[{"name":"低亮","lum":15,"runtime":"14H","throw":null},{"name":"高亮","lum":130,"runtime":"1.5H","throw":40}],"lumMax":130,"throwMax":40,"runMax":14,"specs":{"光源":"OSRAM LED","功率":"1W（最大）","光强":"400坎德拉（最大）","电池":"内置10300锂离子电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"14*57毫米","净重":"约17克"},"quality":"partial","releaseAt":"2026-10-02","colors":[{"name":"粉","hex":"#AE9897","img":"/assets/products/p18-edc-pico-pink.jpg"},{"name":"黑","hex":"#5D5D5D","img":"/assets/products/p18-edc-pico-black.jpg"}],"lightScenes":["/assets/products/p18-edc-pico-light.jpg"],"lightScene":"/assets/products/p18-edc-pico-light.jpg","gallery":["/assets/products/p18-edc-pico-g3.jpg","/assets/products/p18-edc-pico-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p18-edc-pico-light-1794561309934.jpg"}],"shops":[],"sortIndex":38},{"id":"p12-d3","model":"D3","subtitle":"可充电磁吸手电筒","price":479,"category":"战术户外","cover":"/assets/products/p12-d3.jpg","gears":[{"name":"月光","lum":1.5,"runtime":"30H","throw":null},{"name":"低亮","lum":200,"runtime":"21H","throw":null},{"name":"中亮","lum":1000,"runtime":"3.5H","throw":null},{"name":"高亮","lum":3000,"runtime":"50S+3H 20M","throw":null},{"name":"极亮","lum":7000,"runtime":"30S+ 3H 20M","throw":650},{"name":"爆闪/SOS","lum":3000,"runtime":null,"throw":null}],"lumMax":7000,"throwMax":650,"runMax":30,"specs":{"光源":"SFN60 LED","功率":"78W(最大)","光强":"105000坎德拉 (最大)","电池":"1*26800锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"45.5*31.5*135毫米","净重":"约182克（含电池）"},"quality":"ok","releaseAt":"2026-10-01","colors":[{"name":"绿","hex":"#536042","img":"/assets/products/p12-d3-green.jpg"},{"name":"黑","hex":"#4D4D4D","img":"/assets/products/p12-d3-black.jpg"}],"lightScenes":["/assets/products/p12-d3-light.jpg"],"lightScene":"/assets/products/p12-d3-light.jpg","gallery":["/assets/products/p12-d3-g1.jpg","/assets/products/p12-d3-g3.jpg","/assets/products/p12-d3-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p12-d3-light-1794561492375.jpg"}],"shops":[],"sortIndex":39},{"id":"p61-t90x","model":"T90X","subtitle":"高性能户外手电筒","price":998,"category":"远射","cover":"/assets/products/p61-t90x.jpg","gears":[{"name":"月光档","lum":1.5,"runtime":"720H","throw":null},{"name":"低亮","lum":180,"runtime":"12H","throw":null},{"name":"中亮","lum":900,"runtime":"3H 10M","throw":null},{"name":"高亮","lum":2000,"runtime":"3M+3H","throw":null},{"name":"极亮","lum":5000,"runtime":"40S+3H","throw":1100},{"name":"爆闪/SOS","lum":2000,"runtime":null,"throw":null}],"lumMax":5000,"throwMax":1100,"runMax":719,"specs":{"光源":"Luminus SFT90X LED","功率":"60W(最大)","光强":"302500坎德拉 (最大)","电池":"1*21700锂离子电池, 长度小于71毫米","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"59.5*29*165毫米","净重":"约342克（含电池）"},"quality":"ok","releaseAt":"2026-09-28","colors":[{"name":"亮银","hex":"#A5A6A6","img":"/assets/products/p61-t90x-bright-silver.jpg"},{"name":"绿","hex":"#6F7D61","img":"/assets/products/p61-t90x-green.jpg"},{"name":"黑","hex":"#5C5C5C","img":"/assets/products/p61-t90x-black.jpg"}],"lightScenes":["/assets/products/p61-t90x-light.jpg"],"lightScene":"/assets/products/p61-t90x-light.jpg","gallery":["/assets/products/p61-t90x-g17508.jpg","/assets/products/p61-t90x-g17557.jpg","/assets/products/p61-t90x-g17603.jpg","/assets/products/p61-t90x-g17649.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p61-t90x-light-1794561742323.jpg"}],"shops":[],"sortIndex":40},{"id":"p58-mach","model":"MACH 4.0","subtitle":"高性能可充电搜救手电筒","price":1799,"category":"搜救","cover":"/assets/products/p58-mach-g54259.jpg","gears":[{"name":"月光","lum":3,"runtime":"66Day","throw":null},{"name":"高亮1","lum":2000,"runtime":"9H","throw":null},{"name":"高亮2","lum":40000,"runtime":"3M 30M","throw":null},{"name":"极亮","lum":15000,"runtime":"45S+3H 20M","throw":1200},{"name":"爆闪/SOS/信标","lum":4000,"runtime":null,"throw":null}],"lumMax":15000,"throwMax":1200,"runMax":1584,"specs":{"光源":"6* 高性能LED","功率":"180W (最大)","光强":"360000坎德拉 (最大)","电池":"1*46950锂离子电池","防水":"IPX8， 水下2米","防跌落":"1米","尺寸":"68*53*177毫米","净重":"约900克（含电池,不含提手）"},"quality":"partial","releaseAt":"2026-09-25","colors":[{"name":"黑","hex":"#1A1D22","img":"/assets/products/p58-mach-color-0-1794795537611.jpg"},{"name":"绿","hex":"#1A1D22","img":"/assets/products/p58-mach-color-1-1794795541861.jpg"}],"lightScenes":["/assets/products/p58-mach-light.jpg"],"lightScene":"/assets/products/p58-mach-light.jpg","gallery":["/assets/products/p58-mach-g54259.jpg","/assets/products/p58-mach-g54304.jpg","/assets/products/p58-mach-g54341.jpg","/assets/products/p58-mach-g54374.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p58-mach-light-1794795600106.jpg"}],"shops":[],"sortIndex":41},{"id":"p57-mach-6-0","model":"MACH 6.0","subtitle":"可充电爆亮搜救手电筒","price":2299,"category":"搜救","cover":"/assets/products/p57-mach-6-0-g84702.jpg","gears":[{"name":"月光","lum":5,"runtime":"40Day","throw":null},{"name":"低亮","lum":100,"runtime":"180H","throw":null},{"name":"中亮1","lum":300,"runtime":"60H","throw":null},{"name":"中亮2","lum":1300,"runtime":"15H","throw":null},{"name":"高亮1","lum":2500,"runtime":"8H","throw":null},{"name":"高亮2","lum":8000,"runtime":"2H 20M","throw":null},{"name":"极亮","lum":30000,"runtime":"45S+2H 18M","throw":550},{"name":"爆闪/SOS/信标","lum":6000,"runtime":null,"throw":null}],"lumMax":30000,"throwMax":550,"runMax":960,"specs":{"光源":"8 * Cree XHP50 LED","功率":"265W (最大)","光强":"75500坎德拉 (最大)","电池":"1*46950锂离子电池","防水":"IPX8， 水下2米","防跌落":"1米","尺寸":"68*53*163毫米","净重":"约855克（含电池）"},"quality":"ok","releaseAt":"2026-09-24","colors":[{"name":"绿","hex":"#6C7A57","img":"/assets/products/p57-mach-6-0-green.jpg"},{"name":"黑","hex":"#4A4B4B","img":"/assets/products/p57-mach-6-0-black.jpg"}],"lightScenes":["/assets/products/p57-mach-6-0-light.jpg"],"lightScene":"/assets/products/p57-mach-6-0-light.jpg","gallery":["/assets/products/p57-mach-6-0-g84702.jpg","/assets/products/p57-mach-6-0-g84760.jpg","/assets/products/p57-mach-6-0-g84787.jpg","/assets/products/p57-mach-6-0-g84833.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p57-mach-6-0-light-1794796032945.jpg"}],"shops":[],"sortIndex":42},{"id":"p56-thor-5","model":"THOR 5","subtitle":"白激光手电筒","price":1999,"category":"远射","cover":"/assets/products/p56-thor-5-g91342.jpg","gears":[{"name":"低亮","lum":50,"runtime":"2H","throw":null},{"name":"高亮","lum":370,"runtime":"5M+1H","throw":null},{"name":"爆闪/ 警闪","lum":220,"runtime":null,"throw":1200}],"lumMax":370,"throwMax":1200,"runMax":2,"specs":{"光源":"白色激光发射器","功率":"9W (最大)","光强":"360000坎德拉 (最大)","电池":"1*18350锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"92*34.5毫米","净重":"约215克"},"quality":"ok","releaseAt":"2026-09-23","colors":[{"name":"钛喷砂","hex":"#9C9A9A","img":"/assets/products/p56-thor-5-ti-blasted.jpg"},{"name":"钛本色","hex":"#B8B8B8","img":"/assets/products/p56-thor-5-ti-natural.jpg"},{"name":"钛石洗","hex":"#88837E","img":"/assets/products/p56-thor-5-ti-stonewash.jpg"}],"lightScenes":["/assets/products/p56-thor-5-light.jpg"],"lightScene":"/assets/products/p56-thor-5-light.jpg","gallery":["/assets/products/p56-thor-5-g91342.jpg","/assets/products/p56-thor-5-g91401.jpg","/assets/products/p56-thor-5-g91435.jpg","/assets/products/p56-thor-5-g91476.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p56-thor-5-light-1794796407562.jpg"}],"shops":[],"sortIndex":43},{"id":"p55-rainbow","model":"RAINBOW（彩虹声控版）","subtitle":"支持语音多功能手电筒","price":1199,"category":"多功能","cover":"/assets/products/p55-rainbow.jpg","gears":[{"name":"节能","lum":15,"runtime":360,"throw":null},{"name":"高亮","lum":1000,"runtime":"9.5H","throw":null},{"name":"极亮","lum":3000,"runtime":"2M+9H","throw":1000},{"name":"爆闪/SOS/信标","lum":1000,"runtime":null,"throw":null},{"name":"彩灯","lum":null,"runtime":"90H","throw":null}],"lumMax":3000,"throwMax":1000,"runMax":360,"specs":{"光源":"白光 + 中白光 + RGB彩灯","功率":"40W (最大)","光强":"250000坎德拉 (最大)","电池":"1*46950锂离子电池","防水":"IPX4","防跌落":"1米","尺寸":"53.5*158毫米","净重":"约850克（含电池）"},"quality":"partial","releaseAt":"2026-09-22","colors":[],"lightScenes":["/assets/products/p55-rainbow-light.jpg","/assets/products/p55-rainbow-light-2.jpg"],"lightScene":"/assets/products/p55-rainbow-light.jpg","gallery":["/assets/products/p55-rainbow-g3.jpg","/assets/products/p55-rainbow-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p55-rainbow-light-1794796718080.jpg"},{"type":"image","src":"/assets/lights/p55-rainbow-light-1794796721733.jpg"},{"type":"image","src":"/assets/lights/p55-rainbow-light-1794796724877.jpg"}],"shops":[],"sortIndex":44},{"id":"p54-gt3-2-0","model":"GT3 2.0","subtitle":"三眼小钢炮高亮手电筒","price":1299,"category":"通用","cover":"/assets/products/p54-gt3-2-0.jpg","gears":[{"name":"月光档","lum":3,"runtime":"22Day","throw":null},{"name":"低亮","lum":300,"runtime":"20H","throw":null},{"name":"高亮","lum":8000,"runtime":"40S+3H 10M","throw":null},{"name":"极亮","lum":21000,"runtime":"20S+3H 5M","throw":648},{"name":"爆闪/SOS","lum":3600,"runtime":null,"throw":null}],"lumMax":21000,"throwMax":648,"runMax":528,"specs":{"光源":"3*高性能灯珠","功率":"205W (最大)","光强":"105000坎德拉 (最大)","电池":"4*18650锂离子电池，长度小于66.5毫米","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"68*51.2*125毫米","净重":"约455克（不含电池）"},"quality":"ok","releaseAt":"2026-09-21","colors":[{"name":"橙","hex":"#C97345","img":"/assets/products/p54-gt3-2-0-orange.jpg"},{"name":"粉","hex":"#B86C84","img":"/assets/products/p54-gt3-2-0-pink.jpg"},{"name":"黑","hex":"#595959","img":"/assets/products/p54-gt3-2-0-black.jpg"}],"lightScenes":["/assets/products/p54-gt3-2-0-light.jpg"],"lightScene":"/assets/products/p54-gt3-2-0-light.jpg","gallery":["/assets/products/p54-gt3-2-0-g3.jpg","/assets/products/p54-gt3-2-0-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p54-gt3-2-0-light-1794796942557.jpg"}],"shops":[],"sortIndex":45},{"id":"p53-gt-nano-plus","model":"GT NANO PLUS","subtitle":"掌心远射手电筒","price":459,"category":"远射","cover":"/assets/products/p53-gt-nano-plus-g83206.jpg","gears":[{"name":"节能档","lum":8,"runtime":"48Day","throw":null},{"name":"低亮","lum":40,"runtime":"8H","throw":null},{"name":"中亮","lum":160,"runtime":"2H 15M","throw":null},{"name":"高亮","lum":450,"runtime":"2M+1H 6M","throw":null},{"name":"极亮","lum":1200,"runtime":"1M+1H 6M","throw":450}],"lumMax":1200,"throwMax":450,"runMax":1152,"specs":{"光源":"Luminus SFT 25R LED","功率":"12W（最大）","光强":"50625坎德拉（最大）","电池":"1*14500锂离子电池或AA电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"103*32*19毫米","净重":"约58克（不含电池）"},"quality":"partial","releaseAt":"2026-09-20","colors":[{"name":"绿","hex":"#606A4F","img":"/assets/products/p53-gt-nano-plus-green.jpg"},{"name":"黑","hex":"#565656","img":"/assets/products/p53-gt-nano-plus-black.jpg"}],"lightScenes":["/assets/products/p53-gt-nano-plus-light.jpg"],"lightScene":"/assets/products/p53-gt-nano-plus-light.jpg","gallery":["/assets/products/p53-gt-nano-plus-g83206.jpg","/assets/products/p53-gt-nano-plus-g83253.jpg","/assets/products/p53-gt-nano-plus-g83296.jpg","/assets/products/p53-gt-nano-plus-g83334.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p53-gt-nano-plus-light-1794797315911.jpg"}],"shops":[],"sortIndex":46},{"id":"p52-fw21-x9l","model":"FW21 X9L","subtitle":"高亮远射手电筒· Type-C 充电","price":799,"category":"通用","cover":"/assets/products/p52-fw21-x9l.jpg","gears":[{"name":"月光档","lum":5,"runtime":"312H","throw":null},{"name":"低亮","lum":15,"runtime":"120H","throw":null},{"name":"高亮","lum":1200,"runtime":"2M+2H 10M","throw":null},{"name":"极亮","lum":5600,"runtime":"40S+2H 5M","throw":800},{"name":"爆闪/SOS","lum":1200,"runtime":null,"throw":null}],"lumMax":5600,"throwMax":800,"runMax":312,"specs":{"光源":"SFT90X LED","功率":"21W (最大)","光强":"160000坎德拉 (最大)","电池":"1*21700锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"40*25.2*123毫米","净重":"约198克（铝合金）"},"quality":"ok","releaseAt":"2026-09-19","colors":[{"name":"亮银","hex":"#AFB0B0","img":"/assets/products/p52-fw21-x9l-bright-silver.jpg"},{"name":"红铜","hex":"#C99B8A","img":"/assets/products/p52-fw21-x9l-copper.jpg"},{"name":"黄铜","hex":"#C9AF8A","img":"/assets/products/p52-fw21-x9l-brass.jpg"},{"name":"枪灰","hex":"#9AA6B5","img":"/assets/products/p52-fw21-x9l-gun-grey.jpg"},{"name":"钛本色","hex":"#C1BFC0","img":"/assets/products/p52-fw21-x9l-ti-natural.jpg"},{"name":"钛石洗","hex":"#AFADAD","img":"/assets/products/p52-fw21-x9l-ti-stonewash.jpg"}],"lightScene":"/assets/products/p52-fw21-x9l-light.jpg","lightScenes":["/assets/products/p52-fw21-x9l-light.jpg"],"gallery":["/assets/products/p52-fw21-x9l-g3.jpg","/assets/products/p52-fw21-x9l-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p52-fw21-x9l-light-1794797499068.jpg"}],"shops":[],"sortIndex":47},{"id":"p47-pk90","model":"PK90","subtitle":"高亮远射可充电搜索手电","price":1188,"category":"搜救","cover":"/assets/products/p47-pk90-g12886.jpg","gears":[{"name":"月光","lum":2,"runtime":"30Day","throw":null},{"name":"低亮","lum":200,"runtime":"27H","throw":null},{"name":"中亮","lum":1000,"runtime":"6H 20M","throw":null},{"name":"高亮","lum":2200,"runtime":"5M+5.5H","throw":null},{"name":"极亮","lum":5600,"runtime":"90S+5.5H","throw":1500},{"name":"爆闪/SOS/信标","lum":2200,"runtime":null,"throw":null}],"lumMax":5600,"throwMax":1500,"runMax":720,"specs":{"光源":"LUMINUS SFT-90X LED","功率":"72W (Max)","光强":"562500坎德拉 (Max)","电池":"1*331400锂电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"72.5*40*249.5毫米","净重":"约843克（含电池）"},"quality":"partial","releaseAt":"2026-09-18","colors":[{"name":"亮银","hex":"#D2D2D2","img":"/assets/products/p47-pk90-bright-silver.jpg"},{"name":"沙漠黄","hex":"#C1BBB2","img":"/assets/products/p47-pk90-sand-yellow.jpg"},{"name":"灰","hex":"#B1B1B2","img":"/assets/products/p47-pk90-grey.jpg"},{"name":"黑","hex":"#808183","img":"/assets/products/p47-pk90-black.jpg"}],"lightScenes":["/assets/products/p47-pk90-light.jpg"],"lightScene":"/assets/products/p47-pk90-light.jpg","gallery":["/assets/products/p47-pk90-g12886.jpg","/assets/products/p47-pk90-g12949.jpg","/assets/products/p47-pk90-g12987.jpg","/assets/products/p47-pk90-g13030.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p47-pk90-light-1794798350076.jpg"}],"shops":[],"sortIndex":48},{"id":"p46-w3","model":"W3","subtitle":"迷你多光源白激光手电筒","price":1088,"category":"远射","cover":"/assets/products/p46-w3-g23528.jpg","gears":[],"lumMax":550,"throwMax":700,"runMax":36,"specs":{"光源":"白激光 + 红白光","功率":"15W (最大)","光强":"122500坎德拉 (最大)","电池":"1*18350锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"26*24*79毫米","净重":"约88克（含电池）"},"quality":"partial","releaseAt":"2026-09-17","colors":[{"name":"亮银","hex":"#CBCBC9","img":"/assets/products/p46-w3-bright-silver.jpg"},{"name":"绿","hex":"#99A69F","img":"/assets/products/p46-w3-green.jpg"},{"name":"钛喷砂","hex":"#5B5A5A","img":"/assets/products/p46-w3-ti-blasted.jpg"},{"name":"钛本色","hex":"#4E4E4D","img":"/assets/products/p46-w3-ti-natural.jpg"},{"name":"黑","hex":"#8B8E8F","img":"/assets/products/p46-w3-black.jpg"}],"lightScenes":["/assets/products/p46-w3-light.jpg","/assets/products/p46-w3-light-2.jpg","/assets/products/p46-w3-light-3.jpg"],"lightScene":"/assets/products/p46-w3-light.jpg","gallery":["/assets/products/p46-w3-g23528.jpg","/assets/products/p46-w3-g23578.jpg","/assets/products/p46-w3-g23612.jpg","/assets/products/p46-w3-g23656.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p46-w3-light-1794798649493.jpg"},{"type":"image","src":"/assets/lights/p46-w3-light-1794798653734.jpg"},{"type":"image","src":"/assets/lights/p46-w3-light-1794798657343.jpg"}],"shops":[],"sortIndex":49},{"id":"p45-w1-max","model":"W1 MAX","subtitle":"多光源可充电户外手电筒· 磁尾设计","price":799,"category":"通用","cover":"/assets/products/p45-w1-max-g74143.jpg","gears":[{"name":"节能（泛光）","lum":8,"runtime":"150H","throw":null},{"name":"低亮（泛光）","lum":120,"runtime":"15H","throw":null},{"name":"高亮（泛光）","lum":600,"runtime":"5M+3H 45M","throw":null},{"name":"聚光","lum":300,"runtime":"3M+3H 45M","throw":null},{"name":"组合光","lum":800,"runtime":"3M+3.5H","throw":497},{"name":"红光/SOS","lum":80,"runtime":"6H/12H","throw":null},{"name":"爆闪","lum":300,"runtime":"5H","throw":null}],"lumMax":800,"throwMax":500,"runMax":150,"specs":{"光源":"Luminus SFT12R LED + COB红白光","功率":"18W (最大)","光强":"62500坎德拉 (最大)","电池":"1*21700锂离子电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"37*27*130毫米","净重":"约136克（不含电池）"},"quality":"partial","releaseAt":"2026-09-16","colors":[{"name":"绿","hex":"#A7B2AA","img":"/assets/products/p45-w1-max-green.jpg"},{"name":"黑","hex":"#9B9B9B","img":"/assets/products/p45-w1-max-black.jpg"}],"lightScenes":["/assets/products/p45-w1-max-light.jpg","/assets/products/p45-w1-max-light-2.jpg"],"lightScene":"/assets/products/p45-w1-max-light.jpg","gallery":["/assets/products/p45-w1-max-g74143.jpg","/assets/products/p45-w1-max-g74194.jpg","/assets/products/p45-w1-max-g74235.jpg","/assets/products/p45-w1-max-g74270.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p45-w1-max-light-1794798800460.jpg"},{"type":"image","src":"/assets/lights/p45-w1-max-light-1794798806855.jpg"}],"shops":[],"sortIndex":50},{"id":"p40-black-cat","model":"BLACK CAT(黑猫遥控版)","subtitle":"可充电多功能钥匙扣手电筒","price":129,"category":"多功能","cover":"/assets/products/p40-black-cat-g25047.jpg","gears":[{"name":"节能","lum":2,"runtime":"60H","throw":null},{"name":"低亮","lum":16,"runtime":"16H","throw":null},{"name":"中亮","lum":60,"runtime":"4H","throw":null},{"name":"高亮","lum":200,"runtime":"1M+2H","throw":null},{"name":"极亮","lum":400,"runtime":"30S","throw":90},{"name":"暖光-高亮","lum":40,"runtime":"4H","throw":null},{"name":"暖光-低亮","lum":10,"runtime":"12H","throw":null},{"name":"RGB/RGB闪烁","lum":null,"runtime":"5H/10H","throw":null},{"name":"爆闪/SOS/信标","lum":120,"runtime":"3H","throw":null}],"lumMax":400,"throwMax":90,"runMax":60,"specs":{"光源":"白光， 暖光， RGB","功率":"3.2W (最大)","光强":"2025坎德拉 (最大)","电池":"450mAh锂聚合物电池","防水":"IPX-4","防跌落":"1米","尺寸":"74.5*16毫米","净重":"约22克"},"quality":"ok","releaseAt":"2026-09-15","colors":[],"lightScenes":["/assets/products/p40-black-cat-light.jpg"],"lightScene":"/assets/products/p40-black-cat-light.jpg","gallery":["/assets/products/p40-black-cat-g25047.jpg","/assets/products/p40-black-cat-g25082.jpg","/assets/products/p40-black-cat-g25119.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p40-black-cat-light-1794799298499.jpg"},{"type":"image","src":"/assets/lights/p40-black-cat-light-1794799303916.jpg"}],"shops":[],"sortIndex":51},{"id":"p38-f02","model":"F02","subtitle":"迷你多功能手电筒· 多灯一体","price":599,"category":"多功能","cover":"/assets/products/p38-f02.jpg","gears":[{"name":"节能","lum":10,"runtime":"20H","throw":null},{"name":"低亮","lum":55,"runtime":"5H","throw":null},{"name":"中亮","lum":220,"runtime":"1H 20M","throw":null},{"name":"高亮","lum":450,"runtime":"90S+1H 10M","throw":null},{"name":"极亮","lum":1000,"runtime":"30S+1H 10M","throw":88},{"name":"UV","lum":null,"runtime":"4H","throw":null},{"name":"RGB/RGB闪烁","lum":null,"runtime":"6H/12H","throw":null},{"name":"侧白光","lum":1,"runtime":"5H","throw":null},{"name":"爆闪/SOS/信标","lum":450,"runtime":"1.5H","throw":null}],"lumMax":1000,"throwMax":88,"runMax":20,"specs":{"光源":"高性能LED, RGB LED,  UV","功率":"9W (最大)","光强":"1950坎德拉 (最大)","电池":"2*10300锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"71.5*29*16毫米","净重":"约71克"},"quality":"partial","releaseAt":"2026-09-13","colors":[{"name":"哑黑","hex":"#555555","img":"/assets/products/p38-f02-matte-black.jpg"},{"name":"枪灰","hex":"#838389","img":"/assets/products/p38-f02-gun-grey.jpg"},{"name":"紫","hex":"#BFA2D0","img":"/assets/products/p38-f02-purple.jpg"},{"name":"蓝","hex":"#7CBFC0","img":"/assets/products/p38-f02-blue.jpg"}],"lightScene":"/assets/products/p38-f02-light.jpg","lightScenes":["/assets/products/p38-f02-light.jpg"],"gallery":["/assets/products/p38-f02-g48931.jpg","/assets/products/p38-f02-g48975.jpg","/assets/products/p38-f02-g49010.jpg","/assets/products/p38-f02-g49043.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p38-f02-light-1794799692997.jpg"}],"shops":[],"sortIndex":52},{"id":"p27-edc-pimi-2-0","model":"EDC PIMI 2.0","subtitle":"超迷你家用、车用随身灯","price":299,"category":"EDC","cover":"/assets/products/p27-edc-pimi-2-0-g31655.jpg","gears":[{"name":"一个档位","lum":100,"runtime":"25M","throw":20}],"lumMax":100,"throwMax":20,"runMax":0.41,"specs":{"光源":"高性能LED","功率":"0.85W (最大)","光强":"100坎德拉 (最大)","电池":"1*10180锂电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"34*14毫米","净重":"约12.5克（钛本色，含电池）"},"quality":"partial","releaseAt":"2026-09-11","colors":[{"name":"红铜","hex":"#CE917C","img":"/assets/products/p27-edc-pimi-2-0-copper.jpg"},{"name":"钛喷砂","hex":"#ADADAD","img":"/assets/products/p27-edc-pimi-2-0-ti-blasted.jpg"},{"name":"钛本色","hex":"#A9A9A9","img":"/assets/products/p27-edc-pimi-2-0-ti-natural.jpg"},{"name":"钛石洗","hex":"#8B8B8C","img":"/assets/products/p27-edc-pimi-2-0-ti-stonewash.jpg"}],"lightScenes":["/assets/products/p27-edc-pimi-2-0-light.jpg"],"lightScene":"/assets/products/p27-edc-pimi-2-0-light.jpg","gallery":["/assets/products/p27-edc-pimi-2-0-g31655.jpg","/assets/products/p27-edc-pimi-2-0-g31715.jpg","/assets/products/p27-edc-pimi-2-0-g31743.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p27-edc-pimi-2-0-light-1794800229385.jpg"}],"shops":[],"sortIndex":53},{"id":"p26-gt-nano-5-0","model":"GT NANO 5.0","subtitle":"TYPE-C 充电· 尾部磁吸多光源手电筒","price":358,"category":"EDC","cover":"/assets/products/p26-gt-nano-5-0-g71172.jpg","gears":[{"name":"低亮","lum":60,"runtime":"4H","throw":null},{"name":"中亮","lum":350,"runtime":"50M","throw":null},{"name":"高亮","lum":800,"runtime":"75S+45M","throw":null},{"name":"极亮","lum":1400,"runtime":"50S+42M","throw":180},{"name":"侧灯白光高亮","lum":22,"runtime":"7H","throw":null},{"name":"侧灯白光低亮","lum":8,"runtime":"18H","throw":null},{"name":"RGB常亮","lum":null,"runtime":"6H","throw":null},{"name":"RGB闪烁","lum":null,"runtime":"12H","throw":null},{"name":"UV","lum":null,"runtime":"4H","throw":null}],"lumMax":1400,"throwMax":180,"runMax":4,"specs":{"光源":"主灯： 高性能LED， 侧灯：RGB LED、UV灯","功率":"13.5W (最大)","光强":"8100坎德拉 (最大)","电池":"2*10280锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"66*25.6毫米","净重":"约57克（含电池）"},"quality":"ok","releaseAt":"2026-09-10","colors":[{"name":"绿","hex":"#5F6D4C","img":"/assets/products/p26-gt-nano-5-0-green.jpg"},{"name":"黑","hex":"#595959","img":"/assets/products/p26-gt-nano-5-0-black.jpg"}],"lightScenes":["/assets/products/p26-gt-nano-5-0-light.jpg","/assets/products/p26-gt-nano-5-0-light-2.jpg","/assets/products/p26-gt-nano-5-0-light-3.jpg"],"lightScene":"/assets/products/p26-gt-nano-5-0-light.jpg","gallery":["/assets/products/p26-gt-nano-5-0-g71172.jpg","/assets/products/p26-gt-nano-5-0-g71218.jpg","/assets/products/p26-gt-nano-5-0-g71251.jpg","/assets/products/p26-gt-nano-5-0-g71292.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p26-gt-nano-5-0-light-1794800515699.jpg"},{"type":"image","src":"/assets/lights/p26-gt-nano-5-0-light-1794800519364.jpg"},{"type":"image","src":"/assets/lights/p26-gt-nano-5-0-light-1794800522352.jpg"}],"shops":[],"sortIndex":54},{"id":"p25-aurora","model":"AURORA(极光)","subtitle":"多色灯·多功能充放一体手电筒","price":648,"category":"多功能","cover":"/assets/products/p25-aurora.jpg","gears":[{"name":"低亮","lum":30,"runtime":150,"throw":null},{"name":"高亮","lum":300,"runtime":18,"throw":20},{"name":"爆闪/SOS/信标","lum":150,"runtime":null,"throw":null},{"name":"彩灯","lum":null,"runtime":72,"throw":null},{"name":"彩灯闪烁","lum":null,"runtime":144,"throw":null}],"lumMax":300,"throwMax":20,"runMax":null,"specs":{"光源":"白光LED + RGB彩灯","功率":"5W (最大)","光强":"100坎德拉 (最大)","电池":"1*46950锂离子电池","防跌落":"1米","尺寸":"55*52*122毫米","净重":"约540克（含46950电池）"},"quality":"partial","releaseAt":"2026-09-09","gallery":["/assets/products/p25-aurora-g75965.jpg","/assets/products/p25-aurora-g76018.jpg","/assets/products/p25-aurora-g76048.jpg","/assets/products/p25-aurora-g76091.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p25-aurora-light-1794801241025.jpg"},{"type":"image","src":"/assets/lights/p25-aurora-light-1794801244568.jpg"}],"shops":[],"sortIndex":55},{"id":"p24-w1-led","model":"W1 LED","subtitle":"TYPE-C 充电多光源手电筒","price":299,"category":"通用","cover":"/assets/products/p24-w1-led-g31612.jpg","gears":[{"name":"节能（泛光）","lum":8,"runtime":"100H","throw":null},{"name":"低亮（泛光）","lum":100,"runtime":"10H","throw":null},{"name":"高亮（泛光）","lum":400,"runtime":"5M+3H","throw":null},{"name":"聚光","lum":300,"runtime":"3M+2H","throw":null},{"name":"组合光","lum":700,"runtime":"2M+1H 30M","throw":300},{"name":"红光/SOS","lum":80,"runtime":"4H/8H","throw":null},{"name":"爆闪","lum":300,"runtime":"3H","throw":null}],"lumMax":700,"throwMax":300,"runMax":100,"specs":{"光源":"Luminus SFT12 LED + COB红白光","功率":"15W (最大)","光强":"22500坎德拉 (最大)","电池":"1*18650锂离子电池，长度小于66.5毫米","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"30*24*118毫米","净重":"约85克（含电池）"},"quality":"partial","releaseAt":"2026-09-08","colors":[{"name":"绿","hex":"#8B917D","img":"/assets/products/p24-w1-led-green.jpg"},{"name":"银","hex":"#A4A4A3","img":"/assets/products/p24-w1-led-silver.jpg"},{"name":"黑","hex":"#757272","img":"/assets/products/p24-w1-led-black.jpg"}],"lightScenes":["/assets/products/p24-w1-led-light.jpg","/assets/products/p24-w1-led-light-2.jpg"],"lightScene":"/assets/products/p24-w1-led-light.jpg","gallery":["/assets/products/p24-w1-led-g31612.jpg","/assets/products/p24-w1-led-g31662.jpg","/assets/products/p24-w1-led-g31702.jpg","/assets/products/p24-w1-led-g31747.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p24-w1-led-light-1794801391218.jpg"},{"type":"image","src":"/assets/lights/p24-w1-led-light-1794801394519.jpg"}],"shops":[],"sortIndex":56},{"id":"p67-l4","model":"L4","subtitle":"2500 米远射·900 流明· 探索无限","price":1699,"category":"远射","cover":"/assets/products/p67-l4.jpg","gears":[{"name":"低亮","lum":300,"runtime":"2H 45M","throw":null},{"name":"高亮","lum":900,"runtime":"2M+2H 5M","throw":2500}],"lumMax":900,"throwMax":2500,"runMax":null,"specs":{"光源":"白色激光发射器","功率":"15W (最大)","光强":"1563000坎德拉 (最大)","电池":"1*21700锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"165*59.5*29毫米","净重":"约360克（含电池）"},"quality":"partial","releaseAt":"2026-09-06","colors":[{"name":"亮银","hex":"#9E9D9D","img":"/assets/products/p67-l4-bright-silver.jpg"},{"name":"绿","hex":"#687455","img":"/assets/products/p67-l4-green.jpg"},{"name":"钛本色","hex":"#A19D9B","img":"/assets/products/p67-l4-ti-natural.jpg"},{"name":"钛石洗","hex":"#7D7A7A","img":"/assets/products/p67-l4-ti-stonewash.jpg"},{"name":"黑","hex":"#565353","img":"/assets/products/p67-l4-black.jpg"}],"lightScenes":[],"lightScene":null,"gallery":["/assets/products/p67-l4-g88774.jpg","/assets/products/p67-l4-g88829.jpg","/assets/products/p67-l4-g88862.jpg","/assets/products/p67-l4-g88901.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p67-l4-light-1794807455255.jpg"}],"shops":[],"sortIndex":57},{"id":"p66-thor-3","model":"THOR 3","subtitle":"2500 米远射·400 流明· 突破距离束缚","price":1199,"category":"远射","cover":"/assets/products/p66-thor-3.jpg","gears":[{"name":"低亮","lum":40,"runtime":"7H 20M","throw":null},{"name":"高亮","lum":400,"runtime":"5M+4H","throw":2500}],"lumMax":400,"throwMax":2500,"runMax":7.33,"specs":{"光源":"白色激光发射器","功率":"9W (最大)","光强":"1562500坎德拉 (最大)","电池":"1*21700锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"169*59.3*25.4毫米","净重":"约254克"},"quality":"ok","releaseAt":"2026-09-05","lightScene":"/assets/products/p66-thor-3-light.jpg","colors":[],"lightScenes":["/assets/products/p66-thor-3-light.jpg"],"gallery":["/assets/products/p66-thor-3-g2.jpg","/assets/products/p66-thor-3-g3.jpg","/assets/products/p66-thor-3-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p66-thor-3-light-1794807633923.jpg"}],"shops":[],"sortIndex":58},{"id":"p65-w7","model":"W7","subtitle":"小巧可充电多光源手电筒","price":1398,"category":"远射","cover":"/assets/products/p65-w7.jpg","gears":[{"name":"节能（泛光）","lum":5,"runtime":"36H","throw":null},{"name":"低亮（泛光）","lum":80,"runtime":"4H","throw":null},{"name":"高亮（泛光）","lum":320,"runtime":"3M+1H 20M","throw":null},{"name":"低亮（聚光）","lum":60,"runtime":"1H 20M","throw":null},{"name":"高亮（聚光）","lum":300,"runtime":"3M+1H","throw":null},{"name":"组合光","lum":550,"runtime":"2M+50M","throw":700},{"name":"红光","lum":40,"runtime":"2H","throw":null},{"name":"SOS","lum":40,"runtime":"4H","throw":null},{"name":"爆闪","lum":200,"runtime":"1H","throw":null}],"lumMax":550,"throwMax":700,"runMax":36,"specs":{"光源":"白激光+红白光","功率":"12W(最大)","光强":"122500cd(最大)","电池":"1 * 18350锂离子电池","防水":"IPX8， 水下2米","防跌落":"1米","尺寸":"28*24*80毫米","净重":"约90克（含电池）"},"quality":"partial","releaseAt":"2026-09-04","colors":[{"name":"绿","hex":"#5D6B56","img":"/assets/products/p65-w7-green.jpg"},{"name":"黑","hex":"#50504E","img":"/assets/products/p65-w7-black.jpg"}],"lightScenes":["/assets/products/p65-w7-light.jpg","/assets/products/p65-w7-light-2.jpg"],"lightScene":"/assets/products/p65-w7-light.jpg","gallery":["/assets/products/p65-w7-g2.jpg","/assets/products/p65-w7-g3.jpg","/assets/products/p65-w7-g4.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p65-w7-light-1794807768380.jpg"}],"shops":[],"sortIndex":59},{"id":"p64-fw3a","model":"FW3A","subtitle":"小巧优雅的EDC 三重手电","price":998,"category":"EDC","cover":"/assets/products/p64-fw3a-g6014.jpg","gears":[],"lumMax":2800,"throwMax":163,"runMax":null,"specs":{"光源":"高性能LED/Nichia 519AT灯珠","光强":"6625坎德拉(高性能灯珠 最大)","电池":"1*18650锂电池","防跌落":"1米","尺寸":"25.5毫米φ头 x 92.5毫米长","净重":"不含电池约53克（铝合金）"},"quality":"partial","releaseAt":"2026-09-03","gallery":["/assets/products/p64-fw3a-g1.jpg","/assets/products/p64-fw3a-g2.jpg","/assets/products/p64-fw3a-g3.jpg","/assets/products/p64-fw3a-g4.jpg"],"colors":[{"name":"枪灰","hex":"#1A1D22","img":"/assets/products/p64-fw3a-color-0-1794808492271.jpg"},{"name":"橙色","hex":"#1A1D22","img":"/assets/products/p64-fw3a-color-1-1794808496174.jpg"},{"name":"红铜","hex":"#1A1D22","img":"/assets/products/p64-fw3a-color-2-1794808499387.jpg"},{"name":"钛本色","hex":"#1A1D22","img":"/assets/products/p64-fw3a-color-3-1794808502955.jpg"},{"name":"钛石洗","hex":"#1A1D22","img":"/assets/products/p64-fw3a-color-4-1794808506401.jpg"}],"lightMedia":[{"type":"image","src":"/assets/lights/p64-fw3a-light-1794808517520.jpg"}],"shops":[],"sortIndex":60},{"id":"p63-gt3-mini","model":"GT3 MINI 2.0","subtitle":"迷你高亮小钢炮","price":469,"category":"通用","cover":"/assets/products/p63-gt3-mini.jpg","gears":[{"name":"月光","lum":2,"runtime":"192H","throw":null},{"name":"低亮","lum":130,"runtime":"7H","throw":null},{"name":"中亮","lum":550,"runtime":"2H","throw":null},{"name":"高亮1","lum":1800,"runtime":"1M+1H 40M","throw":null},{"name":"高亮2","lum":3500,"runtime":"40S+1H 40M","throw":null},{"name":"极亮","lum":6000,"runtime":"20S+1H 40M","throw":285},{"name":"爆闪/SOS/信标","lum":3500,"runtime":null,"throw":null}],"lumMax":6000,"throwMax":285,"runMax":192,"specs":{"光源":"3 * 高性能LED","功率":"45W","光强":"20500cd","电池":"1 * 26350锂离子电池","防水":"IP68， 水下2米","防跌落":"1.5米","尺寸":"40*30*76毫米","净重":"约96克（不含电池）"},"quality":"partial","releaseAt":"2026-09-02","colors":[{"name":"粉","hex":"#D47693","img":"/assets/products/p63-gt3-mini-pink.jpg"},{"name":"黑","hex":"#6D6D6D","img":"/assets/products/p63-gt3-mini-black.jpg"}],"lightScenes":["/assets/products/p63-gt3-mini-light.jpg"],"lightScene":"/assets/products/p63-gt3-mini-light.jpg","gallery":["/assets/products/p63-gt3-mini-g61663.jpg","/assets/products/p63-gt3-mini-g61725.jpg","/assets/products/p63-gt3-mini-g61762.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p63-gt3-mini-light-1794809035746.jpg"}],"shops":[],"sortIndex":61},{"id":"p62-power-2-0","model":"POWER 2.0","subtitle":"可充电强光搜救手电筒","price":1299,"category":"搜救","cover":"/assets/products/p62-power-2-0.jpg","gears":[{"name":"节能","lum":4,"runtime":"990H","throw":null},{"name":"低亮","lum":100,"runtime":"105H","throw":null},{"name":"中亮1","lum":210,"runtime":"44H","throw":null},{"name":"中亮2","lum":650,"runtime":"17H","throw":null},{"name":"高亮1","lum":1300,"runtime":"8H 10M","throw":null},{"name":"高亮2","lum":2500,"runtime":"3M+8H","throw":null},{"name":"极亮","lum":5000,"runtime":"90S+8H","throw":1600},{"name":"爆闪/SOS/信标","lum":1500,"runtime":null,"throw":null}],"lumMax":5000,"throwMax":1600,"runMax":990,"specs":{"光源":"Luminus SFT90 LED","功率":"64W(最大)","光强":"640000坎德拉 (最大)","电池":"1*46950锂离子电池","防水":"IPX8, 水下2米","防跌落":"1米","尺寸":"87*52*207毫米","净重":"约1050克（含电池）"},"quality":"ok","releaseAt":"2026-09-01","colors":[{"name":"黑","hex":"#434645","img":"/assets/products/p62-power-2-0-black.jpg"}],"lightScenes":["/assets/products/p62-power-2-0-light.jpg"],"lightScene":"/assets/products/p62-power-2-0-light.jpg","gallery":["/assets/products/p62-power-2-0-g4034.jpg","/assets/products/p62-power-2-0-g4077.jpg","/assets/products/p62-power-2-0-g4117.jpg","/assets/products/p62-power-2-0-g4161.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p62-power-2-0-light-1794809313850.jpg"}],"shops":[],"sortIndex":62},{"id":"p68-ak36","model":"AK36","subtitle":"可充电户外手电筒","price":1299,"category":"战术户外","cover":"/assets/products/p68-ak36-g41865.jpg","gears":[{"name":"月光（组合）","lum":5,"runtime":"288H","throw":null},{"name":"低亮（组合）","lum":150,"runtime":"10H","throw":null},{"name":"高亮（组合）","lum":2500,"runtime":"2M+2H45M","throw":null},{"name":"极亮（组合）","lum":4500,"runtime":"1M+2H 45M","throw":240},{"name":"爆闪/SOS/信标（组合）","lum":2500,"runtime":null,"throw":null}],"lumMax":4500,"throwMax":239,"runMax":288,"specs":{"光源":"高性能 LED + 6 颗白光 LED","功率":"50W (最大)","光强":"14375坎德拉 (最大)","电池":"1*26800锂离子电池","防水":"IP68, 水下2米","防跌落":"1米","尺寸":"45*31.5*146毫米","净重":"约345克（含电池）"},"quality":"ok","releaseAt":"","colors":[{"name":"绿","hex":"#8D938A","img":"/assets/products/p68-ak36-green.jpg"},{"name":"黑","hex":"#898989","img":"/assets/products/p68-ak36-black.jpg"}],"lightScene":"/assets/products/p68-ak36-light.jpg","materials":[],"lightScenes":["/assets/products/p68-ak36-light.jpg"],"gallery":["/assets/products/p68-ak36-g41865.jpg","/assets/products/p68-ak36-g41916.jpg","/assets/products/p68-ak36-g41944.jpg","/assets/products/p68-ak36-g41979.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p68-ak36-light-1794809680318.jpg"}],"shops":[],"sortIndex":63},{"id":"p69-b01","model":"B01","subtitle":"防眩光可充电自行车灯","price":374,"category":"多功能","cover":"/assets/products/p69-b01.jpg","gears":[{"name":"节能","lum":13,"runtime":"144H","throw":null},{"name":"低亮","lum":120,"runtime":"20H","throw":null},{"name":"中亮","lum":320,"runtime":"6.5H","throw":null},{"name":"高亮","lum":520,"runtime":"5H","throw":null},{"name":"极亮","lum":900,"runtime":"5M+2H 40M","throw":216},{"name":"爆闪/SOS","lum":520,"runtime":null,"throw":null}],"lumMax":900,"throwMax":216,"runMax":144,"specs":{"光源":"Cree XP-L HD LED","功率":"9W","光强":"11700坎德拉 (最大)","电池":"1*21700锂离子电池（不含）","防水":"IPX8, 水下2米","防跌落":"1.5米","尺寸":"37*25.4*115毫米","净重":"约81克（不含电池）"},"quality":"partial","releaseAt":"","colors":[],"lightScene":"/assets/products/p69-b01-light.jpg","materials":[],"lightScenes":["/assets/products/p69-b01-light.jpg"],"gallery":["/assets/products/p69-b01-g85529.jpg","/assets/products/p69-b01-g85589.jpg","/assets/products/p69-b01-g85635.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p69-b01-light-1794809904950.jpg"}],"shops":[],"sortIndex":64},{"id":"p70-tool-aa-3-0","model":"Tool AA 3.0","subtitle":"迷你便携EDC小手电","price":369,"category":"EDC","cover":"/assets/products/p70-tool-aa-3-0-g76293.jpg","gears":[{"name":"低亮（14500）","lum":20,"runtime":"37H","throw":null},{"name":"中亮（14500）","lum":150,"runtime":"4H","throw":null},{"name":"高亮（14500）","lum":500,"runtime":"1H 10M","throw":null},{"name":"极亮（14500）","lum":900,"runtime":"3M+1H","throw":137},{"name":"爆闪（14500）","lum":500,"runtime":null,"throw":null}],"lumMax":900,"throwMax":138,"runMax":37,"specs":{"光源":"OSRAM LED","光强":"4750坎德拉 (最大)","电池":"1*14500锂离子电池 / 1*AA（兼容）","防水":"IP68, 水下2米","防跌落":"1.5米","尺寸":"89.5*18.5毫米","净重":"约23.5克（不含电池，铝合金）"},"quality":"partial","releaseAt":"","colors":[{"name":"军绿","hex":"#7E9079","img":"/assets/products/p70-tool-aa-3-0-army-green.jpg"},{"name":"白","hex":"#BEBEBE","img":"/assets/products/p70-tool-aa-3-0-white.jpg"},{"name":"红","hex":"#C65E59","img":"/assets/products/p70-tool-aa-3-0-red.jpg"},{"name":"蓝","hex":"#6290C0","img":"/assets/products/p70-tool-aa-3-0-blue.jpg"},{"name":"钛喷砂","hex":"#868581","img":"/assets/products/p70-tool-aa-3-0-ti-blasted.jpg"},{"name":"钛本色","hex":"#A0A0A0","img":"/assets/products/p70-tool-aa-3-0-ti-natural.jpg"},{"name":"黑","hex":"#515151","img":"/assets/products/p70-tool-aa-3-0-black.jpg"}],"lightScene":"/assets/products/p70-tool-aa-3-0-light.jpg","materials":[],"lightScenes":["/assets/products/p70-tool-aa-3-0-light.jpg"],"gallery":["/assets/products/p70-tool-aa-3-0-g76293.jpg","/assets/products/p70-tool-aa-3-0-g76353.jpg","/assets/products/p70-tool-aa-3-0-g76390.jpg","/assets/products/p70-tool-aa-3-0-g76439.jpg"],"lightMedia":[{"type":"image","src":"/assets/lights/p70-tool-aa-3-0-light-1794810098998.jpg"}],"shops":[],"sortIndex":65}];
+
+</script>
+<script>
+// 本地存储：收藏 / 浏览历史（与小程序 utils/store.js 行为一致）
+(function () {
+    var KEY_FAV = 'lumintop.favs';
+    var KEY_HIS = 'lumintop.history';
+
+    function read(key) {
+        try {
+            var v = JSON.parse(localStorage.getItem(key) || '[]');
+            return Array.isArray(v) ? v : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function write(key, list) {
+        try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) { /* 隐私模式忽略 */ }
+    }
+
+    var store = {
+        favs: function () { return read(KEY_FAV); },
+        history: function () { return read(KEY_HIS); },
+        isFavorite: function (id) { return read(KEY_FAV).indexOf(id) >= 0; },
+        toggleFavorite: function (id) {
+            var list = read(KEY_FAV);
+            var i = list.indexOf(id);
+            if (i >= 0) list.splice(i, 1); else list.unshift(id);
+            write(KEY_FAV, list);
+            return i < 0;
+        },
+        addHistory: function (id) {
+            if (!id) return;
+            var list = read(KEY_HIS).filter(function (v) { return v !== id; });
+            list.unshift(id);
+            if (list.length > 50) list.length = 50;
+            write(KEY_HIS, list);
+        },
+        clearHistory: function () { write(KEY_HIS, []); },
+    };
+
+    window.lumintopStore = store;
+})();
+
+</script>
+<script>
+// 数据模型层：与小程序 data/model.js + data/variants.js + utils/media.js 同构
+// 页面只消费这里产出的结构；云端数据到达时 applyRemote() 重建目录并通知页面刷新
+(function () {
+    var CLOUD = window.LUMINTOP_CLOUD || {};
+
+    /* ---------- 媒体路径映射（utils/media.js 的 H5 版） ---------- */
+    var PLACEHOLDER = './assets/placeholder.jpg';
+
+    function mediaUrl(ref) {
+        var s = String(ref || '');
+        // 已经是完整 URL / 本地相对路径的，原样返回
+        if (/^(https?:|\.\/|\/)/.test(s) && !/^\/assets\//.test(s)) return s || PLACEHOLDER;
+        var m = s.match(/^\/assets\/(products|lights)\/(.+)$/);
+        if (!m) return s || PLACEHOLDER;
+        // mediaBase 独立生效：云端开通后填云存储桶，本地预览版填本地服务地址均可
+        if (CLOUD.mediaBase) {
+            return CLOUD.mediaBase.replace(/\/?$/, '/') + m[1] + '/' + m[2];
+        }
+        return './media/' + m[1] + '/' + m[2];
+    }
+
+    function mapProduct(p) {
+        if (!p) return p;
+        var q = {};
+        for (var k in p) q[k] = p[k];
+        if (q.cover) q.cover = mediaUrl(q.cover);
+        if (Array.isArray(q.gallery)) q.gallery = q.gallery.map(mediaUrl);
+        if (q.lightScene) q.lightScene = mediaUrl(q.lightScene);
+        if (Array.isArray(q.lightScenes)) q.lightScenes = q.lightScenes.map(mediaUrl);
+        if (Array.isArray(q.lightMedia)) {
+            q.lightMedia = q.lightMedia.map(function (m) {
+                if (!m || !m.src) return m;
+                var out = {};
+                for (var k in m) out[k] = m[k];
+                out.src = mediaUrl(m.src);
+                if (m.poster) out.poster = mediaUrl(m.poster);
+                return out;
+            });
+        }
+        if (Array.isArray(q.colors)) {
+            q.colors = q.colors.map(function (c) {
+                return c && c.img ? Object.assign({}, c, { img: mediaUrl(c.img) }) : c;
+            });
+        }
+        return q;
+    }
+
+    /* ---------- 颜色 / 材质 / 光照素材（variants.js） ---------- */
+    var COLORS = {
+        ti: [
+            { name: '钛灰', hex: '#8E949E' },
+            { name: '哑黑', hex: '#1A1D22' },
+            { name: '沙色', hex: '#C9B18A' },
+        ],
+        edc: [
+            { name: '哑黑', hex: '#1A1D22' },
+            { name: '原色银', hex: '#BFC4CC' },
+            { name: '午夜蓝', hex: '#2A3446' },
+        ],
+        tactic: [
+            { name: '战术黑', hex: '#181B20' },
+            { name: '军绿', hex: '#4A5142' },
+            { name: '沙棕', hex: '#8A6A44' },
+        ],
+        long: [
+            { name: '哑黑', hex: '#14171C' },
+            { name: '石墨灰', hex: '#565C66' },
+        ],
+        camp: [
+            { name: '哑黑', hex: '#1A1D22' },
+            { name: '暖橙', hex: '#D9691F' },
+            { name: '米白', hex: '#E2E0D8' },
+        ],
+        rainbow: [
+            { name: '钛彩', hex: '#7A6FA8' },
+            { name: '钛灰', hex: '#8E949E' },
+            { name: '哑黑', hex: '#1A1D22' },
+            { name: '铜色', hex: '#A9682F' },
+        ],
+    };
+
+    var MATERIALS = ['铝合金', '不锈钢', '钛合金', 'HA III 硬质氧化'];
+
+    var GROUPS = [
+        { test: /^(EDC|FW|D\d)/i, colors: 'edc', mat: [0, 3] },
+        { test: /^(THOR|GT|T90|PK90)/i, colors: 'long', mat: [0, 2] },
+        { test: /^(MACH|TIGER|BLACK)/i, colors: 'tactic', mat: [0, 1] },
+        { test: /^(W\d|F0\d|POWER|THANOS)/i, colors: 'camp', mat: [0, 3] },
+        { test: /^RAINBOW/i, colors: 'rainbow', mat: [2, 0] },
+    ];
+
+    var DEFAULT_GROUP = { colors: 'ti', mat: [0, 1] };
+
+    var OVERRIDES = {
+        'p55-rainbow': { colors: 'rainbow', mat: [2, 0] },
+        'p56-thor-5': { colors: 'tactic', mat: [0, 2] },
+        'p26-gt-nano-5-0': { colors: 'ti', mat: [2, 0] },
+    };
+
+    function pickGroup(model) {
+        for (var i = 0; i < GROUPS.length; i += 1) {
+            if (GROUPS[i].test.test(model || '')) return GROUPS[i];
+        }
+        return DEFAULT_GROUP;
+    }
+
+    function variantsFor(product) {
+        if (product.colors && product.colors.length) {
+            var g = OVERRIDES[product.id] || pickGroup(product.model);
+            return {
+                colors: product.colors,
+                materials: (product.materials && product.materials.length)
+                    ? product.materials
+                    : g.mat.map(function (i) { return MATERIALS[i]; }),
+            };
+        }
+        var gg = OVERRIDES[product.id] || pickGroup(product.model);
+        // 以后台为准：后台没配置配色的产品，前台不显示颜色选项（不再按型号猜预设色）
+        // 材质仍按型号默认组兜底，保持既有展示
+        return {
+            colors: [],
+            materials: gg.mat.map(function (i) { return MATERIALS[i]; }),
+        };
+    }
+
+    var VIDEO_RE = /\.(mp4|mov|m4v|webm)(\?|$)/i;
+
+    function lightsFor(product) {
+        if (product && Array.isArray(product.lightMedia) && product.lightMedia.length) {
+            return product.lightMedia.map(function (m) {
+                var src = String((m && m.src) || '');
+                if (!src) return null;
+                var type = m.type === 'video' || m.type === 'image'
+                    ? m.type
+                    : (VIDEO_RE.test(src) ? 'video' : 'image');
+                var item = { type: type, src: src };
+                if (type === 'video' && m.poster) item.poster = m.poster;
+                return item;
+            }).filter(Boolean);
+        }
+        if (product && Array.isArray(product.lightScenes) && product.lightScenes.length) {
+            return product.lightScenes.map(function (src) {
+                return { type: VIDEO_RE.test(src) ? 'video' : 'image', src: src };
+            });
+        }
+        if (product && product.lightScene) {
+            return [{ type: VIDEO_RE.test(product.lightScene) ? 'video' : 'image', src: product.lightScene }];
+        }
+        return [];
+    }
+
+    /* ---------- 展示模型（model.js） ---------- */
+    var SPEC_ORDER = ['光源', '功率', '光强', '电池', '防水', '防跌落', '尺寸', '净重'];
+
+    function fmtNum(n) {
+        if (!n) return '';
+        if (!Number.isInteger(Number(n))) return String(n);
+        return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function fmtRun(h) {
+        if (!h) return '—';
+        if (h >= 24) {
+            var d = h / 24;
+            return (d >= 10 ? Math.round(d) : Math.round(d * 10) / 10) + ' 天';
+        }
+        return (h >= 10 ? Math.round(h) : Math.round(h * 10) / 10) + ' h';
+    }
+
+    function fmtPrice(p) {
+        if (!p) return '询价';
+        return '¥' + fmtNum(p);
+    }
+
+    function pretty(s) {
+        return String(s == null ? '' : s).replace(/\*/g, '×').trim();
+    }
+
+    function waterProof(spec) {
+        var m = String(spec || '').replace(/[\s-]/g, '').match(/IP[X0-9]{1,2}/i);
+        return m ? m[0].toUpperCase() : '—';
+    }
+
+    function buildMetrics(p) {
+        return [
+            { key: 'lum', label: '最高亮度', value: p.lumMax ? fmtNum(p.lumMax) : '—', unit: p.lumMax ? 'lm' : '' },
+            { key: 'throw', label: '最远射程', value: p.throwMax ? fmtNum(p.throwMax) : '—', unit: p.throwMax ? 'm' : '' },
+            { key: 'run', label: '最大续航', value: p.runMax ? fmtRun(p.runMax) : '—', unit: '' },
+            { key: 'ip', label: '防水等级', value: waterProof(p.specs['防水']), unit: '' },
+        ];
+    }
+
+    function buildSpecs(p) {
+        var list = [];
+        SPEC_ORDER.forEach(function (k) {
+            if (p.specs[k]) list.push({ k: k, v: pretty(p.specs[k]) });
+        });
+        return list;
+    }
+
+    function buildFullSpecs(p) {
+        return [
+            { k: '光源', v: pretty(p.specs['光源']) || '—' },
+            { k: '功率', v: pretty(p.specs['功率']) || '—' },
+            { k: '光强', v: pretty(p.specs['光强']).replace(/\d{4,}/, function (n) { return fmtNum(Number(n)); }) || '—' },
+            { k: '最高亮度', v: p.lumMax ? fmtNum(p.lumMax) + ' lm' : '—' },
+            { k: '最远射程', v: p.throwMax ? fmtNum(p.throwMax) + ' m' : '—' },
+            { k: '最大续航', v: p.runMax ? fmtRun(p.runMax) : '—' },
+            { k: '档位数', v: p.gears.length ? p.gears.length + ' 档' : '—' },
+            { k: '电池', v: pretty(p.specs['电池']) || '—' },
+            { k: '防水等级', v: pretty(p.specs['防水']) || '—' },
+            { k: '防跌落', v: pretty(p.specs['防跌落']) || '—' },
+            { k: '尺寸', v: pretty(p.specs['尺寸']) || '—' },
+            { k: '净重', v: pretty(p.specs['净重']) || '—' },
+        ];
+    }
+
+    // 档位续航：带单位文本原样展示；纯数字按小时折算
+    function fmtGearRun(h) {
+        if (!h) return '—';
+        if (typeof h === 'string') {
+            var s = h.trim();
+            if (!s) return '—';
+            if (!/^-?\d+(?:\.\d+)?$/.test(s)) return s;
+            h = Number(s);
+        }
+        if (!Number.isFinite(h)) return '—';
+        if (h < 48) return (Number.isInteger(h) ? h : Math.round(h * 10) / 10) + ' h';
+        return (h >= 240 ? Math.round(h / 24) : Math.round((h / 24) * 10) / 10) + ' 天';
+    }
+
+    function buildGears(p) {
+        return p.gears.map(function (g) {
+            return {
+                name: g.name,
+                lum: g.lum ? fmtNum(g.lum) : '—',
+                run: g.runtime ? fmtGearRun(g.runtime) : '—',
+                thr: g.throw ? fmtNum(g.throw) : '—',
+            };
+        });
+    }
+
+    // 配色支持独立定价：颜色对象带 price 字段时，选中该配色显示对应价格；
+    // 未配置 price 的配色沿用产品默认价
+    function buildOptions(colors) {
+        return (colors || []).map(function (c) {
+            return {
+                name: c.name,
+                hex: c.hex,
+                img: c.img,
+                label: c.name,
+                price: c.price || null,
+                priceText: c.price ? fmtPrice(c.price) : null,
+            };
+        });
+    }
+
+    function enrich(p) {
+        var v = variantsFor(p);
+        var cover = p.cover || PLACEHOLDER;
+        var gears = buildGears(p);
+        var lights = lightsFor(p);
+        var shops = (Array.isArray(p.shops) ? p.shops : []).filter(function (s) { return s && s.url; })
+            .map(function (s) { return { name: s.name || '官方店', url: s.url }; });
+        var gearReady = gears.filter(function (g) { return g.lum !== '—'; }).length >= 2;
+        return {
+            id: p.id,
+            model: p.model,
+            subtitle: p.subtitle || '',
+            category: p.category || '通用',
+            cover: cover,
+            hasPhoto: !!p.cover,
+            price: p.price,
+            priceText: fmtPrice(p.price),
+            releaseAt: p.releaseAt,
+            colors: v.colors,
+            materials: v.materials,
+            options: buildOptions(v.colors),
+            gallery: (function () {
+                var g = (Array.isArray(p.gallery) ? p.gallery : []).filter(Boolean).map(mediaUrl);
+                return g.length ? g : [cover];
+            })(),
+            lights: lights,
+            lightCount: lights.length,
+            shopCount: shops.length,
+            shops: shops,
+            shopLabel: (shops[0] && shops[0].name) || '官方店',
+            hasShop: shops.length > 0,
+            metrics: buildMetrics(p),
+            specs: buildSpecs(p),
+            fullSpecs: buildFullSpecs(p),
+            gears: gears,
+            gearReady: gearReady,
+            lumMax: p.lumMax,
+            throwMax: p.throwMax,
+            runMax: p.runMax,
+        };
+    }
+
+    /* ---------- 目录构建 + 变更通知 ---------- */
+    var listeners = [];
+
+    function onChange(fn) {
+        listeners.push(fn);
+        return function () {
+            var i = listeners.indexOf(fn);
+            if (i >= 0) listeners.splice(i, 1);
+        };
+    }
+
+    function notify() {
+        listeners.slice().forEach(function (fn) {
+            try { fn(); } catch (e) { /* 单页异常不影响其他页面 */ }
+        });
+    }
+
+    var catalog = [];
+    var byId = {};
+    var lastRaw = [];
+
+    var FILTER_ALIAS = {
+        EDC: 'EDC 便携',
+        战术户外: '战术户外',
+        远射: '远射',
+        多功能: '多功能',
+        搜救: '搜救',
+        通用: '通用',
+    };
+
+    var CATEGORIES = ['全部', 'EDC 便携', '远射', '战术户外', '多功能', '搜救', '头灯营地', '通用'];
+
+    function categoryOf(p) {
+        if (p.category && p.category !== '通用' && FILTER_ALIAS[p.category]) return FILTER_ALIAS[p.category];
+        var m = (p.model || '').toUpperCase();
+        if (/^(EDC|FW|D\d|PICO)/.test(m)) return 'EDC 便携';
+        if (/^(THOR|GT|T90|PK90|L4)/.test(m)) return '远射';
+        if (/^(W\d|F0|POWER|THANOS|AURORA)/.test(m)) return '头灯营地';
+        if (/^(MACH|TIGER|BLACK|AK|B01)/.test(m)) return '战术户外';
+        return '通用';
+    }
+
+    function rebuildCatalog(rawList) {
+        lastRaw = rawList || [];
+        var sorted = (rawList || []).slice().sort(function (a, b) {
+            if (a.sortIndex != null && b.sortIndex != null) return a.sortIndex - b.sortIndex;
+            if (a.sortIndex != null) return -1;
+            if (b.sortIndex != null) return 1;
+            return String(b.releaseAt || '').localeCompare(String(a.releaseAt || ''));
+        });
+        var items = sorted.map(function (p, i) {
+            var item = enrich(mapProduct(p));
+            item.sortIndex = i;
+            item.filter = categoryOf(p);
+            item.isNew = i < 3;
+            return item;
+        });
+        catalog.length = 0;
+        items.forEach(function (item) { catalog.push(item); });
+        Object.keys(byId).forEach(function (k) { delete byId[k]; });
+        catalog.forEach(function (p) { byId[p.id] = p; });
+    }
+
+    function applyRemote(rows) {
+        if (!Array.isArray(rows) || !rows.length) return false;
+        rebuildCatalog(rows);
+        notify();
+        return true;
+    }
+
+    function query(keyword, category) {
+        var kw = String(keyword || '').trim().toLowerCase();
+        return catalog.filter(function (p) {
+            if (category && category !== '全部' && p.filter !== category) return false;
+            if (!kw) return true;
+            var hay = (p.model + ' ' + p.subtitle + ' ' + p.filter).toLowerCase();
+            return hay.indexOf(kw) >= 0;
+        });
+    }
+
+    // 本地打包数据先构建（云端数据到达后由 applyRemote 覆盖）
+    rebuildCatalog(window.LUMINTOP_PRODUCTS || []);
+
+    window.lumintopModel = {
+        catalog: catalog,
+        byId: byId,
+        CATEGORIES: CATEGORIES,
+        query: query,
+        fmtNum: fmtNum,
+        fmtRun: fmtRun,
+        applyRemote: applyRemote,
+        onChange: onChange,
+        mediaUrl: mediaUrl,
+        PLACEHOLDER: PLACEHOLDER,
+    };
+})();
+
+</script>
+<script>
+// 云端数据同步：云服务开通并填好 cloud-config 后自动拉取 products 表（公开只读）
+// 表结构见项目 cloud/seed/schema.sql：slug 唯一键 + sort_index + data(JSONB 完整档案)
+// 数据到达后走 model.applyRemote() 重建目录，页面自动刷新 —— 与小程序 utils/cloud.js 同构
+(function () {
+    var CLOUD = window.LUMINTOP_CLOUD || {};
+
+    function loadSdk(cb) {
+        if (window.WorkBuddyCloud && window.WorkBuddyCloud.createWorkBuddyCloud) return cb();
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js';
+        s.onload = cb;
+        s.onerror = function () { console.warn('[cloud] SDK 加载失败，继续使用本地数据'); };
+        document.head.appendChild(s);
+    }
+
+    function sync() {
+        if (!CLOUD.enabled || !CLOUD.endpoint || !CLOUD.publishableKey) return;
+        loadSdk(function () {
+            try {
+                var cloud = window.WorkBuddyCloud.createWorkBuddyCloud({
+                    endpoint: CLOUD.endpoint,
+                    publishableKey: CLOUD.publishableKey,
+                });
+                cloud.database
+                    .from('products')
+                    .select('slug, sort_index, data')
+                    .order('sort_index', { ascending: true })
+                    .then(function (res) {
+                        if (res.error) {
+                            console.warn('[cloud] 拉取失败：', res.error.message || res.error);
+                            return;
+                        }
+                        var rows = (res.data || []).map(function (r) {
+                            var p = Object.assign({}, r.data || {});
+                            if (r.slug) p.id = p.id || r.slug;
+                            p.sortIndex = r.sort_index;
+                            return p;
+                        });
+                        var ok = window.lumintopModel.applyRemote(rows);
+                        if (ok) console.log('[cloud] 已同步云端产品数据 v1，共 ' + rows.length + ' 款');
+                    });
+            } catch (e) {
+                console.warn('[cloud] 客户端初始化失败：', e && e.message);
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', sync);
+    } else {
+        sync();
+    }
+})();
+
+</script>
+<script>
+// 雷明兔产品画册 H5 —— 路由 + 视图渲染
+// 视图与小程序页面一一对应：deck=pages/index、library=pages/library、
+// viewer=pages/viewer、profile=pages/profile、poster=pages/poster
+(function () {
+    var appEl = document.getElementById('app');
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    var store = window.lumintopStore;
+    var model = window.lumintopModel;
+    var CLOUD = window.LUMINTOP_CLOUD || {};
+
+    /* ---------- 工具 ---------- */
+    function esc(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    var toastTimer = null;
+    function toast(msg) {
+        var el = document.createElement('div');
+        el.className = 'toast';
+        el.textContent = msg;
+        document.body.appendChild(el);
+        setTimeout(function () { el.remove(); }, 1600);
+    }
+
+    function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.classList.add('show');
+    }
+
+    lightbox.addEventListener('click', function () {
+        lightbox.classList.remove('show');
+        lightboxImg.setAttribute('src', '');
+    });
+
+    // 图片加载失败兜底：预览版绝对地址取不到时退回同目录相对路径，再失败用占位图（绝不裂图）
+    function imgFallback(e) {
+        var img = e.target || e.srcElement;
+        // 灯箱的 img 初始 src 为空，不参与兜底，否则会误显示占位图
+        if (!img || img.id === 'lightbox-img' || img.dataset.fbk) return;
+        img.dataset.fbk = '1';
+        var src = img.getAttribute('src') || '';
+        var rel = src.replace(/^https?:\/\/127\.0\.0\.1:8377\//, './');
+        img.src = rel !== src ? rel : './assets/placeholder.jpg';
+    }
+
+    document.addEventListener('error', imgFallback, true);
+
+    /* ---------- TabBar（画册 / 产品库 / 我的） ---------- */
+    var TABS = [
+        { key: 'deck', text: '画册', icon: './assets/tabbar/book.png', iconOn: './assets/tabbar/book-on.png' },
+        { key: 'library', text: '产品', icon: './assets/tabbar/grid.png', iconOn: './assets/tabbar/grid-on.png' },
+        { key: 'profile', text: '我的', icon: './assets/tabbar/user.png', iconOn: './assets/tabbar/user-on.png' },
+    ];
+
+    function tabbarHtml(active) {
+        return '<div class="tabbar">' + TABS.map(function (t) {
+            var on = t.key === active;
+            return '<div class="tabbar-item' + (on ? ' on' : '') + '" data-tab="' + t.key + '">' +
+                '<img src="' + (on ? t.iconOn : t.icon) + '" alt="">' +
+                '<span>' + t.text + '</span></div>';
+        }).join('') + '</div>';
+    }
+
+    appEl.addEventListener('click', function (e) {
+        var tab = e.target.closest && e.target.closest('[data-tab]');
+        if (tab && tab.classList.contains('tabbar-item')) {
+            location.hash = '#/' + tab.dataset.tab;
+        }
+    });
+
+    /* ---------- 画册首页（deck，竖向整页滑动） ---------- */
+    var deckColorState = {};   // id -> 选中的配色下标
+    var deckScroll = 0;
+
+    function buildGal(p, ci) {
+        var opt = p.options && p.options[ci];
+        var head = (opt && opt.img) || p.cover;
+        var out = [];
+        if (head) out.push(head);
+        (p.gallery && p.gallery.length ? p.gallery : []).slice(0, 8).forEach(function (v) {
+            if (v && out.indexOf(v) < 0) out.push(v);
+        });
+        return out.length ? out : [p.cover];
+    }
+
+    function renderDeck() {
+        var slides = model.catalog.map(function (p) {
+            var ci = deckColorState[p.id] || 0;
+            var sel = p.options[ci] || {};
+            return {
+                p: p,
+                ci: ci,
+                activeImg: (sel.img) || p.cover,
+                activeLabel: sel.label || (p.colors[0] && p.colors[0].name) || '',
+                // 选中配色配置了独立价格则随色切换，否则显示产品默认价
+                activePrice: sel.priceText || p.priceText,
+                priceChanged: !!sel.priceText && sel.priceText !== p.priceText,
+            };
+        });
+
+        appEl.innerHTML =
+            '<div class="page deck">' +
+            '<div class="deck-nav"><div class="nav-inner">' +
+            '<div class="brand"><span class="brand-en">LUMINTOP</span><span class="brand-cn">雷明兔 · 产品画册</span></div>' +
+            '<div class="nav-count" id="go-library"><span>' + model.catalog.length + ' 款</span><span class="ico-search"><span class="ico-search-line"></span></span></div>' +
+            '</div></div>' +
+            '<div class="deck-swiper" id="deck-swiper">' +
+            slides.map(function (s, si) {
+                var p = s.p;
+                return '<div class="deck-slide"><div class="card">' +
+                    '<div class="stage" data-open="' + esc(p.id) + '">' +
+                    '<img class="stage-img" src="' + esc(s.activeImg) + '" alt="">' +
+                    '<span class="stage-tag">' + esc(s.activeLabel) + '</span>' +
+                    '<span class="stage-cta' + (p.hasShop ? ' stage-cta-shop' : '') + '" data-cta="' + esc(p.id) + '">' +
+                    (p.hasShop ? '去' + esc(p.shopLabel) + '看商品 ›' : '查看产品图集 ›') + '</span>' +
+                    '</div>' +
+                    '<div class="body">' +
+                    '<div class="head"><div class="head-l"><div class="head-row"><span class="model">' + esc(p.model) + '</span>' +
+                    (p.isNew ? '<span class="badge-new">NEW</span>' : '') +
+                    '</div><span class="sub">' + esc(p.subtitle) + '</span></div>' +
+                    '<div class="head-r"><span class="price">' + esc(s.activePrice) + '</span>' +
+                    '<span class="price-note">' + (s.priceChanged ? '该配色价格' : '指导价') + '</span></div></div>' +
+                    '<div class="opts"><div class="opts-inner">' +
+                    p.options.map(function (c, i) {
+                        return '<span class="opt' + (i === s.ci ? ' opt-on' : '') + '" data-color="' + esc(p.id) + '|' + i + '">' +
+                            '<span class="dot" style="background:' + esc(c.hex) + '"></span>' + esc(c.label) + '</span>';
+                    }).join('') +
+                    '</div></div>' +
+                    '<div class="grid">' +
+                    p.metrics.map(function (v) {
+                        return '<div class="cell"><div class="cell-v"><span class="cell-num">' + esc(v.value) + '</span>' +
+                            (v.unit ? '<span class="cell-unit">' + esc(v.unit) + '</span>' : '') +
+                            '</div><span class="cell-label">' + esc(v.label) + '</span></div>';
+                    }).join('') +
+                    '</div>' +
+                    '<div class="entry" data-light="' + esc(p.id) + '"><span class="entry-ico"></span>' +
+                    '<span class="entry-t">光照实拍' + (p.lightCount ? ' · ' + p.lightCount + ' 个素材' : ' · 待上传') + '</span>' +
+                    '<span class="arrow"></span></div>' +
+                    '<div class="spec-head"><span class="spec-title">技术参数</span><span class="spec-note">ANSI / NEMA FL1</span></div>' +
+                    p.specs.slice(0, 3).map(function (row) {
+                        return '<div class="spec-row"><span class="spec-k">' + esc(row.k) + '</span><span class="spec-v">' + esc(row.v) + '</span></div>';
+                    }).join('') +
+                    (!p.specs.length ? '<div class="spec-row"><span class="spec-k">—</span><span class="spec-v">参数整理中</span></div>' : '') +
+                    '<div class="more" data-drawer="' + esc(p.id) + '"><span class="more-t">查看完整参数表 · 共 ' + p.fullSpecs.length + ' 项</span><span class="arrow"></span></div>' +
+                    (si === 0 ? '<div class="hint">上滑 · 查看下一款产品</div>' : '<div style="flex:1"></div>') +
+                    '</div></div></div>';
+            }).join('') +
+            '</div>' + tabbarHtml('deck') + '</div>';
+
+        var swiper = document.getElementById('deck-swiper');
+        swiper.scrollTop = deckScroll;
+        swiper.addEventListener('scroll', function () { deckScroll = swiper.scrollTop; });
+
+        document.getElementById('go-library').onclick = function () { location.hash = '#/library'; };
+
+        appEl.querySelectorAll('[data-color]').forEach(function (el) {
+            el.onclick = function () {
+                var parts = el.dataset.color.split('|');
+                var id = parts[0], ci = Number(parts[1]);
+                deckColorState[id] = ci;
+                deckScroll = swiper.scrollTop;
+                renderDeck();
+            };
+        });
+        appEl.querySelectorAll('[data-open]').forEach(function (el) {
+            el.onclick = function (e) {
+                if (e.target.closest('[data-cta]')) return;
+                location.hash = '#/viewer/' + el.dataset.open;
+            };
+        });
+        appEl.querySelectorAll('[data-cta]').forEach(function (el) {
+            el.onclick = function (e) {
+                e.stopPropagation();
+                var p = model.byId[el.dataset.cta];
+                if (p && p.hasShop) { toast('商品链接：' + p.shops[0].url); return; }
+                location.hash = '#/viewer/' + el.dataset.cta;
+            };
+        });
+        appEl.querySelectorAll('[data-light]').forEach(function (el) {
+            el.onclick = function () { location.hash = '#/viewer/' + el.dataset.light + '?tab=light'; };
+        });
+        appEl.querySelectorAll('[data-drawer]').forEach(function (el) {
+            el.onclick = function () { location.hash = '#/viewer/' + el.dataset.drawer + '?drawer=1'; };
+        });
+    }
+
+    /* ---------- 产品库 ---------- */
+    var libState = { kw: '', cat: '全部' };
+
+    function renderLibrary() {
+        var list = model.query(libState.kw, libState.cat);
+        var total = model.catalog.length;
+
+        appEl.innerHTML =
+            '<div class="page lib-body" style="padding-top:0.88rem">' +
+            '<div class="nav"><div class="nav-inner"><span class="nav-title">产品库</span><span class="nav-sub">共 ' + total + ' 款</span></div></div>' +
+            '<div style="flex:1;min-height:0;display:flex;flex-direction:column;padding:0.08rem 0.32rem 0">' +
+            '<div class="search"><span class="ico-search"><span class="ico-search-line"></span></span>' +
+            '<input class="search-input" id="lib-kw" value="' + esc(libState.kw) + '" placeholder="搜索型号 / 系列 / 流明">' +
+            (libState.kw ? '<span class="search-clear" id="lib-clear">✕</span>' : '') + '</div>' +
+            '<div class="cats">' +
+            model.CATEGORIES.map(function (c) {
+                return '<span class="cat' + (c === libState.cat ? ' cat-on' : '') + '" data-cat="' + esc(c) + '">' + esc(c) + '</span>';
+            }).join('') +
+            '</div>' +
+            '<div class="meta-row"><span class="meta-count">' + list.length + ' 款结果</span><span class="meta-sort">按上架时间 · 新品置顶</span></div>' +
+            '<div class="lib-list">' +
+            '<div class="cards">' +
+            list.map(function (p) {
+                var lum = p.metrics[0].value, thr = p.metrics[1].value;
+                var meta = p.filter;
+                if (lum !== '—') meta += ' · ' + lum + ' lm';
+                else if (thr !== '—') meta += ' · ' + thr + ' m';
+                return '<div class="pcard" data-open="' + esc(p.id) + '">' +
+                    '<div class="pimg-wrap"><img class="pimg" src="' + esc(p.cover) + '" alt="">' +
+                    (p.isNew ? '<span class="ptag">NEW</span>' : '') + '</div>' +
+                    '<div class="pinfo"><span class="pmodel">' + esc(p.model) + '</span>' +
+                    '<span class="pmeta">' + esc(meta) + '</span>' +
+                    '<span class="pprice">' + esc(p.priceText) + '</span></div></div>';
+            }).join('') +
+            '</div>' +
+            (!list.length ? '<div class="empty"><span class="empty-title">没有匹配的产品</span><span class="empty-text">换个型号关键词，或切回「全部」分类</span></div>' : '') +
+            '<div class="list-foot">— 已展示全部 ' + total + ' 款 —</div>' +
+            '</div></div>' + tabbarHtml('library') + '</div>';
+
+        var kw = document.getElementById('lib-kw');
+        kw.oninput = function () {
+            libState.kw = kw.value;
+            var pos = kw.selectionStart;
+            renderLibrary();
+            var next = document.getElementById('lib-kw');
+            next.focus();
+            try { next.setSelectionRange(pos, pos); } catch (e) { /* noop */ }
+        };
+        var clear = document.getElementById('lib-clear');
+        if (clear) clear.onclick = function () { libState.kw = ''; renderLibrary(); };
+        appEl.querySelectorAll('[data-cat]').forEach(function (el) {
+            el.onclick = function () { libState.cat = el.dataset.cat; renderLibrary(); };
+        });
+        appEl.querySelectorAll('.pcard').forEach(function (el) {
+            el.onclick = function () { location.hash = '#/viewer/' + el.dataset.open; };
+        });
+    }
+
+    /* ---------- 产品详情（viewer） ---------- */
+    function renderViewer(id, opts) {
+        opts = opts || {};
+        var p = model.byId[id] || model.catalog[0];
+        if (!p) { location.hash = '#/deck'; return; }
+        var tab = opts.tab || 'stage';
+        var fav = store.isFavorite(p.id);
+        var gal = buildGal(p, opts.ci || 0);
+        var lights = p.lights;
+        var selOpt = p.options[opts.ci || 0] || {};
+        var vPrice = selOpt.priceText || p.priceText;
+        var vPriceChanged = !!selOpt.priceText && selOpt.priceText !== p.priceText;
+
+        var bodyHtml;
+        if (tab === 'stage') {
+            bodyHtml =
+                '<div class="vstage" id="gal-wrap">' +
+                '<div class="vstage-swiper" id="gal">' +
+                gal.map(function (src) {
+                    return '<div class="vstage-slide" data-preview="' + esc(src) + '"><img src="' + esc(src) + '" alt=""></div>';
+                }).join('') +
+                '</div>' +
+                (gal.length > 1 ? '<span class="frame-badge" id="gal-badge">1 / ' + gal.length + '</span>' : '') +
+                (gal.length > 1 ? '<div class="gal-dots">' + gal.map(function (_, i) {
+                    return '<span class="gal-dot' + (i === 0 ? ' gal-dot-on' : '') + '"></span>';
+                }).join('') + '</div>' : '') +
+                (p.hasShop ? '<span class="stage-shop" data-shop="1">去' + esc(p.shopLabel) + '看实拍与价格 ›</span>' : '') +
+                '</div>' +
+                (!p.hasShop ? '<div class="notice"><span class="notice-t">还没配置平台商品链接</span>' +
+                    '<span class="notice-d">后台「官方商城链接」填上京东 / 天猫等商品页地址后，这里会出现直达按钮。</span></div>' : '');
+        } else {
+            bodyHtml =
+                '<div class="light-box">' +
+                (!lights.length
+                    ? '<div class="empty"><div class="bulb"></div><span class="empty-title">光照实拍素材待上传</span>' +
+                      '<span class="empty-text">后台「光照实拍素材」支持上传多张实拍图片与多段视频，按上传顺序在这里左右滑动查看。</span></div>'
+                    : '<div class="light-swiper" id="light-swiper">' +
+                      lights.map(function (m) {
+                          if (m.type === 'video') {
+                              return '<div class="light-slide"><video class="light-media" src="' + esc(m.src) + '"' +
+                                  (m.poster ? ' poster="' + esc(m.poster) + '"' : '') +
+                                  ' controls playsinline muted loop></video></div>';
+                          }
+                          return '<div class="light-slide"><img class="light-media" src="' + esc(m.src) + '" alt=""></div>';
+                      }).join('') +
+                      '</div>' +
+                      '<div class="light-bar"><span class="light-idx" id="light-idx">1 / ' + lights.length + '</span>' +
+                      '<span class="light-kind" id="light-kind">' + (lights[0].type === 'video' ? '视频' : '图片') + '</span>' +
+                      (lights.length > 1 ? '<span class="light-hint">左右滑动查看全部素材</span>' : '') + '</div>') +
+                '</div>';
+        }
+
+        var gearsHtml;
+        if (p.gearReady) {
+            gearsHtml = '<div class="gear-head"><span class="g-name">档位</span><span class="g-cell">亮度</span><span class="g-cell">续航</span></div>' +
+                p.gears.map(function (g) {
+                    return '<div class="gear-row"><span class="g-name">' + esc(g.name) + '</span>' +
+                        '<span class="g-cell">' + esc(g.lum) + '</span><span class="g-cell">' + esc(g.run) + '</span></div>';
+                }).join('') +
+                '<div class="block-tip">画册里以「50S+ 3H 20M」这类降档写法标注的档位不回填数值，待后台补录。</div>';
+        } else if (p.gears.length) {
+            gearsHtml = '<div class="gear-list">' + p.gears.map(function (g) {
+                return '<span class="gear-chip">' + esc(g.name) + '</span>';
+            }).join('') + '</div>' +
+                '<div class="block-tip">该页只标了档位名，分档亮度与续航待后台补录。</div>';
+        } else {
+            gearsHtml = '<div class="block-tip">画册这一页是单档位版式，没有分档表。后台「档位参数」里可逐档添加档位名、亮度与续航。</div>';
+        }
+
+        appEl.innerHTML =
+            '<div class="page vpage">' +
+            '<div class="nav"><div class="nav-inner">' +
+            '<span class="nav-back" id="v-back"><span class="nav-back-icon"></span></span>' +
+            '<span class="nav-title">' + esc(p.model) + '<span class="nav-sub">' + esc(p.filter) + '</span></span>' +
+            '<span class="fav' + (fav ? ' fav-on' : '') + '" id="v-fav"><span class="fav-star">' + (fav ? '★' : '☆') + '</span></span>' +
+            '</div></div>' +
+            '<div class="vtabs"><span class="vtab' + (tab === 'stage' ? ' vtab-on' : '') + '" data-vtab="stage">产品展示</span>' +
+            '<span class="vtab' + (tab === 'light' ? ' vtab-on' : '') + '" data-vtab="light">光照实拍' + (p.lightCount ? ' · ' + p.lightCount : '') + '</span></div>' +
+            '<div class="vscroll">' + bodyHtml +
+            '<div class="block"><div class="block-head"><span class="block-title">颜色与材质</span>' +
+            '<span class="block-note">' + esc((p.options[opts.ci || 0] || {}).label || '') + '</span></div>' +
+            '<div class="opts"><div class="opts-inner">' +
+            p.options.map(function (c, i) {
+                return '<span class="opt' + (i === (opts.ci || 0) ? ' opt-on' : '') + '" data-ci="' + i + '">' +
+                    '<span class="dot" style="background:' + esc(c.hex) + '"></span>' + esc(c.label) + '</span>';
+            }).join('') + '</div></div>' +
+            '<div class="vprice"><span class="vprice-n">' + esc(vPrice) + '</span>' +
+            '<span class="vprice-note">' + (vPriceChanged ? '当前配色价格' : '官方指导价') + '</span></div></div>' +
+            '<div class="vgrid">' + p.metrics.map(function (v) {
+                return '<div class="cell"><div class="cell-v"><span class="cell-num">' + esc(v.value) + '</span>' +
+                    (v.unit ? '<span class="cell-unit">' + esc(v.unit) + '</span>' : '') +
+                    '</div><span class="cell-label">' + esc(v.label) + '</span></div>';
+            }).join('') + '</div>' +
+            '<div class="block"><div class="block-head"><span class="block-title">档位一览</span>' +
+            '<span class="block-note">' + (p.gearReady ? p.gears.length + ' 档' : (p.gears.length ? p.gears.length + ' 档' : '待补录')) + '</span></div>' + gearsHtml + '</div>' +
+            '<div class="tail">数据来源 · 产品画册（ANSI / NEMA FL1 标准）</div>' +
+            '</div>' +
+            '<div class="bar"><span class="bar-btn" id="bar-fav"><span class="bar-ico">' + (fav ? '★' : '☆') + '</span>收藏</span>' +
+            '<span class="bar-btn" id="bar-spec">完整参数</span>' +
+            '<span class="bar-btn" id="bar-share">分享</span>' +
+            (p.hasShop ? '<span class="bar-btn primary" data-shop="1">去' + esc(p.shopLabel) + '买</span>' : '') +
+            '</div>' +
+            (opts.drawer ? renderDrawer(p) : '') +
+            '</div>';
+
+        document.getElementById('v-back').onclick = function () { history.back(); };
+        document.getElementById('v-fav').onclick = function () { toggleFav(); renderViewer(id, opts); };
+        document.getElementById('bar-fav').onclick = function () { toggleFav(); renderViewer(id, opts); };
+        document.getElementById('bar-spec').onclick = function () { opts.drawer = true; renderViewer(id, opts); };
+        document.getElementById('bar-share').onclick = function () { shareProduct(p); };
+
+        appEl.querySelectorAll('[data-vtab]').forEach(function (el) {
+            el.onclick = function () { renderViewer(id, Object.assign({}, opts, { tab: el.dataset.vtab })); };
+        });
+        appEl.querySelectorAll('[data-ci]').forEach(function (el) {
+            el.onclick = function () {
+                renderViewer(id, Object.assign({}, opts, { ci: Number(el.dataset.ci), drawer: opts.drawer }));
+            };
+        });
+        appEl.querySelectorAll('[data-preview]').forEach(function (el) {
+            el.onclick = function () { openLightbox(el.dataset.preview); };
+        });
+        appEl.querySelectorAll('[data-shop]').forEach(function (el) {
+            el.onclick = function () {
+                if (p.shops[0]) window.open(p.shops[0].url, '_blank');
+            };
+        });
+
+        // 图集 / 光照轮播：滑动同步指示器
+        var galEl = document.getElementById('gal');
+        if (galEl) {
+            galEl.addEventListener('scroll', function () {
+                var i = Math.round(galEl.scrollLeft / galEl.clientWidth);
+                var badge = document.getElementById('gal-badge');
+                if (badge) badge.textContent = (i + 1) + ' / ' + gal.length;
+                var dots = appEl.querySelectorAll('.gal-dot');
+                dots.forEach(function (d, di) { d.classList.toggle('gal-dot-on', di === i); });
+            });
+        }
+        var lightEl = document.getElementById('light-swiper');
+        if (lightEl && lights.length) {
+            lightEl.addEventListener('scroll', function () {
+                var i = Math.round(lightEl.scrollLeft / lightEl.clientWidth);
+                document.getElementById('light-idx').textContent = (i + 1) + ' / ' + lights.length;
+                document.getElementById('light-kind').textContent = lights[i].type === 'video' ? '视频' : '图片';
+            });
+        }
+
+        if (opts.drawer) bindDrawer(p, opts);
+    }
+
+    function renderDrawer(p) {
+        return '<div class="mask" id="sheet-mask"></div>' +
+            '<div class="sheet"><div class="sheet-top"><div class="sheet-handle"></div>' +
+            '<div class="sheet-head"><span class="sheet-title">完整技术参数</span>' +
+            '<span class="sheet-sub">' + esc(p.model) + ' · ' + p.fullSpecs.length + ' 项</span>' +
+            '<span class="sheet-close" id="sheet-close">✕</span></div></div>' +
+            '<div class="sheet-body"><div class="spec-grid">' +
+            p.fullSpecs.map(function (s) {
+                return '<div class="spec-item"><span class="spec-k">' + esc(s.k) + '</span><span class="spec-v">' + esc(s.v) + '</span></div>';
+            }).join('') +
+            '</div><div class="sheet-label">分档参数</div>' +
+            (p.gearReady
+                ? '<div class="gear-head"><span class="g-name">档位</span><span class="g-cell">亮度</span><span class="g-cell">续航</span></div>' +
+                  p.gears.map(function (g) {
+                      return '<div class="gear-row"><span class="g-name">' + esc(g.name) + '</span>' +
+                          '<span class="g-cell">' + esc(g.lum) + '</span><span class="g-cell">' + esc(g.run) + '</span></div>';
+                  }).join('')
+                : (p.gears.length
+                    ? '<div class="gear-list">' + p.gears.map(function (g) {
+                        return '<span class="gear-chip">' + esc(g.name) + '</span>';
+                    }).join('') + '</div>'
+                    : '<div class="sheet-note">该页画册未提供分档表，档位数据待后台补录。</div>')) +
+            '<div class="sheet-note">亮度单位为 lm；续航按 ANSI 标准自极亮档开始计时。</div></div>' +
+            '<div class="sheet-actions"><span class="sheet-btn" id="sheet-poster">生成分享海报</span></div></div>';
+    }
+
+    function bindDrawer(p, opts) {
+        document.getElementById('sheet-mask').onclick = function () { renderViewer(p.id, Object.assign({}, opts, { drawer: false })); };
+        document.getElementById('sheet-close').onclick = function () { renderViewer(p.id, Object.assign({}, opts, { drawer: false })); };
+        document.getElementById('sheet-poster').onclick = function () { location.hash = '#/poster/' + p.id; };
+    }
+
+    function toggleFav() {
+        var m = location.hash.match(/viewer\/([^?]+)/);
+        if (!m) return;
+        var on = store.toggleFavorite(m[1]);
+        toast(on ? '已收藏' : '已取消收藏');
+        store.addHistory(m[1]);
+    }
+
+    function shareProduct(p) {
+        var url = location.origin + location.pathname + '#/viewer/' + p.id;
+        var text = p.model + ' · ' + p.metrics[0].value + ' 流明 / 射程 ' + p.metrics[1].value + ' 米';
+        if (navigator.share) {
+            navigator.share({ title: '雷明兔 · 产品画册', text: text, url: url }).catch(function () { /* 用户取消 */ });
+        } else {
+            copyText(url);
+            toast('链接已复制，去粘贴分享吧');
+        }
+    }
+
+    function copyText(t) {
+        if (navigator.clipboard) { navigator.clipboard.writeText(t).catch(function () {}); return; }
+        var ta = document.createElement('textarea');
+        ta.value = t;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) { /* noop */ }
+        ta.remove();
+    }
+
+    /* ---------- 我的 ---------- */
+    function renderProfile(mode) {
+        mode = mode || 'fav';
+        var favs = store.favs().map(function (id) { return model.byId[id]; }).filter(Boolean);
+        var his = store.history().map(function (id) { return model.byId[id]; }).filter(Boolean);
+        var list = mode === 'fav' ? favs : his;
+
+        function rows(items) {
+            return items.map(function (p) {
+                var lum = p.metrics[0].value, thr = p.metrics[1].value;
+                var meta = p.filter;
+                if (lum !== '—') meta += ' · ' + lum + ' lm';
+                else if (thr !== '—') meta += ' · ' + thr + ' m';
+                return '<div class="row" data-open="' + esc(p.id) + '">' +
+                    '<img class="row-img" src="' + esc(p.cover) + '" alt="">' +
+                    '<div class="row-main"><span class="row-model">' + esc(p.model) + '</span>' +
+                    '<span class="row-meta">' + esc(meta) + '</span></div>' +
+                    '<span class="row-price">' + esc(p.priceText) + '</span></div>';
+            }).join('');
+        }
+
+        appEl.innerHTML =
+            '<div class="page mpage" style="padding-top:0.88rem">' +
+            '<div class="nav"><div class="nav-inner"><span class="nav-title">我的</span></div></div>' +
+            '<div style="overflow-y:auto;height:calc(100vh - 0.88rem)">' +
+            '<div class="hero"><div class="hero-mark">L</div><div class="hero-txt">' +
+            '<span class="hero-name">雷明兔 LUMINTOP</span><span class="hero-sub">产品画册 · ' + model.catalog.length + ' 款在册</span></div></div>' +
+            '<div class="stats"><div class="stat' + (mode === 'fav' ? ' stat-on' : '') + '" data-pmode="fav">' +
+            '<span class="stat-n">' + favs.length + '</span><span class="stat-l">收藏</span></div>' +
+            '<div class="stat' + (mode === 'his' ? ' stat-on' : '') + '" data-pmode="his">' +
+            '<span class="stat-n">' + his.length + '</span><span class="stat-l">最近浏览</span></div></div>' +
+            (mode === 'fav'
+                ? '<div class="pblock"><div class="pblock-head"><span class="pblock-title">我的收藏</span><span class="pblock-note">在详情页点 ☆ 收藏</span></div>' +
+                  (favs.length ? rows(favs) : '<div class="empty"><span class="empty-title">还没有收藏</span><span class="empty-text">在任意产品详情页点右上角 ☆，就会出现在这里</span></div>') + '</div>'
+                : '<div class="pblock"><div class="pblock-head"><span class="pblock-title">最近浏览</span><span class="pblock-note" id="clear-his">清空</span></div>' +
+                  (his.length ? rows(his) : '<div class="empty"><span class="empty-title">暂无浏览记录</span><span class="empty-text">画册里翻过的产品会自动记录在这里</span></div>') + '</div>') +
+            '<div class="menu"><div class="menu-row" id="menu-lib"><span>全部产品库</span><span class="arrow"></span></div>' +
+            '<div class="menu-row"><span>数据来源</span><span class="menu-v">' + (CLOUD.enabled ? '云端后台（实时同步）' : '产品画册 2026 版') + '</span></div>' +
+            '<div class="menu-row"><span>版本</span><span class="menu-v">H5 1.0.0</span></div></div>' +
+            '<div class="foot">' + (CLOUD.enabled
+                ? '数据由云端后台实时提供，与小程序共用同一套内容'
+                : '当前为本地数据模式；接入云端后台后自动切换为在线数据，与小程序内容同步') + '</div>' +
+            '</div>' + tabbarHtml('profile') + '</div>';
+
+        appEl.querySelectorAll('[data-pmode]').forEach(function (el) {
+            el.onclick = function () { renderProfile(el.dataset.pmode); };
+        });
+        appEl.querySelectorAll('.row').forEach(function (el) {
+            el.onclick = function () { location.hash = '#/viewer/' + el.dataset.open; };
+        });
+        var clear = document.getElementById('clear-his');
+        if (clear) clear.onclick = function () { store.clearHistory(); renderProfile('his'); };
+        document.getElementById('menu-lib').onclick = function () { location.hash = '#/library'; };
+    }
+
+    /* ---------- 分享海报（pages/poster 的 H5 版） ---------- */
+    function renderPoster(id) {
+        var p = model.byId[id] || model.catalog[0];
+        if (!p) { location.hash = '#/deck'; return; }
+
+        appEl.innerHTML =
+            '<div class="page poster-page" style="padding-top:0.88rem">' +
+            '<div class="nav"><div class="nav-inner"><span class="nav-back" id="p-back"><span class="nav-back-icon"></span></span>' +
+            '<span class="nav-title">分享海报</span></div></div>' +
+            '<div class="poster-canvas-wrap"><canvas id="poster" width="1280" height="2000"></canvas></div>' +
+            '<div class="poster-actions"><button class="poster-btn" id="poster-save">保存海报</button>' +
+            '<button class="poster-btn ghost" id="poster-back">返回</button></div></div>';
+
+        document.getElementById('p-back').onclick = function () { history.back(); };
+        document.getElementById('poster-back').onclick = function () { history.back(); };
+        document.getElementById('poster-save').onclick = function () {
+            var a = document.createElement('a');
+            a.download = (p.model || 'lumintop') + '-poster.jpg';
+            a.href = document.getElementById('poster').toDataURL('image/jpeg', 0.92);
+            a.click();
+            toast('海报已生成，浏览器已开始下载');
+        };
+
+        var canvas = document.getElementById('poster');
+        var ctx = canvas.getContext('2d');
+        var W = 640, H = 1000;
+        ctx.save();
+        ctx.scale(2, 2);
+
+        var accentSoft = '#FF9A4D';
+        ctx.fillStyle = '#08090B';
+        ctx.fillRect(0, 0, W, H);
+        var glow = ctx.createRadialGradient(W / 2, 260, 20, W / 2, 300, 420);
+        glow.addColorStop(0, 'rgba(28,34,48,1)');
+        glow.addColorStop(1, 'rgba(8,9,11,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, W, 660);
+
+        var img = new Image();
+        img.onload = function () {
+            var pad = 24;
+            var iw = W - pad * 2;
+            var cardH = iw * (img.height / img.width);
+            var ih = 40 + cardH;
+            ctx.save();
+            roundRect(ctx, pad, 40, iw, cardH, 14);
+            ctx.clip();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(pad, 40, iw, cardH);
+            ctx.drawImage(img, pad, 40, iw, cardH);
+            ctx.restore();
+
+            text(ctx, p.model, 40, ih + 40, 40, '#FFFFFF', true);
+            text(ctx, p.subtitle, 40, ih + 78, 18, '#7D8694');
+
+            var top = ih + 130;
+            p.metrics.forEach(function (m, i) {
+                var cx = 40 + i * ((W - 80) / 4);
+                text(ctx, m.value + (m.unit ? ' ' + m.unit : ''), cx, top, 24, '#F5F7FA', true);
+                text(ctx, m.label, cx, top + 26, 13, '#5C6472');
+            });
+
+            ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(40, top + 60);
+            ctx.lineTo(W - 40, top + 60);
+            ctx.stroke();
+
+            text(ctx, p.priceText, 40, top + 106, 30, accentSoft, true);
+            text(ctx, '官方指导价', 40, top + 138, 13, '#5C6472');
+            text(ctx, 'LUMINTOP 雷明兔', 40, H - 70, 16, '#A7AFBC', true);
+            text(ctx, '打开链接查看完整参数与光照实拍 · 雷明兔产品画册', 40, H - 46, 12, '#5C6472');
+            ctx.restore();
+        };
+        img.onerror = function () { toast('产品图加载失败'); };
+        img.src = p.cover;
+
+        function roundRect(c, x, y, w, h, r) {
+            c.beginPath();
+            c.moveTo(x + r, y);
+            c.arcTo(x + w, y, x + w, y + h, r);
+            c.arcTo(x + w, y + h, x, y + h, r);
+            c.arcTo(x, y + h, x, y, r);
+            c.arcTo(x, y, x + w, y, r);
+            c.closePath();
+        }
+
+        function text(c, str, x, y, size, color, bold) {
+            c.fillStyle = color;
+            c.font = (bold ? '600 ' : '400 ') + size + 'px -apple-system, "PingFang SC", sans-serif';
+            c.fillText(str || '', x, y);
+        }
+    }
+
+    /* ---------- 路由 ---------- */
+    function route() {
+        var hash = location.hash.replace(/^#\/?/, '');
+        var parts = hash.split('?');
+        var segs = parts[0].split('/').filter(Boolean);
+        var q = {};
+        (parts[1] || '').split('&').forEach(function (kv) {
+            if (!kv) return;
+            var p = kv.split('=');
+            q[p[0]] = p[1] || '';
+        });
+
+        if (segs[0] === 'library') return renderLibrary();
+        if (segs[0] === 'profile') return renderProfile(q.mode);
+        if (segs[0] === 'viewer' && segs[1]) {
+            store.addHistory(decodeURIComponent(segs[1]));
+            return renderViewer(decodeURIComponent(segs[1]), {
+                tab: q.tab === 'light' ? 'light' : 'stage',
+                drawer: q.drawer === '1',
+            });
+        }
+        if (segs[0] === 'poster' && segs[1]) return renderPoster(decodeURIComponent(segs[1]));
+        renderDeck();
+    }
+
+    window.addEventListener('hashchange', route);
+
+    // 云端数据到达后刷新当前视图（保持 hash 不变）
+    model.onChange(function () {
+        if (location.hash.indexOf('viewer') < 0) route();
+    });
+
+    route();
+})();
+
+</script>
+</body>
+</html>
