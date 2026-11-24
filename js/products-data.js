@@ -57,13 +57,7 @@ window.LUMINTOP_PRODUCTS = [
     "quality": "pending",
     "releaseAt": "2026-11-11",
     "cover": "/assets/products/p102-tiger-2-0-g2.jpg",
-    "colors": [
-      {
-        "name": "银",
-        "hex": "#C3C3C3",
-        "img": "/assets/products/p102-tiger-2-0-silver.jpg"
-      }
-    ],
+    "colors": [],
     "lightScenes": [
       "/assets/products/p102-tiger-2-0-light.jpg"
     ],
@@ -485,12 +479,13 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "铝本色",
         "hex": "#B4B4B2",
-        "img": "/assets/products/p96-ring-king-alu.jpg"
+        "img": "/assets/products/p96-ring-king-alu.jpg",
+        "price": 319
       },
       {
         "name": "钛本色",
         "hex": "#888783",
-        "img": "/assets/products/p96-ring-king-alu-ti.jpg"
+        "price": 518
       }
     ],
     "lightScenes": [
@@ -624,13 +619,7 @@ window.LUMINTOP_PRODUCTS = [
     "quality": "pending",
     "releaseAt": "2026-11-11",
     "cover": "/assets/products/p98-thor-2.jpg",
-    "colors": [
-      {
-        "name": "黑",
-        "hex": "#878D97",
-        "img": "/assets/products/p98-thor-2-black.jpg"
-      }
-    ],
+    "colors": [],
     "lightScenes": [
       "/assets/products/p98-thor-2-light.jpg"
     ],
@@ -700,7 +689,8 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛本色",
         "hex": "#8C8D8D",
-        "img": "/assets/products/p99-thor-mini-ti-natural.jpg"
+        "img": "/assets/products/p99-thor-mini-ti-natural.jpg",
+        "price": 1099
       },
       {
         "name": "铝本色",
@@ -824,13 +814,7 @@ window.LUMINTOP_PRODUCTS = [
     "quality": "pending",
     "releaseAt": "2026-11-11",
     "cover": "/assets/products/p101-tool-aaa.jpg",
-    "colors": [
-      {
-        "name": "黑",
-        "hex": "#676767",
-        "img": "/assets/products/p101-tool-aaa-black.jpg"
-      }
-    ],
+    "colors": [],
     "lightScenes": [
       "/assets/products/p101-tool-aaa-light.jpg"
     ],
@@ -1574,7 +1558,8 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "红铜",
         "hex": "#CB9E8B",
-        "img": "/assets/products/p77-fwaa-copper.jpg"
+        "img": "/assets/products/p77-fwaa-copper.jpg",
+        "price": 719
       },
       {
         "name": "绿",
@@ -1584,12 +1569,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛本色",
         "hex": "#ABA9A3",
-        "img": "/assets/products/p77-fwaa-ti-natural.jpg"
+        "img": "/assets/products/p77-fwaa-ti-natural.jpg",
+        "price": 799
       },
       {
         "name": "钛石洗",
         "hex": "#908B86",
-        "img": "/assets/products/p77-fwaa-ti-stonewash.jpg"
+        "img": "/assets/products/p77-fwaa-ti-stonewash.jpg",
+        "price": 799
       },
       {
         "name": "黑",
@@ -1694,12 +1681,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛喷砂",
         "hex": "#979797",
-        "img": "/assets/products/p78-gt-nano-3-0-ti-blasted.jpg"
+        "img": "/assets/products/p78-gt-nano-3-0-ti-blasted.jpg",
+        "price": 499
       },
       {
         "name": "钛本色",
         "hex": "#A1A1A1",
-        "img": "/assets/products/p78-gt-nano-3-0-ti-natural.jpg"
+        "img": "/assets/products/p78-gt-nano-3-0-ti-natural.jpg",
+        "price": 499
       },
       {
         "name": "黑",
@@ -1853,7 +1842,7 @@ window.LUMINTOP_PRODUCTS = [
     "id": "p80-gt-nano-pro",
     "model": "GT NANO PRO",
     "subtitle": "迷你可充电手电筒",
-    "price": 329,
+    "price": 369,
     "category": "EDC",
     "gears": [
       {
@@ -1909,12 +1898,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛喷砂",
         "hex": "#989999",
-        "img": "/assets/products/p80-gt-nano-pro-ti-blasted.jpg"
+        "img": "/assets/products/p80-gt-nano-pro-ti-blasted.jpg",
+        "price": 519
       },
       {
         "name": "钛本色",
         "hex": "#A0A0A0",
-        "img": "/assets/products/p80-gt-nano-pro-ti-natural.jpg"
+        "img": "/assets/products/p80-gt-nano-pro-ti-natural.jpg",
+        "price": 519
       },
       {
         "name": "黑",
@@ -2652,7 +2643,7 @@ window.LUMINTOP_PRODUCTS = [
     "id": "p90-moonbox-3-0",
     "model": "MOONBOX 3.0",
     "subtitle": "多功能智能扁平手电",
-    "price": 553,
+    "price": 660,
     "category": "多功能",
     "gears": [
       {
@@ -2718,7 +2709,8 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "红铜",
         "hex": "#D29E89",
-        "img": "/assets/products/p90-moonbox-3-0-copper.jpg"
+        "img": "/assets/products/p90-moonbox-3-0-copper.jpg",
+        "price": 1169
       },
       {
         "name": "绿",
@@ -2733,7 +2725,8 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛",
         "hex": "#A09C9B",
-        "img": "/assets/products/p90-moonbox-3-0-ti.jpg"
+        "img": "/assets/products/p90-moonbox-3-0-ti.jpg",
+        "price": 1320
       },
       {
         "name": "黑",
@@ -4124,12 +4117,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "红铜",
         "hex": "#C99B8A",
-        "img": "/assets/products/p52-fw21-x9l-copper.jpg"
+        "img": "/assets/products/p52-fw21-x9l-copper.jpg",
+        "price": 1199
       },
       {
         "name": "黄铜",
         "hex": "#C9AF8A",
-        "img": "/assets/products/p52-fw21-x9l-brass.jpg"
+        "img": "/assets/products/p52-fw21-x9l-brass.jpg",
+        "price": 1089
       },
       {
         "name": "枪灰",
@@ -4139,12 +4134,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛本色",
         "hex": "#C1BFC0",
-        "img": "/assets/products/p52-fw21-x9l-ti-natural.jpg"
+        "img": "/assets/products/p52-fw21-x9l-ti-natural.jpg",
+        "price": 1312
       },
       {
         "name": "钛石洗",
         "hex": "#AFADAD",
-        "img": "/assets/products/p52-fw21-x9l-ti-stonewash.jpg"
+        "img": "/assets/products/p52-fw21-x9l-ti-stonewash.jpg",
+        "price": 1312
       }
     ],
     "lightScene": "/assets/products/p52-fw21-x9l-light.jpg",
@@ -4269,7 +4266,7 @@ window.LUMINTOP_PRODUCTS = [
     "id": "p46-w3",
     "model": "W3",
     "subtitle": "迷你多光源白激光手电筒",
-    "price": 1088,
+    "price": 875,
     "category": "远射",
     "cover": "/assets/products/p46-w3-g23528.jpg",
     "gears": [],
@@ -4302,12 +4299,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛喷砂",
         "hex": "#5B5A5A",
-        "img": "/assets/products/p46-w3-ti-blasted.jpg"
+        "img": "/assets/products/p46-w3-ti-blasted.jpg",
+        "price": 1088
       },
       {
         "name": "钛本色",
         "hex": "#4E4E4D",
-        "img": "/assets/products/p46-w3-ti-natural.jpg"
+        "img": "/assets/products/p46-w3-ti-natural.jpg",
+        "price": 1088
       },
       {
         "name": "黑",
@@ -4700,7 +4699,8 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "红铜",
         "hex": "#CE917C",
-        "img": "/assets/products/p27-edc-pimi-2-0-copper.jpg"
+        "img": "/assets/products/p27-edc-pimi-2-0-copper.jpg",
+        "price": 207
       },
       {
         "name": "钛喷砂",
@@ -5282,7 +5282,7 @@ window.LUMINTOP_PRODUCTS = [
     "id": "p64-fw3a",
     "model": "FW3A",
     "subtitle": "小巧优雅的EDC 三重手电",
-    "price": 998,
+    "price": 599,
     "category": "EDC",
     "cover": "/assets/products/p64-fw3a-g6014.jpg",
     "gears": [],
@@ -5319,17 +5319,20 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "红铜",
         "hex": "#1A1D22",
-        "img": "/assets/products/p64-fw3a-color-2-1794808499387.jpg"
+        "img": "/assets/products/p64-fw3a-color-2-1794808499387.jpg",
+        "price": 688
       },
       {
         "name": "钛本色",
         "hex": "#1A1D22",
-        "img": "/assets/products/p64-fw3a-color-3-1794808502955.jpg"
+        "img": "/assets/products/p64-fw3a-color-3-1794808502955.jpg",
+        "price": 889
       },
       {
         "name": "钛石洗",
         "hex": "#1A1D22",
-        "img": "/assets/products/p64-fw3a-color-4-1794808506401.jpg"
+        "img": "/assets/products/p64-fw3a-color-4-1794808506401.jpg",
+        "price": 889
       }
     ],
     "lightMedia": [
@@ -5705,7 +5708,7 @@ window.LUMINTOP_PRODUCTS = [
     "id": "p70-tool-aa-3-0",
     "model": "Tool AA 3.0",
     "subtitle": "迷你便携EDC小手电",
-    "price": 369,
+    "price": 199,
     "category": "EDC",
     "cover": "/assets/products/p70-tool-aa-3-0-g76293.jpg",
     "gears": [
@@ -5778,12 +5781,14 @@ window.LUMINTOP_PRODUCTS = [
       {
         "name": "钛喷砂",
         "hex": "#868581",
-        "img": "/assets/products/p70-tool-aa-3-0-ti-blasted.jpg"
+        "img": "/assets/products/p70-tool-aa-3-0-ti-blasted.jpg",
+        "price": 239
       },
       {
         "name": "钛本色",
         "hex": "#A0A0A0",
-        "img": "/assets/products/p70-tool-aa-3-0-ti-natural.jpg"
+        "img": "/assets/products/p70-tool-aa-3-0-ti-natural.jpg",
+        "price": 239
       },
       {
         "name": "黑",
