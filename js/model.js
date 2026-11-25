@@ -327,16 +327,29 @@
         通用: '通用',
     };
 
-    var CATEGORIES = ['全部', 'EDC 便携', '远射', '战术户外', '多功能', '搜救', '头灯营地', '通用'];
+    var DEFAULT_CATEGORIES = ['EDC 便携', '远射', '战术户外', '多功能', '搜救', '头灯营地', '通用'];
+    // 分类由后台维护（admin/catalog.json → window.LUMINTOP_CATEGORIES）；未配置时用默认值，展示不变
+    var CATEGORIES = ['全部'].concat(
+        (typeof window !== 'undefined' && Array.isArray(window.LUMINTOP_CATEGORIES) && window.LUMINTOP_CATEGORIES.length)
+            ? window.LUMINTOP_CATEGORIES.filter(function (c) { return String(c || '').trim(); })
+            : DEFAULT_CATEGORIES
+    );
 
     function categoryOf(p) {
-        if (p.category && p.category !== '通用' && FILTER_ALIAS[p.category]) return FILTER_ALIAS[p.category];
+        // 后台配置的分类优先（含自定义分类）；老数据简称走别名映射
+        if (p.category && p.category !== '通用') {
+            var mapped = FILTER_ALIAS[p.category] || p.category;
+            if (CATEGORIES.indexOf(mapped) >= 0) return mapped;
+        }
         var m = (p.model || '').toUpperCase();
-        if (/^(EDC|FW|D\d|PICO)/.test(m)) return 'EDC 便携';
-        if (/^(THOR|GT|T90|PK90|L4)/.test(m)) return '远射';
-        if (/^(W\d|F0|POWER|THANOS|AURORA)/.test(m)) return '头灯营地';
-        if (/^(MACH|TIGER|BLACK|AK|B01)/.test(m)) return '战术户外';
-        return '通用';
+        var byModel;
+        if (/^(EDC|FW|D\d|PICO)/.test(m)) byModel = 'EDC 便携';
+        else if (/^(THOR|GT|T90|PK90|L4)/.test(m)) byModel = '远射';
+        else if (/^(W\d|F0|POWER|THANOS|AURORA)/.test(m)) byModel = '头灯营地';
+        else if (/^(MACH|TIGER|BLACK|AK|B01)/.test(m)) byModel = '战术户外';
+        else byModel = '通用';
+        // 后台删掉某分类后，推断结果不在分类栏时回落到末项（通常是「通用」），保证可筛选
+        return CATEGORIES.indexOf(byModel) >= 0 ? byModel : CATEGORIES[CATEGORIES.length - 1];
     }
 
     function rebuildCatalog(rawList) {

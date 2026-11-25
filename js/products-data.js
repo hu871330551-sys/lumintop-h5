@@ -1,5 +1,6 @@
 // 由 admin/server.js 从 admin/catalog.json 生成（勿手改）。
 // 维护入口：本地后台管理页（双击「启动后台.bat」），或在 WorkBuddy 对话里直接维护。
+window.LUMINTOP_CATEGORIES = ["EDC 便携","远射","战术户外","多功能","搜救","头灯营地","通用"];
 window.LUMINTOP_PRODUCTS = [
   {
     "id": "p102-tiger-2-0",
@@ -3022,7 +3023,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "MACH 3.0",
     "subtitle": "物理散热可充电大容量手电筒",
     "price": 2999,
-    "category": "多功能",
+    "category": "搜救",
     "cover": "/assets/products/p21-mach-3-0.jpg",
     "gears": [
       {
