@@ -191,6 +191,12 @@
     var libState = { kw: '', cat: '全部' };
 
     function renderLibrary() {
+        // 空分类自动隐藏：「全部」固定保留，其余分类下没有产品就不显示
+        var visibleCats = model.CATEGORIES.filter(function (c) {
+            return c === '全部' || model.catalog.some(function (p) { return p.filter === c; });
+        });
+        // 当前选中的分类被隐藏时（如后台刚清空该分类），自动回到「全部」
+        if (libState.cat !== '全部' && visibleCats.indexOf(libState.cat) < 0) libState.cat = '全部';
         var list = model.query(libState.kw, libState.cat);
         var total = model.catalog.length;
 
@@ -202,7 +208,7 @@
             '<input class="search-input" id="lib-kw" value="' + esc(libState.kw) + '" placeholder="搜索型号 / 系列 / 流明">' +
             (libState.kw ? '<span class="search-clear" id="lib-clear">✕</span>' : '') + '</div>' +
             '<div class="cats">' +
-            model.CATEGORIES.map(function (c) {
+            visibleCats.map(function (c) {
                 return '<span class="cat' + (c === libState.cat ? ' cat-on' : '') + '" data-cat="' + esc(c) + '">' + esc(c) + '</span>';
             }).join('') +
             '</div>' +
