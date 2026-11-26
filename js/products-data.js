@@ -1,6 +1,6 @@
 // 由 admin/server.js 从 admin/catalog.json 生成（勿手改）。
 // 维护入口：本地后台管理页（双击「启动后台.bat」），或在 WorkBuddy 对话里直接维护。
-window.LUMINTOP_CATEGORIES = ["EDC 便携","远射","战术户外","多功能","搜救","头灯营地","通用","自行车灯","户外手电","户外"];
+window.LUMINTOP_CATEGORIES = ["EDC 便携","远射","多功能","搜救","头灯营地","通用","自行车灯","户外手电","户外"];
 window.LUMINTOP_PRODUCTS = [
   {
     "id": "p102-tiger-2-0",
