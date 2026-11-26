@@ -1,6 +1,6 @@
 // 由 admin/server.js 从 admin/catalog.json 生成（勿手改）。
 // 维护入口：本地后台管理页（双击「启动后台.bat」），或在 WorkBuddy 对话里直接维护。
-window.LUMINTOP_CATEGORIES = ["EDC 便携","远射","战术户外","多功能","搜救","头灯营地","通用"];
+window.LUMINTOP_CATEGORIES = ["EDC 便携","远射","战术户外","多功能","搜救","头灯营地","通用","自行车灯","户外手电","户外"];
 window.LUMINTOP_PRODUCTS = [
   {
     "id": "p102-tiger-2-0",
@@ -960,7 +960,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "D2",
     "subtitle": "户外应急照明磁吸检修灯",
     "price": 498,
-    "category": "通用",
+    "category": "户外",
     "gears": [
       {
         "name": "节能",
@@ -2205,7 +2205,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "L1",
     "subtitle": "L型拐角灯/头灯",
     "price": 299,
-    "category": "多功能",
+    "category": "头灯营地",
     "gears": [
       {
         "name": "低亮",
@@ -2284,7 +2284,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "L3",
     "subtitle": "迷你轻便拐角灯/头灯",
     "price": 149,
-    "category": "多功能",
+    "category": "头灯营地",
     "gears": [
       {
         "name": "月光",
@@ -2362,7 +2362,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "L5",
     "subtitle": "多功能AA拐角灯",
     "price": 899,
-    "category": "多功能",
+    "category": "头灯营地",
     "gears": [
       {
         "name": "节能",
@@ -3112,7 +3112,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "DF1 PRO",
     "subtitle": "33140 三元锂手电筒",
     "price": 659,
-    "category": "战术户外",
+    "category": "户外",
     "cover": "/assets/products/p20-df1-pro.jpg",
     "gears": [
       {
@@ -3207,7 +3207,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "MACH 探索版",
     "subtitle": "超长续航移动照明灯",
     "price": 1189,
-    "category": "战术户外",
+    "category": "搜救",
     "cover": "/assets/products/p19-mach-g45998.jpg",
     "gears": [
       {
@@ -3354,7 +3354,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "D3",
     "subtitle": "可充电磁吸手电筒",
     "price": 479,
-    "category": "战术户外",
+    "category": "户外",
     "cover": "/assets/products/p12-d3.jpg",
     "gears": [
       {
@@ -5544,7 +5544,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "AK36",
     "subtitle": "可充电户外手电筒",
     "price": 1299,
-    "category": "战术户外",
+    "category": "户外",
     "cover": "/assets/products/p68-ak36-g41865.jpg",
     "gears": [
       {
@@ -5630,7 +5630,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "B01",
     "subtitle": "防眩光可充电自行车灯",
     "price": 374,
-    "category": "多功能",
+    "category": "自行车灯",
     "cover": "/assets/products/p69-b01.jpg",
     "gears": [
       {
