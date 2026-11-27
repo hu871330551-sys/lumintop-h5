@@ -329,6 +329,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p95-rainbow-voice-light-1794531978911.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p95-rainbow-voice-v1795750240137.mp4",
+        "poster": "/assets/lights/p95-rainbow-voice-v1795750240137-poster.jpg"
       }
     ],
     "shops": [],
@@ -3038,6 +3043,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p22-w2-light-1794559862154.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p22-w2-v1795750108151.mp4",
+        "poster": "/assets/lights/p22-w2-v1795750108151-poster.jpg"
       }
     ],
     "shops": [],
@@ -3833,11 +3843,11 @@ window.LUMINTOP_PRODUCTS = [
   },
   {
     "id": "p55-rainbow",
-    "model": "RAINBOW（彩虹声控版）",
-    "subtitle": "支持语音多功能手电筒",
-    "price": 1199,
+    "model": "RAINBOW2.0（彩虹2.0）",
+    "subtitle": "多功能手电筒",
+    "price": 899,
     "category": "多功能",
-    "cover": "/assets/products/p55-rainbow.jpg",
+    "cover": "/assets/products/p55-rainbow-g81981.jpg",
     "gears": [
       {
         "name": "节能",
@@ -3881,7 +3891,7 @@ window.LUMINTOP_PRODUCTS = [
       "防水": "IPX4",
       "防跌落": "1米",
       "尺寸": "53.5*158毫米",
-      "净重": "约850克（含电池）"
+      "净重": "约656克（含电池）"
     },
     "quality": "partial",
     "releaseAt": "2026-09-22",
@@ -3892,8 +3902,10 @@ window.LUMINTOP_PRODUCTS = [
     ],
     "lightScene": "/assets/products/p55-rainbow-light.jpg",
     "gallery": [
-      "/assets/products/p55-rainbow-g3.jpg",
-      "/assets/products/p55-rainbow-g4.jpg"
+      "/assets/products/p55-rainbow-g81981.jpg",
+      "/assets/products/p55-rainbow-g37648.jpg",
+      "/assets/products/p55-rainbow-g37700.jpg",
+      "/assets/products/p55-rainbow-g37744.jpg"
     ],
     "lightMedia": [
       {
@@ -3901,12 +3913,9 @@ window.LUMINTOP_PRODUCTS = [
         "src": "/assets/lights/p55-rainbow-light-1794796718080.jpg"
       },
       {
-        "type": "image",
-        "src": "/assets/lights/p55-rainbow-light-1794796721733.jpg"
-      },
-      {
-        "type": "image",
-        "src": "/assets/lights/p55-rainbow-light-1794796724877.jpg"
+        "type": "video",
+        "src": "/assets/lights/p55-rainbow-v1795750593016.mp4",
+        "poster": "/assets/lights/p55-rainbow-v1795750593016-poster.jpg"
       }
     ],
     "shops": [],
@@ -4974,6 +4983,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p25-aurora-light-1794801244568.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p25-aurora-v1795750143558.mp4",
+        "poster": "/assets/lights/p25-aurora-v1795750143558-poster.jpg"
       }
     ],
     "shops": [],
