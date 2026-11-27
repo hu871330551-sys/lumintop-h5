@@ -75,6 +75,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/products/p102-tiger-2-0-light.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p102-tiger-2-0-v1795741465391.mp4",
+        "poster": "/assets/lights/p102-tiger-2-0-v1795741465391-poster.jpg"
       }
     ],
     "shops": [],
@@ -720,6 +725,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p99-thor-mini-light-1794540948855.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p99-thor-mini-v1795746664713.mp4",
+        "poster": "/assets/lights/p99-thor-mini-v1795746664713-poster.jpg"
       }
     ],
     "shops": [],
@@ -1612,7 +1622,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "GT NANO 3.1",
     "subtitle": "迷你可充电远射手电筒",
     "price": 299,
-    "category": "EDC",
+    "category": "EDC 便携",
     "gears": [
       {
         "name": "月光",
@@ -1714,6 +1724,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p78-gt-nano-3-0-light-1794555256014.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p78-gt-nano-3-0-v1795744174503.mp4",
+        "poster": "/assets/lights/p78-gt-nano-3-0-v1795744174503-poster.jpg"
       }
     ],
     "shops": [],
@@ -2020,6 +2035,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p81-gt4659-light-1794556158697.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p81-gt4659-v1795744495535.mp4",
+        "poster": "/assets/lights/p81-gt4659-v1795744495535-poster.jpg"
       }
     ],
     "shops": [],
@@ -2757,6 +2777,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p90-moonbox-3-0-light-1794559104129.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p90-moonbox-3-0-v1795746197314.mp4",
+        "poster": "/assets/lights/p90-moonbox-3-0-v1795746197314-poster.jpg"
       }
     ],
     "shops": [],
@@ -3102,6 +3127,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p21-mach-3-0-light-1794560262617.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p21-mach-3-0-v1795745477720.mp4",
+        "poster": "/assets/lights/p21-mach-3-0-v1795745477720-poster.jpg"
       }
     ],
     "shops": [],
@@ -4050,6 +4080,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p53-gt-nano-plus-light-1794797315911.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p53-gt-nano-plus-v1795743071138.mp4",
+        "poster": "/assets/lights/p53-gt-nano-plus-v1795743071138-poster.jpg"
       }
     ],
     "shops": [],
@@ -4258,6 +4293,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p47-pk90-light-1794798350076.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p47-pk90-v1795742116076.mp4",
+        "poster": "/assets/lights/p47-pk90-v1795742116076-poster.jpg"
       }
     ],
     "shops": [],
@@ -4339,6 +4379,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p46-w3-light-1794798657343.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p46-w3-v1795742696161.mp4",
+        "poster": "/assets/lights/p46-w3-v1795742696161-poster.jpg"
       }
     ],
     "shops": [],
@@ -4537,11 +4582,12 @@ window.LUMINTOP_PRODUCTS = [
     "lightMedia": [
       {
         "type": "image",
-        "src": "/assets/lights/p40-black-cat-light-1794799298499.jpg"
+        "src": "/assets/lights/p40-black-cat-light-1794799303916.jpg"
       },
       {
-        "type": "image",
-        "src": "/assets/lights/p40-black-cat-light-1794799303916.jpg"
+        "type": "video",
+        "src": "/assets/lights/p40-black-cat-v1795743461091.mp4",
+        "poster": "/assets/lights/p40-black-cat-v1795743461091-poster.jpg"
       }
     ],
     "shops": [],
@@ -4661,6 +4707,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p38-f02-light-1794799692997.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p38-f02-v1795743927955.mp4",
+        "poster": "/assets/lights/p38-f02-v1795743927955-poster.jpg"
       }
     ],
     "shops": [],
@@ -5165,6 +5216,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p66-thor-3-light-1794807633923.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p66-thor-3-v1795746923673.mp4",
+        "poster": "/assets/lights/p66-thor-3-v1795746923673-poster.jpg"
       }
     ],
     "shops": [],
@@ -5710,7 +5766,7 @@ window.LUMINTOP_PRODUCTS = [
     "model": "Tool AA 3.0",
     "subtitle": "迷你便携EDC小手电",
     "price": 199,
-    "category": "EDC",
+    "category": "EDC 便携",
     "cover": "/assets/products/p70-tool-aa-3-0-g76293.jpg",
     "gears": [
       {
@@ -5812,6 +5868,11 @@ window.LUMINTOP_PRODUCTS = [
       {
         "type": "image",
         "src": "/assets/lights/p70-tool-aa-3-0-light-1794810098998.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/assets/lights/p70-tool-aa-3-0-v1795747218924.mp4",
+        "poster": "/assets/lights/p70-tool-aa-3-0-v1795747218924-poster.jpg"
       }
     ],
     "shops": [],
